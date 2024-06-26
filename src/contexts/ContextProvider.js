@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const StateContext = createContext();
 
@@ -22,10 +22,31 @@ export const ContextProvider = ({ children }) => {
     setCurrentMode(e.target.value);
     localStorage.setItem('themeMode', e.target.value);
   };
+  
+
+  useEffect(() => {
+    const logCheck = localStorage.getItem('nomalyticsTokenAuth');
+    if (logCheck) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
 
   const handleLogIn = () => {
+    const data = {
+      id: 1,
+      userRole: 'admin',
+    }
+
+    localStorage.setItem('nomalyticsTokenAuth', JSON.stringify(data));
     setLoggedIn(true);
   }
+
+  const handleLogOut = () => {
+    localStorage.removeItem('nomalyticsTokenAuth');
+    setLoggedIn(false);
+  };
 
   const setColor = (color) => {
     setCurrentColor(color);
@@ -36,7 +57,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ isLoggedIn, handleLogIn, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
+    <StateContext.Provider value={{ isLoggedIn, handleLogIn, handleLogOut, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
       {children}
     </StateContext.Provider>
   );
