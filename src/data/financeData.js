@@ -1,7 +1,11 @@
-// import { useState } from 'react';
-// import { fetchDeals } from '../methods/getDeals';
-// import { getDateRange } from '../methods/getDateRange';
 
+// данные по типу поступлений денег (чем платят клиенты)
+export const revenueTypesData = [
+    { x: 'Наличные', y: 30, text: '30%', color: "red" },
+    { x: 'Kaspi QR', y: 60, text: '60%' },
+    { x: 'Halyk QR', y: 5, text: '5%' },
+    { x: 'Другое', y: 5, text: '5%' },
+];
 
 // данные по доходу за неделю
 export const weakylRevenue = [
@@ -13,15 +17,6 @@ export const weakylRevenue = [
     { x: 6, yval: 600000 },
     { x: 7, yval: 420000 },
 ];
-
-// данные по типу поступлений денег (чем платят клиенты)
-export const revenueTypesData = [
-    { x: 'Наличные', y: 30, text: '30%', color: "red" },
-    { x: 'Kaspi QR', y: 60, text: '60%' },
-    { x: 'Halyk QR', y: 5, text: '5%' },
-    { x: 'Другое', y: 5, text: '5%' },
-];
-
 
 // данные по доходу за месяц
 export const ecomPieChartData = [
@@ -55,7 +50,6 @@ export const stackedChartData = [
       { x: 'July', y: 159.9 },
     ],
   ];
-
 
 export const stackedCustomSeries = [
     { dataSource: stackedChartData[0],

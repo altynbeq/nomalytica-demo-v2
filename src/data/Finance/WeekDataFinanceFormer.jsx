@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getDateRange } from '../../methods/getDateRange';
 import { fetchDeals } from '../../methods/getDeals';
 
-
 export const dealsDataCollector = (list) => {
     let dealsStats = {
         leadsCount: list.length,
@@ -12,10 +11,30 @@ export const dealsDataCollector = (list) => {
         minAmount: 0,
         maxAmountSeries: 0,
         minAmountSeries: 0,
+        minSalesSeries: 0,
+        maxSalesSeries: 0,
         bestSale: {},
         bestWorker: {},
         workersStats: {},
         bestDay: {},
+        avgCheckSeries: [
+            { x: 1, yval: 0 },
+            { x: 2, yval: 0 },
+            { x: 3, yval: 0 },
+            { x: 4, yval: 0 },
+            { x: 5, yval: 0 },
+            { x: 6, yval: 0 },
+            { x: 7, yval: 0 },
+        ],
+        salesSeries: [
+            { x: 'Monday', y: 0 },
+            { x: 'Tuesday', y: 0 },
+            { x: 'Wednesday', y: 0 },
+            { x: 'Thursday', y: 0 },
+            { x: 'Friday', y: 0 },
+            { x: 'Saturday', y: 0 },
+            { x: 'Sunday', y: 0 },
+        ],
         series: [
             { x: 'Monday', y: 0 },
             { x: 'Tuesday', y: 0 },
@@ -27,6 +46,15 @@ export const dealsDataCollector = (list) => {
         ]
     };
     const workersStats = {};
+    const dailySalesCount = {
+        'Monday': 0,
+        'Tuesday': 0,
+        'Wednesday': 0,
+        'Thursday': 0,
+        'Friday': 0,
+        'Saturday': 0,
+        'Sunday': 0,
+    };
 
     list.forEach(lead => {
         // Calculate totalSum
@@ -41,6 +69,7 @@ export const dealsDataCollector = (list) => {
         const dayIndex = dealsStats.series.findIndex(item => item.x === dayOfWeek);
         if (dayIndex !== -1) {
             dealsStats.series[dayIndex].y += opportunity;
+            dailySalesCount[dayOfWeek] += 1;
         }
 
         if (lead.CLOSED === 'Y' && lead.STAGE_ID === 'WON' && opportunity !== 0) {
@@ -73,6 +102,19 @@ export const dealsDataCollector = (list) => {
         }
     }
 
+    // Calculate min and max amount from series
+    let minAmountInSeries = Number.MAX_SAFE_INTEGER;
+    let maxAmountInSeries = 0;
+
+    dealsStats.series.forEach(day => {
+        if (day.y > maxAmountInSeries) {
+            maxAmountInSeries = day.y;
+        }
+        if (day.y < minAmountInSeries && day.y > 0) { // Consider only positive amounts
+            minAmountInSeries = day.y;
+        }
+    });
+
     let bestDay = {};
     let maxDaySales = 0;
     dealsStats.series.forEach(day => {
@@ -82,13 +124,51 @@ export const dealsDataCollector = (list) => {
         }
     });
 
+    // Calculate min and max sales from dailySalesCount
+    let minSalesInSeries = Number.MAX_SAFE_INTEGER;
+    let maxSalesInSeries = 0;
+    
+    for (let day in dailySalesCount) {
+        if (dailySalesCount[day] > maxSalesInSeries) {
+            maxSalesInSeries = dailySalesCount[day];
+        }
+        if (dailySalesCount[day] < minSalesInSeries && dailySalesCount[day] > 0) {
+            minSalesInSeries = dailySalesCount[day];
+        }
+    }
+
     dealsStats.bestWorker = { id: bestWorkerId, salesCount: bestWorkerSalesCount, totalSales: maxWorkerSales };
     dealsStats.workersStats = workersStats;
     dealsStats.bestDay = bestDay;
-    dealsStats.maxAmountSeries = dealsStats.maxAmount > 0 ? Math.round(dealsStats.maxAmount * 2) : 0;
-    dealsStats.minAmountSeries = dealsStats.minAmount > 0 ? Math.round(dealsStats.minAmount / 2) : 0;
+    dealsStats.maxAmountSeries = maxAmountInSeries;
+    dealsStats.minAmountSeries = minAmountInSeries;
+    dealsStats.maxSalesSeries = maxSalesInSeries;
+    dealsStats.minSalesSeries = minSalesInSeries;
     dealsStats.avgCheck = dealsStats.leadsCount > 0 ? Math.round(dealsStats.totalSum / dealsStats.leadsCount) : 0;
 
+    // dealsStats.series.forEach(day => {
+    //     const dayIndex = dealsStats.avgCheckSeries.findIndex(item => item.x === day.x);
+    //     if (dayIndex !== -1 && dailySalesCount[day.x] > 0) {
+    //         dealsStats.avgCheckSeries[dayIndex].yval = Math.round(day.y / dailySalesCount[day.x]);
+    //     }
+    // });
+    
+    // Update salesSeries
+    dealsStats.salesSeries = dealsStats.salesSeries.map(day => ({
+        x: day.x,
+        y: dailySalesCount[day.x]
+    }));
+
+    dealsStats.avgCheckSeries.forEach(day => {
+        const dayOfWeekIndex = day.x - 1; // Convert x to array index (0 for Monday, 1 for Tuesday, etc.)
+        const totalSumForDay = dealsStats.series[dayOfWeekIndex].y; // Get total sum of money for the day
+        const totalSalesForDay = dealsStats.salesSeries[dayOfWeekIndex].y; // Get total number of sales for the day
+
+        if (totalSalesForDay > 0) {
+            day.yval = Math.round(totalSumForDay / totalSalesForDay); // Calculate average check for the day
+        } else {
+            day.yval = 0; // If no sales, average check is 0
+        }
+    });
     return dealsStats;
 }
-

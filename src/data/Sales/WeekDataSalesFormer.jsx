@@ -5,11 +5,6 @@ import { fetchDeals } from '../../methods/getDeals';
 export const weekDataSalesFormer = (list) => {
     let leadsStats = {
         leadsCount: list.length,
-        leadsSource: {
-            'Instagram': 0,
-            'WhatsApp': 0,
-            'Другое': 0,
-        },
         IS_RETURN_CUSTOMER: {
             'Y': 0,
             'N': 0
@@ -23,7 +18,13 @@ export const weekDataSalesFormer = (list) => {
             { x: 'Friday', y: 0 },
             { x: 'Saturday', y: 0 },
             { x: 'Sunday', y: 0 },
-        ]
+        ],
+        leadsSource: {
+            'Instagram': 0,
+            'WhatsApp': 0,
+            'Другое': 0,
+        },
+        leadsSourceSeries: []
     };
     const workersStats = {};
 
@@ -37,15 +38,16 @@ export const weekDataSalesFormer = (list) => {
         if (dayIndex !== -1) {
             leadsStats.series[dayIndex].y += 1;
         }
-        if(lead.IS_RETURN_CUSTOMER == 'Y'){
+
+        if (lead.IS_RETURN_CUSTOMER === 'Y') {
             leadsStats.IS_RETURN_CUSTOMER['Y']++;
         } else {
             leadsStats.IS_RETURN_CUSTOMER['N']++;
         }
-        
-        if(lead.SOURCE_ID == "1|WZ_WHATSAPP_C114153D8D9A4291B1327806CA4BC2DBF"){
+
+        if (lead.SOURCE_ID === "1|WZ_WHATSAPP_C114153D8D9A4291B1327806CA4BC2DBF") {
             leadsStats.leadsSource['WhatsApp']++;
-        } else if(lead.SOURCE_ID == "1|FBINSTAGRAMDIRECT"){
+        } else if (lead.SOURCE_ID === "1|FBINSTAGRAMDIRECT") {
             leadsStats.leadsSource['Instagram']++;
         } else {
             leadsStats.leadsSource['Другое']++;
@@ -59,8 +61,14 @@ export const weekDataSalesFormer = (list) => {
         }
     });
 
+    const totalLeads = leadsStats.leadsCount;
+    leadsStats.leadsSourceSeries = [
+        { x: 'Instagram', y: leadsStats.leadsSource['Instagram'], text: `${((leadsStats.leadsSource['Instagram'] / totalLeads) * 100).toFixed(2)}%` },
+        { x: 'WhatsApp', y: leadsStats.leadsSource['WhatsApp'], text: `${((leadsStats.leadsSource['WhatsApp'] / totalLeads) * 100).toFixed(2)}%` },
+        { x: 'Другое', y: leadsStats.leadsSource['Другое'], text: `${((leadsStats.leadsSource['Другое'] / totalLeads) * 100).toFixed(2)}%` }
+    ];
+
     leadsStats.workersStats = workersStats;
 
     return leadsStats;
-}
-
+};

@@ -10,10 +10,12 @@ import { useStateContext } from '../../contexts/ContextProvider';
 const FirstRowStats = () => {
     const { currentColor, currentMode } = useStateContext();
     return (
-        <div className="flex  justify-center  w-full">
-            <div className="flex flex-col sm:flex-row m-3  gap-4 justify-center items-center">
+        <div className="grid xl:justify-center xl:w-full xl:p-8 xl:mx-8 xl:pl-0  md:p-50 w-[100%]">
+            <div className="grid grid-cols-2 gap-10  sm:grid-cols-2 p-8 md:p-5   md:grid-cols-2 lg:grid-cols-4 mr-5">
                 {earningData.map((item) => (
-                    <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg sm:w-[85%] md:w-[30%] lg:w-[50%]  p-4 pt-9 rounded-2xl flex-shrink-0">
+                    <div key={item.title} className="   bg-white  h-full md:w-[90%] lg:w-[90%]  dark:text-gray-200 dark:bg-secondary-dark-bg  p-4 pt-9 rounded-2xl flex-shrink-0
+                    xl:w-full xl:pt-6  xl:pb-7 xl:pr-20 xl:pl-20 2xl:mx-15  sm:w-[105%]  xs:p-7
+                    ">
                         <button
                         type="button"
                         style={{ color: item.iconColor, backgroundColor: item.iconBg }}
@@ -23,7 +25,7 @@ const FirstRowStats = () => {
                         </button>
                         <p className="mt-3">
                         <span className="text-lg font-semibold">{item.amount}</span>
-                        <span className={`text-sm text-${item.pcColor} ml-2`}>
+                        <span className={`text-sm text-${item.pcColor} ml-2 mr-5`}>
                             {item.percentage}
                         </span>
                         </p>

@@ -1,26 +1,37 @@
 import React, { useState } from 'react';
-import { FaChartPie } from "react-icons/fa";
-
+import { useStateContext } from './../contexts/ContextProvider';
+import { FaChartPie, FaEye, FaEyeSlash } from "react-icons/fa";
+import bgDesk from '../data/LogInBgDesk.png';
+import bgMob from '../data/LogInBgMob.png';
 
 const LogInForm = () => {
+  const { handleLogIn } = useStateContext();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(email != "" && password!= ""){
+      handleLogIn();
+    } else {
+      alert('Wrong password')
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 via-blue-600 to-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white p-8  border-8-grey rounded-2xl space-y-8">
+    <div 
+      className="min-h-screen flex items-center justify-center bg-cover bg-center py-12 px-4 sm:px-6 lg:px-8" 
+      style={{ backgroundImage: `url(${window.innerWidth >= 768 ? bgDesk : bgMob})` }}
+    >
+      <div className="max-w-md w-full bg-white p-8 border-8-grey rounded-2xl space-y-8">
         <div className='flex text-blue-800 mb-10 flex-row text-4xl align-center justify-center gap-1'>
           <h2>N</h2>
           <FaChartPie />
-          <h2>malytics</h2>
+          <h2>malytica</h2>
         </div>
-        <div>
-          <h2 className="mt-6 text-center text-3xl  font-extrabold">С возвращением!</h2>
-        </div>
+       
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-xl flex flex-col gap-4 shadow-sm -space-y-px">
@@ -40,23 +51,32 @@ const LogInForm = () => {
             </div>
             <div>
               <label htmlFor="password" className="">Пароль</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Пароль"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Пароль"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                >
+                  {showPassword ? <FaEyeSlash/> : <FaEye/>}
+                </button>
+              </div>
             </div>
           </div>
 
           <div className="flex items-center justify-center">
             <div className="text-sm">
-              <a href="#" className="font-medium   hover:text-gray-600">
+              <a href="#" className="font-medium hover:text-gray-600">
                 Забыли пароль?
               </a>
             </div>
@@ -65,6 +85,7 @@ const LogInForm = () => {
           <div>
             <button
               type="submit"
+              onClick={handleSubmit}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">

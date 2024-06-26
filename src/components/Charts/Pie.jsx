@@ -8,7 +8,7 @@ const Doughnut = ({ id, data, legendVisiblity, height, width, title}) => {
   const tooltipColor = currentMode === 'Dark' ? '#33373E' : '#fff';
 
   return (
-    <div >
+    <div>
       <ChartsHeader title={title}  />
       <AccumulationChartComponent
         id={id}

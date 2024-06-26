@@ -11,9 +11,9 @@ import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '.
 const SalesDouble = () => {
     const { currentColor, currentMode } = useStateContext();
     return (
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg mx-3 p-4 rounded-2xl ">
             <div className="flex flex-col md:flex-row justify-between">
-                <p className="font-semibold text-xl">Обновления по доходам</p>
+                <p className="font-semibold text-xl">Обновления по </p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                 <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                     <span>
@@ -50,7 +50,6 @@ const SalesDouble = () => {
                     id="line-sparkLine"
                     type="Line"
                     height="80px"
-                    width="250px"
                     data={SparklineAreaData}
                     color={currentColor}
                     />
@@ -65,14 +64,14 @@ const SalesDouble = () => {
                 </div>
                 </div>
                 <div className="m-auto lg:m-0">
-                <Stacked
-                    stackedCustomSeries={stackedCustomSeries}
-                    stackedPrimaryXAxis={stackedPrimaryXAxis}
-                    stackedPrimaryYAxis={stackedPrimaryYAxis}
-                    currentMode={currentMode}
-                    width="320px"
-                    height="360px"
-                />
+                    <Stacked
+                        stackedCustomSeries={stackedCustomSeries}
+                        stackedPrimaryXAxis={stackedPrimaryXAxis}
+                        stackedPrimaryYAxis={stackedPrimaryYAxis}
+                        currentMode={currentMode}
+                        width="320px"
+                        height="360px"
+                    />
                 </div>
             </div>
         </div>

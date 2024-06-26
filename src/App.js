@@ -4,7 +4,7 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers } from './pages';
+import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader } from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -18,11 +18,11 @@ import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
 import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
 import { monthDataSalesFormer } from './data/Sales/MonthDataSalesFormer';
 
+
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
-  const [ loggedIn, setLoggedIn ] = useState(true);
-  const [ hasAccess, setHasAccess ] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const { isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  const [ hasAccess, setHasAccess ] = useState(false);
+  const [ loading, setLoading ] = useState(true);
 
   // deals data for periods
   const [dayFinanceData, setDayFinanceData] = useState([]);
@@ -82,8 +82,6 @@ const App = () => {
       formedMonthLeadsData.data = monthDate;
       setMonthLeadsData(formedMonthLeadsData);
 
-      console.log('formedMonthLeadsData',monthLeadsData);
-
       setLoading(false);
     }
     collector();
@@ -93,10 +91,10 @@ const App = () => {
    
       <div className={currentMode === 'Dark' ? 'dark' : ''}>
         {loading  ? (
-          <div>Loading...</div>
+          <Loader />
         ) : (
         <BrowserRouter>
-         { loggedIn == true ? (<>
+         { isLoggedIn == true ? (<>
           <div className="flex relative dark:bg-main-dark-bg">
             <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
               <TooltipComponent
@@ -133,9 +131,6 @@ const App = () => {
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                 <Navbar />
               </div>
-              {loading  ? (
-                <div>Loading...</div>
-              ) : (
               <div>
                 {themeSettings && (<ThemeSettings />)}
 
@@ -143,15 +138,21 @@ const App = () => {
                   {/* dashboard  */}
                   <Route path="/" element={(<General />)} />
                   <Route path="/general" element={(<General />)} />
-                  <Route path="/finance" element={(<Finance weekFinanceData={weekFinanceData} dayFinanceData={dayFinanceData} monthFinanceData={monthFinanceData} />)} />
+                  <Route path="/finance" element={(
+                      <Finance 
+                        weekFinanceData={weekFinanceData} 
+                        dayFinanceData={dayFinanceData} 
+                        monthFinanceData={monthFinanceData} 
+                      />)} 
+                  />
                   <Route path="/sales" element={(
-                    <Sales 
+                      <Sales 
                         dayFinanceData={dayFinanceData} 
                         weekFinanceData={weekFinanceData} 
                         monthFinanceData={monthFinanceData}
                         weekLeadsData={weekLeadsData} 
-                        dayLeadsData={dayLeadsData} 
-                    />)} 
+                        dayLeadsData={dayLeadsData}  
+                      />)} 
                   />
                   <Route path="/workers" element={(<Workers />)} />
                   <Route path="/sklad" element={(<Sklad />)} />
@@ -181,12 +182,12 @@ const App = () => {
                   <Route path="/stacked" element={<Stacked />} /> */}
 
                 </Routes>
-              </div>)}
+              </div>
               <Footer />
             </div>
           </div>
          </>) :  <LogInForm /> }
-        </BrowserRouter> 
+        </BrowserRouter>
         )}
       </div>
   )

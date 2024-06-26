@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useStateContext } from '../contexts/ContextProvider';
 
 import { FirstRowStats, SalesDouble, MonthlyRevenueBars, SecondRowPie, ThirdRowTransList, ThirdRowLineChart, LastRowWeaklyStats, LastRowSecondComp, LastRowThirdComp } from '../components/General';
 
 const General = () => {
-  const { currentColor, currentMode } = useStateContext();
+  const { currentColor, currentMode, setActiveMenu } = useStateContext();
+
+  useEffect(()=> {
+    setActiveMenu(false);
+  },[])
 
   return (
     <div className="mt-12">
-      <FirstRowStats />
-
-      <div className="flex gap-4 flex-wrap justify-center">
+      <div className='flex md:mx-3  flex-wrap justify-center gap-[1.5rem] items-center'>
+        <FirstRowStats />
+      </div>
+      <div className="flex   gap-4 flex-col md:flex-row  justify-center">
         <SalesDouble />
-        <div className='flex xs:flex-row flex-col w-[380px]'>
+        <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[35%]'>
           <MonthlyRevenueBars />
           <SecondRowPie />
         </div>
       </div>
 
-      <div className="flex gap-10 m-4 flex-wrap justify-center">
+      <div className="flex w-[100%] gap-6 m-4 flex-col md:flex-row justify-center">
         <ThirdRowTransList />
         <ThirdRowLineChart />
       </div>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-col align-center md:flex-row w-[100%]  justify-center">
         <LastRowWeaklyStats />
         <LastRowSecondComp />
         <LastRowThirdComp />

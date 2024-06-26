@@ -20,7 +20,7 @@ const Orders = () => {
           type="button" 
           onClick={() => setEditClicked(!editClicked)} 
           style={{ backgroundColor: currentColor, color:"white", borderRadius:"24px" }} 
-          className={` text-1xl p-3 hover:drop-shadow-xl hover:bg-${currentColor}`}
+          className={`text-xs sm:text-xl p-3 hover:drop-shadow-xl hover:bg-${currentColor}   xs:text-[10px] xs:p-1`}
         >
           Редактировать
         </button>

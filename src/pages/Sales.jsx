@@ -1,28 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
-import { DailySalesStats, WeeklySalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart } from '../components/Sales';
-import { getDateRange } from '../methods/getDateRange';
-import { fetchLeads } from '../methods/getLeads';
-import { weekDataSalesFormer } from '../data/Sales/WeekDataSalesFormer';
-import { monthDataSalesFormer } from '../data/Sales/MonthDataSalesFormer'; 
 
-const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, weekLeadsData, dayLeadsData}) => {
-    const { currentColor, currentMode } = useStateContext(); 
+import { DailySalesStats, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart } from '../components/Sales';
+import { FirstRowStats } from '../components/General';
+import { WeaklyStatistics } from '../components/Finance';
+
+const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData, weekLeadsData}) => {
+    const { currentColor, currentMode,setActiveMenu } = useStateContext(); 
+
+    useEffect(()=> {
+        setActiveMenu(false);
+    },[]);
 
     return (
-        <div className='mt-12 flex flex-col justify-center align-center p-10'>
-            <div className="flex flex-wrap lg:flex-nowrap justify-center align-top">
+        <div className='mt-12 overflow-none '>
+            <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
                 <DailySalesStats dayFinanceData={dayFinanceData} dayLeadsData={dayLeadsData} />
-                <WeeklySalesStats weekFinanceData={weekFinanceData} />
+                <WeaklyStatistics 
+                    weekFinanceData={weekFinanceData} 
+                />
             </div>
-            <div className='flex m-3 mt-5 flex-wrap justify-center gap-[1.5rem] items-center'>
-                <BoxTotalStats monthFinanceData={monthFinanceData}  />
+            <div className='flex md:mx-3  flex-wrap justify-center gap-[1.5rem] items-center'>
+                {/* <BoxTotalStats /> */}
+                <FirstRowStats />
             </div>
-            <div className="flex m-3 mt-5 flex-wrap justify-center gap-[1.5rem] items-center">
-                <WeaklyTotalSalesChart weekFinanceData={weekFinanceData}  />
+            <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
+                <WeaklyTotalSalesChart weekFinanceData={weekFinanceData} weekLeadsData={weekLeadsData} />
                 <MonthlyTotalSalesChart monthFinanceData={monthFinanceData} />
             </div>
-            <div className="flex m-3 mt-5 flex-wrap justify-center gap-[1.5rem] items-center w-full">
+            {/* <div className="flex m-3 mt-5 flex-row md:flex-row sm:flex-col xs:flex-col justify-center gap-[1.5rem] w-[100%] items-center">
+                <MonthlyTotalSalesChart />
+            </div> */}
+            <div className="flex m-3 mt-5  justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />
             </div>
         </div>

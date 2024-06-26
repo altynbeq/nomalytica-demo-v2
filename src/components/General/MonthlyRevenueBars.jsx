@@ -8,7 +8,7 @@ const MonthlyRevenueBars = () => {
     const { currentColor, currentMode } = useStateContext();
     
     return (
-        <div className="rounded-2xl  p-4 m-3" style={{ backgroundColor: currentColor }}>
+        <div className="rounded-2xl  p-4 mx-3 w-[90%]" style={{ backgroundColor: currentColor }}>
             <div className="flex flex-col md:flex-row justify-between items-center">
                 <p className="font-semibold text-white text-2xl">Заработок</p>
 
@@ -18,17 +18,15 @@ const MonthlyRevenueBars = () => {
                 </div>
             </div>
 
-            <div className="mt-4">
                 <SparkLine
                 currentColor={currentColor}
                 id="column-sparkLine"
                 height="100px"
                 type="Column"
-                width="inherit"
+                width="250px"
                 data={SparklineAreaData}
                 color="rgb(242, 252, 253)"
                 />
-            </div>
         </div>
     );
 }

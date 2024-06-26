@@ -10,7 +10,7 @@ const LastRowSecondComp = () => {
     const { currentColor, currentMode } = useStateContext();
     
     return (
-        <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
+        <div className=" bg-white dark:text-gray-200 dark:bg-secondary-dark-bg w-[90%] md:w-[25%] rounded-2xl p-6 m-3">
             <div className="flex justify-between">
                 <p className="text-xl font-semibold">MedicalPro Брендинг</p>
                 <button type="button" className="text-xl font-semibold text-gray-400">
