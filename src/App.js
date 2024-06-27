@@ -33,59 +33,71 @@ const App = () => {
   const [dayLeadsData, setDayLeadsData] = useState([]);
   const [weekLeadsData, setWeekLeadsData] = useState([]);
   const [monthLeadsData, setMonthLeadsData] = useState([]);
-
-  useEffect(() => {
-    const currentThemeColor = localStorage.getItem('colorMode');
-    const currentThemeMode = localStorage.getItem('themeMode');
-    if (currentThemeColor && currentThemeMode) {
-      setCurrentColor(currentThemeColor);
-      setCurrentMode(currentThemeMode);
-    }
-
-    async function collector(){
-      // deals bitrix 24
-
-      const dateDay = await getDateRange('today');
-      const dataDay = await fetchDeals(dateDay);
-      const formedDataDay = await dealsDataCollector(dataDay);
-      const dayDate = await formatDateRange('day', dateDay);
-      formedDataDay.date = dayDate;
-      setDayFinanceData(formedDataDay);
-
-      const dateWeek = await getDateRange('week');
-      const dataWeek = await fetchDeals(dateWeek);
-      const formedDataWeek = await dealsDataCollector(dataWeek);
-      const weekDate = await formatDateRange('week', dateDay);
-      formedDataWeek.date = weekDate;
-      setWeekFinanceData(formedDataWeek);
-
-      const dateMonth = await getDateRange('month');
-      const dataMonth = await fetchDeals(dateMonth);
-      const formedDataMonth = await monthDealsDataCollector(dataMonth);
-      const monthDate = await formatDateRange('month', dateMonth);
-      formedDataMonth.date = monthDate;
-      setMonthFinanceData(formedDataMonth);
-
-      const leadsDataDay = await fetchLeads(dateDay);
-      const formedDayLeadsData = await weekDataSalesFormer(leadsDataDay);
-      const formatedDate = await formatDateRange('day', dateDay);
-      formedDayLeadsData.date = formatedDate;
-      setDayLeadsData(formedDayLeadsData);
-
-      const leadsDataWeek = await fetchLeads(dateWeek);
-      const formedWeekLeadsData = await weekDataSalesFormer(leadsDataWeek);
-      formedWeekLeadsData.date = weekDate;
-      setWeekLeadsData(formedWeekLeadsData);
-
-      const leadsDataMonth = await fetchLeads(dateMonth);
-      const formedMonthLeadsData = await monthDataSalesFormer(leadsDataMonth);
-      formedMonthLeadsData.data = monthDate;
-      setMonthLeadsData(formedMonthLeadsData);
-
-      setLoading(false);
-    }
-    collector();
-  }, []);
+  
+    useEffect(() => {
+      async function collector() {
+        try {
+          setLoading(true);
+          const currentThemeColor = localStorage.getItem('colorMode');
+          const currentThemeMode = localStorage.getItem('themeMode');
+          if (currentThemeColor && currentThemeMode) {
+            setCurrentColor(currentThemeColor);
+            setCurrentMode(currentThemeMode);
+          }
+          const dateDay = getDateRange('today');
+          const dateWeek = getDateRange('week');
+          const dateMonth = getDateRange('month');
+    
+          const [dataDay, dataWeek, dataMonth, leadsDataDay, leadsDataWeek, leadsDataMonth] = await Promise.all([
+            fetchDeals(dateDay),
+            fetchDeals(dateWeek),
+            fetchDeals(dateMonth),
+            fetchLeads(dateDay),
+            fetchLeads(dateWeek),
+            fetchLeads(dateMonth)
+          ]);
+    
+          if (!dataDay || !dataWeek || !dataMonth || !leadsDataDay || !leadsDataWeek || !leadsDataMonth) {
+            throw new Error('Failed to fetch data');
+          }
+    
+          const formedDataDay = dealsDataCollector(dataDay);
+          const formedDataWeek = dealsDataCollector(dataWeek);
+          const formedDataMonth = monthDealsDataCollector(dataMonth);
+    
+          const dayDate = formatDateRange('day', dateDay);
+          const weekDate = formatDateRange('week', dateWeek);
+          const monthDate = formatDateRange('month', dateMonth);
+    
+          formedDataDay.date = dayDate;
+          formedDataWeek.date = weekDate;
+          formedDataMonth.date = monthDate;
+    
+          setDayFinanceData(formedDataDay);
+          setWeekFinanceData(formedDataWeek);
+          setMonthFinanceData(formedDataMonth);
+    
+          const formedDayLeadsData = weekDataSalesFormer(leadsDataDay);
+          const formedWeekLeadsData = weekDataSalesFormer(leadsDataWeek);
+          const formedMonthLeadsData = monthDataSalesFormer(leadsDataMonth);
+    
+          formedDayLeadsData.date = dayDate;
+          formedWeekLeadsData.date = weekDate;
+          formedMonthLeadsData.date = monthDate;
+    
+          setDayLeadsData(formedDayLeadsData);
+          setWeekLeadsData(formedWeekLeadsData);
+          setMonthLeadsData(formedMonthLeadsData);
+    
+          setLoading(false);
+        } catch (error) {
+          console.error('Error during data fetching and processing:', error);
+          setLoading(false);
+        }
+      }
+      collector();
+    }, []);
+    
 
   return (
    
