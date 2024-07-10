@@ -90,8 +90,8 @@ const App = () => {
           setDayLeadsData(formedDayLeadsData);
           setWeekLeadsData(formedWeekLeadsData);
           setMonthLeadsData(formedMonthLeadsData);
-          setLoading(false);
         }
+        setLoading(false);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
         setLoading(false);
