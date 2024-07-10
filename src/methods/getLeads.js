@@ -2,7 +2,8 @@
 
 /// Funtion for receiving leads based on given time, use for analytics building, data from bitrix "Romantic Zhez"
 export async function fetchLeads(startDateString, endDateString) {
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7o3luefonm9j1wde/crm.lead.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/4u79tk41t1vqbsay/crm.lead.list.json'
+//   'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7o3luefonm9j1wde/crm.lead.list.json';
   
   let allLeads = [];
   let start = 0;
@@ -44,6 +45,7 @@ export async function fetchLeads(startDateString, endDateString) {
                 start += batchSize;
             }
         }
+        console.log(allLeads)
         return allLeads;
     } catch (error) {
       console.error('Error fetching leads:', error);

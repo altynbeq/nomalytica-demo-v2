@@ -1,5 +1,6 @@
 export async function fetchDeals(startDateString, endDateString) {
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7o3luefonm9j1wde/crm.deal.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7f0u8kwqgtgae2kw/crm.deal.list.json'
+  // 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7o3luefonm9j1wde/crm.deal.list.json';
 
   let allLeads = [];
   let start = 0;

@@ -38,57 +38,61 @@ const App = () => {
       async function collector() {
         try {
           setLoading(true);
-          const currentThemeColor = localStorage.getItem('colorMode');
-          const currentThemeMode = localStorage.getItem('themeMode');
-          if (currentThemeColor && currentThemeMode) {
-            setCurrentColor(currentThemeColor);
-            setCurrentMode(currentThemeMode);
+
+          if(isLoggedIn){
+
+            const currentThemeColor = localStorage.getItem('colorMode');
+            const currentThemeMode = localStorage.getItem('themeMode');
+            if (currentThemeColor && currentThemeMode) {
+              setCurrentColor(currentThemeColor);
+              setCurrentMode(currentThemeMode);
+            }
+            const dateDay = getDateRange('today');
+            const dateWeek = getDateRange('week');
+            const dateMonth = getDateRange('month');
+      
+            const [dataDay, dataWeek, dataMonth, leadsDataDay, leadsDataWeek, leadsDataMonth] = await Promise.all([
+              fetchDeals(dateDay),
+              fetchDeals(dateWeek),
+              fetchDeals(dateMonth),
+              fetchLeads(dateDay),
+              fetchLeads(dateWeek),
+              fetchLeads(dateMonth)
+            ]);
+      
+            if (!dataDay || !dataWeek || !dataMonth || !leadsDataDay || !leadsDataWeek || !leadsDataMonth) {
+              throw new Error('Failed to fetch data');
+            }
+      
+            const formedDataDay = dealsDataCollector(dataDay);
+            const formedDataWeek = dealsDataCollector(dataWeek);
+            const formedDataMonth = monthDealsDataCollector(dataMonth);
+      
+            const dayDate = formatDateRange('day', dateDay);
+            const weekDate = formatDateRange('week', dateWeek);
+            const monthDate = formatDateRange('month', dateMonth);
+      
+            formedDataDay.date = dayDate;
+            formedDataWeek.date = weekDate;
+            formedDataMonth.date = monthDate;
+      
+            setDayFinanceData(formedDataDay);
+            setWeekFinanceData(formedDataWeek);
+            setMonthFinanceData(formedDataMonth);
+      
+            const formedDayLeadsData = weekDataSalesFormer(leadsDataDay);
+            const formedWeekLeadsData = weekDataSalesFormer(leadsDataWeek);
+            const formedMonthLeadsData = monthDataSalesFormer(leadsDataMonth);
+      
+            formedDayLeadsData.date = dayDate;
+            formedWeekLeadsData.date = weekDate;
+            formedMonthLeadsData.date = monthDate;
+      
+            setDayLeadsData(formedDayLeadsData);
+            setWeekLeadsData(formedWeekLeadsData);
+            setMonthLeadsData(formedMonthLeadsData);
           }
-          const dateDay = getDateRange('today');
-          const dateWeek = getDateRange('week');
-          const dateMonth = getDateRange('month');
-    
-          const [dataDay, dataWeek, dataMonth, leadsDataDay, leadsDataWeek, leadsDataMonth] = await Promise.all([
-            fetchDeals(dateDay),
-            fetchDeals(dateWeek),
-            fetchDeals(dateMonth),
-            fetchLeads(dateDay),
-            fetchLeads(dateWeek),
-            fetchLeads(dateMonth)
-          ]);
-    
-          if (!dataDay || !dataWeek || !dataMonth || !leadsDataDay || !leadsDataWeek || !leadsDataMonth) {
-            throw new Error('Failed to fetch data');
-          }
-    
-          const formedDataDay = dealsDataCollector(dataDay);
-          const formedDataWeek = dealsDataCollector(dataWeek);
-          const formedDataMonth = monthDealsDataCollector(dataMonth);
-    
-          const dayDate = formatDateRange('day', dateDay);
-          const weekDate = formatDateRange('week', dateWeek);
-          const monthDate = formatDateRange('month', dateMonth);
-    
-          formedDataDay.date = dayDate;
-          formedDataWeek.date = weekDate;
-          formedDataMonth.date = monthDate;
-    
-          setDayFinanceData(formedDataDay);
-          setWeekFinanceData(formedDataWeek);
-          setMonthFinanceData(formedDataMonth);
-    
-          const formedDayLeadsData = weekDataSalesFormer(leadsDataDay);
-          const formedWeekLeadsData = weekDataSalesFormer(leadsDataWeek);
-          const formedMonthLeadsData = monthDataSalesFormer(leadsDataMonth);
-    
-          formedDayLeadsData.date = dayDate;
-          formedWeekLeadsData.date = weekDate;
-          formedMonthLeadsData.date = monthDate;
-    
-          setDayLeadsData(formedDayLeadsData);
-          setWeekLeadsData(formedWeekLeadsData);
-          setMonthLeadsData(formedMonthLeadsData);
-    
+          
           setLoading(false);
         } catch (error) {
           console.error('Error during data fetching and processing:', error);
