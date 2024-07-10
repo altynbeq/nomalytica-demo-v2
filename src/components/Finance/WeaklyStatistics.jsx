@@ -26,7 +26,8 @@ const WeaklyStatistics = (weekFinanceData) => {
     const weeklyStats = [
         {
             icon: <FiShoppingCart />,
-            amount:  `${data.bestSale.OPPORTUNITY && Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
+            amount:  '001',
+            // `${data.bestSale.OPPORTUNITY && Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
             title: 'Топ сделка',
             desc: `Сотрудник ${data.bestSale.ASSIGNED_BY_ID ? data.bestSale.ASSIGNED_BY_ID : 'Пусто'}`,
             iconBg: '#FB9678',
