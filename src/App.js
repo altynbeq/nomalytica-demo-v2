@@ -92,7 +92,7 @@ const App = () => {
           console.log("HELLOOOOOO")
           setLoading(false);
         }
-        
+        setLoading(false);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
         setLoading(false);
