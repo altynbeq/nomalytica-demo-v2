@@ -37,6 +37,7 @@ const App = () => {
   useEffect(() => {
     async function collector() {
       try {
+        console.log(isLoggedIn)
         if(isLoggedIn === true){
 
           const currentThemeColor = localStorage.getItem('colorMode');
@@ -89,10 +90,8 @@ const App = () => {
           setDayLeadsData(formedDayLeadsData);
           setWeekLeadsData(formedWeekLeadsData);
           setMonthLeadsData(formedMonthLeadsData);
-          console.log("HELLOOOOOO")
           setLoading(false);
         }
-        setLoading(false);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
         setLoading(false);
