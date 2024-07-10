@@ -37,7 +37,7 @@ const App = () => {
   useEffect(() => {
     async function collector() {
       try {
-        if(isLoggedIn == true){
+        if(isLoggedIn === true){
 
           const currentThemeColor = localStorage.getItem('colorMode');
           const currentThemeMode = localStorage.getItem('themeMode');
