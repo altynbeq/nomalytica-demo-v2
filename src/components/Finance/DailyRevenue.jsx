@@ -10,7 +10,7 @@ const DailyRevenue = (dayFinanceData) => {
   const data = dayFinanceData.dayFinanceData;
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 justify-center w-[90%] md:w-[50%]  rounded-2xl  ">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center w-[90%] md:w-[50%]  rounded-2xl  ">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Доходы за день</p>
             <div className="flex items-center gap-4">
@@ -30,7 +30,7 @@ const DailyRevenue = (dayFinanceData) => {
               <div>
                 <div className='flex justify-center flex-col text-center'>
                     <p>
-                        <span className="text-3xl font-semibold">{data.totalSum} тг</span>
+                        <span className="text-2xl font-semibold">{data.totalSum} тг</span>
                         <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
                             23%
                         </span>
@@ -40,15 +40,15 @@ const DailyRevenue = (dayFinanceData) => {
               </div>
               <div className="mt-8 gap-7 flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-3xl font-semibold">{data.leadsCount}</p>
+                    <p className="text-2xl font-semibold">{data.leadsCount}</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-3xl font-semibold">?</p>
+                    <p className="text-2xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Скидок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-3xl font-semibold">?</p>
+                    <p className="text-2xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Cписание</p>
                 </div>
               </div>
@@ -56,7 +56,7 @@ const DailyRevenue = (dayFinanceData) => {
                 <div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="text-3xl font-semibold">{data.avgCheck} тг</span>
+                            <span className="text-2xl font-semibold">{data.avgCheck} тг</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>

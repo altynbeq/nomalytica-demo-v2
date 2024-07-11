@@ -17,3 +17,4 @@ export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 export { default as Area } from './Charts/Area';
 export { default as ExportToExcel } from './ExportToExcel';
+export { default as ContainerWrapper } from './ContainerWrapper';

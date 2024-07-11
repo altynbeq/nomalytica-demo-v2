@@ -11,11 +11,11 @@ import { MonthStatistics, MonthlyRevenueChart, OverallRevenueChart, RevenueByWee
 // );
 
 const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
-  // const { currentColor, currentMode, setActiveMenu } = useStateContext();
+  const { currentColor, currentMode, setActiveMenu } = useStateContext();
 
-  // useEffect(()=> {
-  //   setActiveMenu(false);
-  // },[]);
+  useEffect(()=> {
+    setActiveMenu(false);
+  },[]);
  
   return (
     <div className="mt-[50px]">

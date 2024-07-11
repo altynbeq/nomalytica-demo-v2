@@ -8,7 +8,7 @@ const MonthlyRevenueBars = () => {
     const { currentColor, currentMode } = useStateContext();
     
     return (
-        <div className="rounded-2xl  p-4 mx-3 w-[90%]" style={{ backgroundColor: currentColor }}>
+        <div className="rounded-2xl  p-4 mx-3 " style={{ backgroundColor: currentColor }}>
             <div className="flex flex-col md:flex-row justify-between items-center">
                 <p className="font-semibold text-white text-2xl">Заработок</p>
 
