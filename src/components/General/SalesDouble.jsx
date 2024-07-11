@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 
-import { Stacked, Button, SparkLine } from '../../components';
+import { Stacked, Button, SparkLine, ExportToExcel } from '../../components';
 import { SparklineAreaData } from '../../data/ecomData';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
@@ -55,12 +55,13 @@ const SalesDouble = () => {
                     />
                 </div>
                 <div className="mt-10">
-                    <Button
+                    {/* <Button
                     color="white"
                     bgColor={currentColor}
                     text="Скачать отчет"
                     borderRadius="10px"
-                    />
+                    /> */}
+                    <ExportToExcel />
                 </div>
                 </div>
                 <div className="m-auto lg:m-0">

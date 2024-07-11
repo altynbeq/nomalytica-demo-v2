@@ -12,11 +12,11 @@ const General = () => {
   },[])
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 ">
       <div className='flex md:mx-3  flex-wrap justify-center gap-[1.5rem] items-center'>
         <FirstRowStats />
       </div>
-      <div className="flex   gap-4 flex-col md:flex-row  justify-center">
+      <div className="flex gap-1.5 flex-col md:flex-row  justify-center">
         <SalesDouble />
         <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[35%]'>
           <MonthlyRevenueBars />

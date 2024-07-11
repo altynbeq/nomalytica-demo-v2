@@ -45,7 +45,6 @@ export async function fetchLeads(startDateString, endDateString) {
                 start += batchSize;
             }
         }
-        console.log(allLeads)
         return allLeads;
     } catch (error) {
       console.error('Error fetching leads:', error);
