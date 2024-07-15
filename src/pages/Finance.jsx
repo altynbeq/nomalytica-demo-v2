@@ -13,10 +13,6 @@ import { MonthStatistics, MonthlyRevenueChart, OverallRevenueChart, RevenueByWee
 const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
 
-  useEffect(()=> {
-    setActiveMenu(false);
-  },[]);
- 
   return (
     <div className="mt-[50px]">
       <div className="flex mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center ">
@@ -45,7 +41,7 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
         <OverallRevenueChart />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-           <MonthStatistics monthFinanceData={monthFinanceData} />
+          <MonthStatistics monthFinanceData={monthFinanceData} />
           <MonthlyRevenueChart 
             monthFinanceData={monthFinanceData} 
           />
