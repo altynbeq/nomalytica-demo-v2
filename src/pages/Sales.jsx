@@ -7,23 +7,20 @@ import { WeaklyStatistics } from '../components/Finance';
 
 const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData, weekLeadsData}) => {
     const { currentColor, currentMode,setActiveMenu } = useStateContext(); 
-
-    useEffect(()=> {
-        setActiveMenu(false);
-    },[]);
+   
     console.log("dayFinanceData",dayFinanceData, "weekFinanceData", weekFinanceData, "monthFinanceData", monthFinanceData );
     return (
-        <div className='mt-12 overflow-none '>
+        <div className='mt-12 flex flex-col  justify-center '>
             <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
                 <DailySalesStats dayFinanceData={dayFinanceData} dayLeadsData={dayLeadsData} />
                 <WeaklyStatistics 
                     weekFinanceData={weekFinanceData} 
                 />
             </div>
-            <div className='flex md:mx-3  flex-wrap justify-center gap-[1.5rem] items-center'>
+            <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'>
                 {/* <BoxTotalStats /> */}
                 <FirstRowStats />
-            </div>
+            </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <WeaklyTotalSalesChart weekFinanceData={weekFinanceData} weekLeadsData={weekLeadsData} />
                 <MonthlyTotalSalesChart monthFinanceData={monthFinanceData} />

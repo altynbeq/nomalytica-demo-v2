@@ -10,8 +10,8 @@ import { useStateContext } from '../../contexts/ContextProvider';
 const FirstRowStats = () => {
     const { currentColor, currentMode } = useStateContext();
     return (
-        <div className="grid justify-center xl:w-full xl:p-8 xl:mx-8 xl:pl-0  md:p-50 w-[100%] ">
-            <div className="grid grid-cols-2 gap-4  sm:grid-cols-2 p-8 md:p-5   md:grid-cols-2 lg:grid-cols-4 mr-5">
+        <div className="grid justify-center xl:w-full xl:p-8 xl:mx-8 xl:pl-0  md:p-50 w-[90%] ">
+            <div className="grid grid-cols-2 gap-4  sm:grid-cols-2 p-8 md:p-5   md:grid-cols-2 lg:grid-cols-4 mr-5 md:mr-0">
                 {earningData.map((item) => (
                     <div key={item.title} className="   bg-white  h-full md:w-[90%] lg:w-[90%]  dark:text-gray-200 dark:bg-secondary-dark-bg  p-4 pt-9 rounded-2xl flex-shrink-0
                     xl:w-full xl:pt-6  xl:pb-7 xl:pr-20 xl:pl-20 2xl:mx-15  sm:w-[105%]  xs:p-7

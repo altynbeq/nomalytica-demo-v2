@@ -67,7 +67,7 @@ const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
                     <div className='flex justify-center text-center flex-col'>
                         <h2>Способы оплат</h2>
                     </div>
-                    <Pie id="pie-money-flow" data={dayLeadsData.leadsSourceSeries} legendVisiblity={false} height="250px" color="red"  />
+                    <Pie id="pie-money-flow" data={dayLeadsData.leadsSourceSeries} legendVisiblity={false} height="200px" color="red"  />
                     <div className='flex flex-row gap-2 justify-between'>
                         <p className="flex items-center gap-2 text-cyan-600 hover:drop-shadow-xl">
                          <span>

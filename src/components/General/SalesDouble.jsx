@@ -13,7 +13,7 @@ const SalesDouble = () => {
     return (
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg mx-3 p-4 rounded-2xl ">
             <div className="flex flex-col md:flex-row justify-between">
-                <p className="font-semibold text-xl">Обновления по Vika2</p>
+                <p className="font-semibold text-xl">Обновления по Vika3</p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                 <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                     <span>
