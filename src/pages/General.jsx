@@ -8,10 +8,6 @@ import { ContainerWrapper } from '../components';
 const General = () => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
 
-  useEffect(()=> {
-    setActiveMenu(false);
-  },[])
-
   return (
     <div className="mt-12 grid grid-row-3 grid-flow-row ">
       {/* <div className='flex md:mx-3  flex-wrap justify-center gap-[1.5rem] items-center'> */}
