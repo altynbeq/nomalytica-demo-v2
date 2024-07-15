@@ -9,12 +9,6 @@ import { fetchLeads } from '../methods/getLeads';
 const Workers = () => {
   const { setActiveMenu } = useStateContext();
  
-  useEffect(() => {
-    // fetchDeals();
-    fetchLeads();
-    setActiveMenu(false);
-  },[]);
-
   return (
     <div className='mt-12 flex flex-col justify-center align-center '>
       <div className="flex flex-wrap lg:flex-nowrap justify-center flex-col p-10">

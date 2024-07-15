@@ -7,9 +7,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const Sklad = () => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
-  useEffect(() => {
-    setActiveMenu(false);
-  },[]) 
+  
   return (
     <div className='mt-12  '>
         <div className="flex flex-col w-[100%] md:flex-row  gap-10 justify-center align-top md:m-5  lg:flex-row 2xl:flex-row items-center">
