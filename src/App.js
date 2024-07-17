@@ -106,6 +106,7 @@ const App = () => {
         setWeekLeadsData(formedWeekLeadsData);
         setMonthLeadsData(formedMonthLeadsData);
         setKKMList(kkmReceipts);
+        console.log(kkmReceipts)
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
