@@ -7,10 +7,7 @@ export async function getKKMReceipts() {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': {
-                        "Username": 'Алтынбек',
-                        "Password": '5521'
-                    }
+                    'Authorization': 'Base'+ + Base64.encode('Алтынбек:5521')
                 }
             });
 
