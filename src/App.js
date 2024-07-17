@@ -13,6 +13,8 @@ import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
 import { formatDateRange } from './methods/dateFormat';
 import { getDateRange } from './methods/getDateRange';
+import { getKKMReceipts } from './methods/getKKMReceipts';
+
 import { dealsDataCollector } from './data/Finance/WeekDataFinanceFormer';
 import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
 import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
@@ -34,12 +36,14 @@ const App = () => {
   const [weekLeadsData, setWeekLeadsData] = useState([]);
   const [monthLeadsData, setMonthLeadsData] = useState([]);
 
+  //sales KKM Receipts 
+  const [kkmList, setKKMList] = useState([]);
+
 
   useEffect(() => {
     async function collector() {
       setLoading(true); // Start by setting loading to true
       try {
-        console.log(isLoggedIn);
 
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
@@ -58,17 +62,19 @@ const App = () => {
           dataMonth,
           leadsDataDay,
           leadsDataWeek,
-          leadsDataMonth
+          leadsDataMonth,
+          kkmReceipts,
         ] = await Promise.all([
           fetchDeals(dateDay),
           fetchDeals(dateWeek),
           fetchDeals(dateMonth),
           fetchLeads(dateDay),
           fetchLeads(dateWeek),
-          fetchLeads(dateMonth)
+          fetchLeads(dateMonth),
+          getKKMReceipts()
         ]);
 
-        if (!dataDay || !dataWeek || !dataMonth || !leadsDataDay || !leadsDataWeek || !leadsDataMonth) {
+        if (!dataDay || !dataWeek || !dataMonth || !leadsDataDay || !leadsDataWeek || !leadsDataMonth || !kkmReceipts) {
           throw new Error('Failed to fetch data');
         }
 
@@ -99,6 +105,7 @@ const App = () => {
         setDayLeadsData(formedDayLeadsData);
         setWeekLeadsData(formedWeekLeadsData);
         setMonthLeadsData(formedMonthLeadsData);
+        setKKMList(kkmReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {

@@ -7,7 +7,6 @@ import { BsChatLeft } from 'react-icons/bs';
 const WeaklyStatistics = (weekFinanceData) => {
     const { currentColor, currentMode } = useStateContext();
     const data = weekFinanceData.weekFinanceData;
-    console.log(weekFinanceData);
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const avgCheck = 0;
 
