@@ -21,6 +21,7 @@ function base64ArrayBuffer(arrayBuffer) {
 const encodedCredentials = base64ArrayBuffer(utf8Credentials);
 
 export async function getKKMReceipts(){
+    console.log("Sending request for kkm data");
     const response  = await fetch(url, 
         {
             method: 'GET',
@@ -31,8 +32,8 @@ export async function getKKMReceipts(){
     );
     
     if (!response.ok) {
-    console.error('Error fetching KKM list');
-    throw new Error('Network response was not ok');
+      console.error('Error fetching KKM list');
+      throw new Error('Network response was not ok');
     }
 
     const data = await response.json();
