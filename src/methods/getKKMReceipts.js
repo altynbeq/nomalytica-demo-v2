@@ -1,26 +1,40 @@
-import { Base64 } from 'js-base64';
+const url = '/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts';
+const username = 'Алтынбек';
+const password = '5521';
 
-export async function getKKMReceipts() {
-    try {
-      const response = await fetch('http://212.46.56.10:84/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + Base64.encode('Алтынбек:5521')
-        }
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
-      const responseText = await response.text();
-      console.log(responseText); // Log the full response
+// Encode credentials to Base64 using TextEncoder
+const encoder = new TextEncoder();
+const credentials = `${username}:${password}`;
+const utf8Credentials = encoder.encode(credentials);
 
-      const data = JSON.parse(responseText);
-      return data;
-    } catch (error) {
-      console.error('Error fetching KKMReceipts:', error);
-      return []; // Return an empty array in case of error
-    }
+// Function to convert ArrayBuffer to Base64
+function base64ArrayBuffer(arrayBuffer) {
+  let binary = '';
+  const bytes = new Uint8Array(arrayBuffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
   }
+  return btoa(binary);
+}
+
+const encodedCredentials = base64ArrayBuffer(utf8Credentials);
+
+export async function getKKMReceipts(){
+    const response  = await fetch(url, 
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Basic ${encodedCredentials}`
+            }
+        }
+    );
+    
+    if (!response.ok) {
+    throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    return data;
+}
