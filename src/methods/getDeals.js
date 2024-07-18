@@ -42,7 +42,6 @@ export async function fetchDeals(startDateString, endDateString) {
         start += batchSize;
       }
     }
-    console.log("AllDealsData", allDeals);
     return allDeals;
   } catch (error) {
     console.error('Error fetching deals:', error);

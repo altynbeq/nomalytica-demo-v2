@@ -31,6 +31,7 @@ export async function getKKMReceipts(){
     );
     
     if (!response.ok) {
+    console.error('Error fetching KKM list');
     throw new Error('Network response was not ok');
     }
 
