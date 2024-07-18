@@ -24,8 +24,6 @@ export async function fetchDeals(startDateString, endDateString) {
         })
       });
 
-      console.log("DEALS FETCH SENT");
-
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -44,6 +42,7 @@ export async function fetchDeals(startDateString, endDateString) {
         start += batchSize;
       }
     }
+    console.log("AllDealsData", allDeals);
     return allDeals;
   } catch (error) {
     console.error('Error fetching deals:', error);

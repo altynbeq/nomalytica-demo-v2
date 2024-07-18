@@ -35,5 +35,6 @@ export async function getKKMReceipts(){
     }
 
     const data = await response.json();
+    console.log("KKMDAATAAA", data);
     return data;
 }

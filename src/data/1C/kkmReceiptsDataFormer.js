@@ -50,6 +50,5 @@ export const kkmReceiptsDataFormer = (data) => {
     }
   }
 
-  console.log(response);
   return response;
 };
