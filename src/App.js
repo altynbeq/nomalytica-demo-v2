@@ -13,13 +13,13 @@ import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
 import { formatDateRange } from './methods/dateFormat';
 import { getDateRange } from './methods/getDateRange';
-// import { getKKMReceipts } from './methods/getKKMReceipts';
+import { getKKMReceipts } from './methods/getKKMReceipts';
 
 import { dealsDataCollector } from './data/Finance/WeekDataFinanceFormer';
 import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
 import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
 import { monthDataSalesFormer } from './data/Sales/MonthDataSalesFormer';
-// import { kkmReceiptsDataFormer } from './data/1C/kkmReceiptsDataFormer';
+import { kkmReceiptsDataFormer } from './data/1C/kkmReceiptsDataFormer';
 
 const App = () => {
   const { isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -62,7 +62,7 @@ const App = () => {
           leadsDataDay,
           leadsDataWeek,
           leadsDataMonth,
-          // kkmReceipts,
+          kkmReceipts,
         ] = await Promise.all([
           fetchDeals(dateDay),
           fetchDeals(dateWeek),
@@ -70,18 +70,17 @@ const App = () => {
           fetchLeads(dateDay),
           fetchLeads(dateWeek),
           fetchLeads(dateMonth),
-          // getKKMReceipts()
+          getKKMReceipts()
         ]);
 
         if (!dataDay || !dataWeek || !dataMonth) {
           throw new Error('Failed to fetch data at deals');
         } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
           throw new Error('Failed to fetch data at leads');
-        } 
-        // else if(!kkmReceipts){
-        //   throw new Error('Failed to fetch data at kkm');
-        // }
-
+        } else if(!kkmReceipts){
+          throw new Error('Failed to fetch data at kkm');
+        }
+        console.log("kkmDataFormWait", kkmReceipts)
         const formedDataDay = dealsDataCollector(dataDay);
         const formedDataWeek = dealsDataCollector(dataWeek);
         const formedDataMonth = monthDealsDataCollector(dataMonth);
@@ -110,7 +109,7 @@ const App = () => {
         setWeekLeadsData(formedWeekLeadsData);
         setMonthLeadsData(formedMonthLeadsData);
 
-        // const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
+        const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
@@ -118,7 +117,6 @@ const App = () => {
       }
     }
     collector();
-
   }, []);
 
   return (

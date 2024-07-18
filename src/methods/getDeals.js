@@ -1,8 +1,7 @@
 export async function fetchDeals(startDateString, endDateString) {
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7f0u8kwqgtgae2kw/crm.deal.list.json'
-  // 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7o3luefonm9j1wde/crm.deal.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7f0u8kwqgtgae2kw/crm.deal.list.json';
 
-  let allLeads = [];
+  let allDeals = [];
   let start = 0;
   const batchSize = 50; // Number of items to fetch per request
 
@@ -25,6 +24,8 @@ export async function fetchDeals(startDateString, endDateString) {
         })
       });
 
+      console.log("DEALS FETCH SENT");
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -32,20 +33,20 @@ export async function fetchDeals(startDateString, endDateString) {
       const data = await response.json();
 
       if (data.error) {
-        console.error('Error fetching leads:', data.error);
+        console.error('Error fetching deals:', data.error);
         break;
       } else {
-        allLeads = allLeads.concat(data.result);
+        allDeals = allDeals.concat(data.result);
         if (data.result.length < batchSize) {
-          // If the number of results is less than the batch size, we've fetched all leads
+          // If the number of results is less than the batch size, we've fetched all deals
           break;
         }
         start += batchSize;
       }
     }
-    return allLeads; // Move return statement outside the while loop
+    return allDeals;
   } catch (error) {
-    console.error('Error fetching leads:', error);
+    console.error('Error fetching deals:', error);
     return []; // Return an empty array in case of error
   }
 }
