@@ -80,7 +80,6 @@ const App = () => {
         } else if(!kkmReceipts){
           throw new Error('Failed to fetch data at kkm');
         }
-        console.log("kkmDataFormWait", kkmReceipts)
         const formedDataDay = dealsDataCollector(dataDay);
         const formedDataWeek = dealsDataCollector(dataWeek);
         const formedDataMonth = monthDealsDataCollector(dataMonth);
