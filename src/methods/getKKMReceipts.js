@@ -21,11 +21,12 @@ function base64ArrayBuffer(arrayBuffer) {
 const encodedCredentials = base64ArrayBuffer(utf8Credentials);
 
 export async function getKKMReceipts(){
-    console.log("Sending request for kkm data");
+    console.log("Sending request for kkm data 22");
     const response  = await fetch(url, 
         {
             method: 'GET',
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Basic ${encodedCredentials}`
             }
         }
@@ -35,6 +36,15 @@ export async function getKKMReceipts(){
       console.error('Error fetching KKM list');
       throw new Error('Network response was not ok');
     }
+
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await response.text(); // Get the text response for debugging
+      console.error('Received non-JSON response:', text);
+      throw new Error('Received non-JSON response');
+    }
+
+    
     console.log("KKMResponse", response);
     const data = await response.json();
     console.log("KKMDAATAAA", data);
