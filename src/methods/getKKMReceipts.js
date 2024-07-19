@@ -35,7 +35,7 @@ export async function getKKMReceipts(){
       console.error('Error fetching KKM list');
       throw new Error('Network response was not ok');
     }
-
+    console.log("KKMResponse", response);
     const data = await response.json();
     console.log("KKMDAATAAA", data);
     return data;
