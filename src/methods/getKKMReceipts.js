@@ -38,15 +38,24 @@ export async function getKKMReceipts(){
     }
 
     const contentType = response.headers.get("content-type");
-    if (!contentType || !contentType.includes("application/json")) {
+    
+    if (contentType && contentType.includes("application/json")) {
+      const data = await response.json();
+      console.log("KKMDAATAAA", data);
+      return data;
+  } else if (contentType && contentType.includes("text/plain")) {
+      const text = await response.text();
+      try {
+          const data = JSON.parse(text); // Attempt to parse as JSON
+          console.log("KKMDAATAAA", data);
+          return data;
+      } catch (e) {
+          console.error('Error parsing JSON:', e);
+          throw new Error('Error parsing JSON');
+      }
+  } else {
       const text = await response.text(); // Get the text response for debugging
       console.error('Received non-JSON response:', text);
       throw new Error('Received non-JSON response');
-    }
-
-
-    console.log("KKMResponse", response);
-    const data = await response.json();
-    console.log("KKMDAATAAA", data);
-    return data;
+  }
 }
