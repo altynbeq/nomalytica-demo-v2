@@ -1,8 +1,6 @@
 import React from 'react';
 
 export const kkmReceiptsDataFormer = (data) => {
-  console.log("forming kkm data")
-
   const response = {
     totalSum: 0,
     bestSoldItemAmount: {
