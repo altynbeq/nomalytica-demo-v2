@@ -84,7 +84,7 @@ const WeaklyStatistics = (weekFinanceData) => {
                     </button>
                 </div>
 
-                <div className="mt-10 ">
+                <div className="mt-2">
                     {weeklyStats.map((item) => (
                     <div key={item.title} className="flex justify-between mt-4 w-full">
                         <div className="flex gap-4">
