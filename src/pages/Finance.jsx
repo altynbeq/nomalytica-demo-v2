@@ -35,13 +35,11 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
       </div>
 
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-        <WeaklyStatistics 
-          weekFinanceData={weekFinanceData} 
-        />
+        {/* <WeaklyStatistics weekFinanceData={weekFinanceData} /> */}
         <OverallRevenueChart />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-          <MonthStatistics monthFinanceData={monthFinanceData} />
+          {/* <MonthStatistics monthFinanceData={monthFinanceData} /> */}
           <MonthlyRevenueChart 
             monthFinanceData={monthFinanceData} 
           />
