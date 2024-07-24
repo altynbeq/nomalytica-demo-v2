@@ -1,5 +1,3 @@
-
-
 /// Funtion for receiving leads based on given time, use for analytics building, data from bitrix "Romantic Zhez"
 export async function fetchLeads(startDateString, endDateString) {
   const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/4u79tk41t1vqbsay/crm.lead.list.json'
