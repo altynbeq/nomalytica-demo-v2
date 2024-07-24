@@ -1,4 +1,4 @@
-const url = '/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts';
+const url = '/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/20240720/20240724';
 const username = 'Алтынбек';
 const password = '5521';
 
