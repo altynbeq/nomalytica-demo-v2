@@ -16,17 +16,13 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
   return (
     <div className="mt-[50px]">
       <div className="flex mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center ">
-          <RevenueByWeekStacked 
-            weekFinanceData={weekFinanceData} 
-          />
-          <WeekRevenueStats 
-            weekFinanceData={weekFinanceData} 
-          />
+          <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
+          <WeekRevenueStats weekFinanceData={weekFinanceData} />
       </div>
 
-      <div className="flex mt-5 w-full align-center gap-4 flex-col md:flex-row justify-center">
+      <div className="flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center">
         <DailyRevenue dayFinanceData={dayFinanceData} />
-        <div className="flex justify-center align-center flex-col w-full md:w-1/3">
+        <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[30%]'>
           <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
           <TotalRevenuePie />
         </div>
@@ -42,7 +38,7 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
             monthFinanceData={monthFinanceData} 
           />
       </div>
-    </div>
+    </div> 
   );
 };
 

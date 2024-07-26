@@ -75,7 +75,7 @@ const DailyRevenue = (dayFinanceData) => {
               </div>
             </div>
 
-            <div className=' lg:m-0'> 
+            <div className='my-auto lg:m-0'> 
                 <div className='flex align-center justify-center'>
                     <h2>Способы оплат</h2>
                 </div>

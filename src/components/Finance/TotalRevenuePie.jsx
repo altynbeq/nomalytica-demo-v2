@@ -11,7 +11,7 @@ const TotalRevenuePie = () => {
         </div>
 
         <div className="w-60">
-        <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={true} height="180px" />
+        <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={false} height="180px" />
         </div>
     </div>
   )
