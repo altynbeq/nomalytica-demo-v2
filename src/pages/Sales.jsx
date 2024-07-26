@@ -27,7 +27,7 @@ const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData,
             {/* <div className="flex m-3 mt-5 flex-row md:flex-row sm:flex-col xs:flex-col justify-center gap-[1.5rem] w-[100%] items-center">
                 <MonthlyTotalSalesChart />
             </div> */}
-            <div className="flex m-3 mt-5  justify-center gap-[1.5rem] w-[100%] items-center">
+            <div className="flex m-3 mt-5 align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />
             </div>
         </div>
