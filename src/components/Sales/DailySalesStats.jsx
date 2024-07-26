@@ -7,7 +7,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
     const { currentColor, currentMode } = useStateContext();
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[55%] rounded-2xl ">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[55%] rounded-2xl subtle-border">
             <div className="flex flex-col md:flex-row justify-between">
                 <p className="font-semibold  md:text-xl">Обновления по доходам V2</p>
             </div>

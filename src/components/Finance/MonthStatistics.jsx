@@ -9,17 +9,17 @@ const MonthStatistics = (monthFinanceData) => {
     const data = monthFinanceData.monthFinanceData;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const avgCheck = 0;
-    // for (let workerId in data.workersStats) {
-    //     const { count, sales } = data.workersStats[workerId];
-    //     const avgCheck = sales / count;
+    for (let workerId in data.workersStats) {
+        const { count, sales } = data.workersStats[workerId];
+        const avgCheck = sales / count;
 
-    //     if (avgCheck > bestAvgCheckWorker.avgCheck) {
-    //         bestAvgCheckWorker.id = workerId;
-    //         bestAvgCheckWorker.avgCheck = Math.round(avgCheck);
-    //         bestAvgCheckWorker.sales = sales;
-    //         bestAvgCheckWorker.count = count;
-    //     }
-    // }
+        if (avgCheck > bestAvgCheckWorker.avgCheck) {
+            bestAvgCheckWorker.id = workerId;
+            bestAvgCheckWorker.avgCheck = Math.round(avgCheck);
+            bestAvgCheckWorker.sales = sales;
+            bestAvgCheckWorker.count = count;
+        }
+    }
     const weeklyStats = [
         {
             icon: <FiShoppingCart />,
@@ -39,7 +39,7 @@ const MonthStatistics = (monthFinanceData) => {
         },
         {
             icon: <FiStar />,
-            amount: `${data.bestWorker.totalSales} тг`,
+            amount: `${data.bestWorker.totalSales ? data.bestWorker.totalSales : '' } тг`,
             title: 'Топ прибыль',
             desc: `Сотрудник ${data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
             iconBg: 'rgb(254, 201, 15)',
@@ -74,7 +74,7 @@ const MonthStatistics = (monthFinanceData) => {
     ];
 
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl">
+        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                 <div className="flex justify-between">

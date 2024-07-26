@@ -8,7 +8,7 @@ const WeekRevenueStats = (weekFinanceData) => {
   const data = weekFinanceData.weekFinanceData;
   
   return (
-    <div className="bg-white dark:text-gray-200 justify-center text-center align-center dark:bg-secondary-dark-bg m-5 md:m-1 p-4 rounded-2xl m5 w-[90%] md:w-[30%]   ">
+    <div className="bg-white dark:text-gray-200 justify-center text-center align-center dark:bg-secondary-dark-bg m-5 md:m-1 p-4 rounded-2xl m5 w-[90%] md:w-[30%] subtle-border">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Доходы за неделю</p>
             <div className="flex items-center gap-4">

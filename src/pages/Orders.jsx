@@ -13,7 +13,7 @@ const Orders = () => {
   const [ editClicked, setEditClicked ] = useState(false);
   const editing = { allowDeleting: true, allowEditing: true };
   return (
-    <div className="md:p-10 bg-white dark:text-black dark:bg-secondary-dark-bg  rounded-3xl">
+    <div className="md:p-10 bg-white dark:text-black dark:bg-secondary-dark-bg  rounded-3xl subtle-border">
       <div className='flex flex-row justify-between h-12 m-5'>
         <Header  title="Список заказов" />
         <button 

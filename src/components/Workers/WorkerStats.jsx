@@ -4,7 +4,7 @@ import { Pie } from '../';
 
 const WorkerStats = ({workersList, mainTitle}) => {
   return (
-    <div className='flex flex-col z-1 mt-10 gap-5 justify-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl  '>
+    <div className='flex flex-col z-1 mt-10 gap-5 justify-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl subtle-border '>
         <h2 className='flex justify-center mt-5 text-2xl xs:text-base'>{mainTitle}</h2>
         <div className="flex flex-row justify-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg mx-3 p-4 rounded-2xl flex-wrap ">
         {

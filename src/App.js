@@ -62,7 +62,7 @@ const App = () => {
           leadsDataDay,
           leadsDataWeek,
           leadsDataMonth,
-          kkmReceipts,
+          // kkmReceipts,
         ] = await Promise.all([
           fetchDeals(dateDay),
           fetchDeals(dateWeek),
@@ -70,16 +70,17 @@ const App = () => {
           fetchLeads(dateDay),
           fetchLeads(dateWeek),
           fetchLeads(dateMonth),
-          getKKMReceipts()
+          // getKKMReceipts()
         ]);
 
         if (!dataDay || !dataWeek || !dataMonth) {
           throw new Error('Failed to fetch data at deals');
         } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
           throw new Error('Failed to fetch data at leads');
-        } else if(!kkmReceipts){
-          throw new Error('Failed to fetch data at kkm');
-        }
+        } 
+        // else if(!kkmReceipts){
+        //   throw new Error('Failed to fetch data at kkm');
+        // }
         
         const formedDataDay = dealsDataCollector(dataDay);
         const formedDataWeek = dealsDataCollector(dataWeek);
@@ -109,7 +110,7 @@ const App = () => {
         setWeekLeadsData(formedWeekLeadsData);
         setMonthLeadsData(formedMonthLeadsData);
 
-        const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
+        // const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
