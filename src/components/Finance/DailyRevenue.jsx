@@ -10,7 +10,7 @@ const DailyRevenue = (dayFinanceData) => {
   const data = dayFinanceData.dayFinanceData;
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center align-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Доходы за день</p>
             <div className="flex items-center gap-4">
@@ -75,7 +75,7 @@ const DailyRevenue = (dayFinanceData) => {
               </div>
             </div>
 
-            <div className='my-auto lg:m-0'> 
+            <div className=' lg:m-0'> 
                 <div className='flex align-center justify-center'>
                     <h2>Способы оплат</h2>
                 </div>

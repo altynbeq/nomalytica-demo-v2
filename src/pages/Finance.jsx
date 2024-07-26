@@ -24,11 +24,9 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
           />
       </div>
 
-      <div className="flex mt-5 w-[100%] align-center  gap-4 flex-col md:flex-row  justify-center">
-          <DailyRevenue 
-            dayFinanceData={dayFinanceData} 
-          />
-        <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[30%]'>
+      <div className="flex mt-5 w-full align-center gap-4 flex-col md:flex-row justify-center">
+        <DailyRevenue dayFinanceData={dayFinanceData} />
+        <div className="flex justify-center align-center flex-col w-full md:w-1/3">
           <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
           <TotalRevenuePie />
         </div>

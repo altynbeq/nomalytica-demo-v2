@@ -16,7 +16,7 @@ const SalesDouble = () => {
         subtle-border
     ">
             <div className="flex flex-col md:flex-row justify-between">
-                <p className="font-semibold text-xl">Обновления по A1</p>
+                <p className="font-semibold text-xl">Обновления по A2</p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                         <span>
