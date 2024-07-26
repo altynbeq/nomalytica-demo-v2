@@ -16,7 +16,7 @@ const SkladStatistivs = () => {
                 <div className="md:border-r-1 border-color m-4 md:pr-10">
                   <div className='flex justify-center flex-col text-center'>
                       <p>
-                          <span className="md:text-2xl  font-semibold">210</span>
+                          <span className="text-2xl  font-semibold">210</span>
                           <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
                               36% 
                           </span>
@@ -25,12 +25,12 @@ const SkladStatistivs = () => {
                   </div>
                   <div className="mt-8 gap-7 flex flex-row justify-between">
                     <div className='flex justify-center flex-col text-center'>
-                        <p className="md:text-2xl font-semibold">37%</p>
+                        <p className="text-2xl font-semibold">37%</p>
                         <p className="text-gray-500 mt-1">Конверсия</p>
                     </div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="md:text-2xl  font-semibold">140 500</span>
+                            <span className="text-2xl  font-semibold">140 500</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>
@@ -42,7 +42,7 @@ const SkladStatistivs = () => {
                     <div>
                         <div className='flex justify-center flex-col text-center'>
                             <p>
-                                <span className="md:text-2xl font-semibold">1 104 500 тг</span>
+                                <span className="text-2xl font-semibold">1 104 500 тг</span>
                                 <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                     7%
                                 </span>
