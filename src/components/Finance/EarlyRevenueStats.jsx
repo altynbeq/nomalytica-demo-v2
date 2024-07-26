@@ -36,15 +36,15 @@ const WeekRevenueStats = (weekFinanceData) => {
               </div>
               <div className="mt-8 gap-2 w-full flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-1xl md:text-3xl font-semibold">{data.leadsCount}</p>
+                    <p className="text-2xl md:text-3xl font-semibold">{data.leadsCount}</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-1xl md:text-3xl font-semibold">?</p>
+                    <p className="text-2xl md:text-3xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Скидок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-1xl md:text-3xl font-semibold">?</p>
+                    <p className="text-2xl md:text-3xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Cписание</p>
                 </div>
               </div>
