@@ -11,7 +11,7 @@ const Workers = () => {
  
   return (
     <div className='mt-12 flex flex-col justify-center align-center '>
-        <div className="flex w-[100%] flex-wrap lg:flex-nowrap gap-5 justify-center  ">
+        <div className="flex w-[100%] mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center  ">
           <FloristList data={floristList} title="Список флористов" />
           <SupportList data={cusSupportList} title="Список консультантов" />
           <Tasks data={tasksList} title="Список задач" />

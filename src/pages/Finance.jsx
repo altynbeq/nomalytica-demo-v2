@@ -14,7 +14,7 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
 
   return (
-    <div className="mt-[50px]">
+    <div className="mt-12">
       <div className="flex mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center ">
           <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
           <WeekRevenueStats weekFinanceData={weekFinanceData} />
