@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { dropdownData } from '../data/ecomData';
 import { useStateContext } from '../contexts/ContextProvider';
-import { MonthStatistics, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
+import { MonthStatistics, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -19,7 +19,11 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
           <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
           <WeekRevenueStats weekFinanceData={weekFinanceData} />
       </div>
-
+      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
+        <PaidToAmount />
+        <PaidToAmount />
+        <PaidToAmount />
+      </div>
       <div className="flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center">
         <DailyRevenue dayFinanceData={dayFinanceData} />
         <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[30%]'>

@@ -9,3 +9,4 @@ export { default as TotalRevenueChart } from './TotalRevenueChart';
 export { default as OverallRevenueChart } from './YearlyFinanceIncome';
 export { default as MonthlyRevenueChart } from './MonthlyFinanceIncome';
 export { default as MonthStatistics } from './MonthStatistics';
+export { default as PaidToAmount } from './PaidToAmount';
