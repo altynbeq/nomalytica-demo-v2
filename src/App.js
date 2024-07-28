@@ -75,8 +75,6 @@ const App = () => {
         //   throw new Error('Failed to fetch data at kkm');
         // }
         
-        console.log("dealsDataDay:", dealsDataDay, "dealsDataWeek:", dealsDataWeek, "dealDataMonth:", dealDataMonth);
-        console.log("leadsDataDay:", leadsDataDay, "leadsDataWeek:", leadsDataWeek, "leadsDataMonth:", leadsDataMonth);
         // formedDataDay.date = dayDate;
         // formedDataWeek.date = weekDate;
         // formedDataMonth.date = monthDate;
