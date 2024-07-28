@@ -7,11 +7,12 @@ import { BsChatLeft } from 'react-icons/bs';
 const MonthStatistics = (monthFinanceData) => {
     const { currentColor, currentMode } = useStateContext();
     const data = monthFinanceData.monthFinanceData;
+
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-    const avgCheck = 0;
+    let avgCheck = 0;
     for (let workerId in data.workersStats) {
         const { count, sales } = data.workersStats[workerId];
-        const avgCheck = sales / count;
+        avgCheck = sales / count;
 
         if (avgCheck > bestAvgCheckWorker.avgCheck) {
             bestAvgCheckWorker.id = workerId;
@@ -20,6 +21,7 @@ const MonthStatistics = (monthFinanceData) => {
             bestAvgCheckWorker.count = count;
         }
     }
+    
     const weeklyStats = [
         {
             icon: <FiShoppingCart />,
@@ -65,9 +67,11 @@ const MonthStatistics = (monthFinanceData) => {
         },
         {
             icon: <BsChatLeft />,
-            amount: `${data.bestAvgCheck.avgCheck ? data.bestAvgCheck.avgCheck : 0} тг`,
+            amount: '0000',
+            // `${data.bestAvgCheck.avgCheck ? data.bestAvgCheck.avgCheck : 0} тг`,
             title: 'Топ средний чек',
-            desc: `${data.bestAvgCheck.id ? data.bestAvgCheck.id : 'Пусто'}`,
+            desc: 'DESCC',
+            // `${data.bestAvgCheck.id ? data.bestAvgCheck.id : 'Пусто'}`,
             iconBg: '#00C292',
             pcColor: 'green-600',
         },

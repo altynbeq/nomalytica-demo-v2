@@ -10,11 +10,12 @@ export function getDateRange(option) {
     const startOfDay = `${year}-${month}-${date} 00:00:00`;
     const endOfDay = `${year}-${month}-${date} 23:59:59`;
 
-    let startDate, endDate;
+    let startDate, endDate, dateType;
 
     if (option === "today") {
         startDate = startOfDay;
         endDate = endOfDay;
+        dateType = 'week';
     } else if (option === "week") {
         const firstDayOfWeek = new Date(now);
         firstDayOfWeek.setDate(now.getDate() - day + (day === 0 ? -6 : 1)); // Adjust when day is Sunday (0)
@@ -23,12 +24,14 @@ export function getDateRange(option) {
         const startWeekDate = firstDayOfWeek.getDate().toString().padStart(2, '0');
         startDate = `${startWeekYear}-${startWeekMonth}-${startWeekDate} 00:00:00`;
         endDate = endOfDay;
+        dateType = 'week';
     } else if (option === "month") {
         startDate = `${year}-${month}-01 00:00:00`;
         endDate = endOfDay;
+        dateType = "month"
     } else {
         throw new Error("Invalid option. Use 'today', 'week', or 'month'.");
     }
 
-    return { startDate, endDate };
+    return { startDate, endDate, dateType };
 }

@@ -11,15 +11,8 @@ import { useStateContext } from './contexts/ContextProvider';
 
 import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
-import { formatDateRange } from './methods/dateFormat';
 import { getDateRange } from './methods/getDateRange';
 import { getKKMReceipts } from './methods/getKKMReceipts';
-
-import { dealsDataCollector } from './data/Finance/WeekDataFinanceFormer';
-import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
-import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
-import { monthDataSalesFormer } from './data/Sales/MonthDataSalesFormer';
-import { kkmReceiptsDataFormer } from './data/1C/kkmReceiptsDataFormer';
 
 const App = () => {
   const { isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -27,9 +20,9 @@ const App = () => {
   const [ loading, setLoading ] = useState(true);
 
   // deals data for periods
-  const [dayFinanceData, setDayFinanceData] = useState([]);
-  const [weekFinanceData, setWeekFinanceData] = useState([]);
-  const [monthFinanceData, setMonthFinanceData] = useState([]);
+  const [dayFinanceData, setDayDealsData] = useState([]);
+  const [weekFinanceData, setWeekDealsData] = useState([]);
+  const [monthFinanceData, setMonthDealsData] = useState([]);
 
   // leads data for periods
   const [dayLeadsData, setDayLeadsData] = useState([]);
@@ -56,9 +49,9 @@ const App = () => {
         const dateMonth = getDateRange('month');
 
         const [
-          dataDay,
-          dataWeek,
-          dataMonth,
+          dealsDataDay,
+          dealsDataWeek,
+          dealDataMonth,
           leadsDataDay,
           leadsDataWeek,
           leadsDataMonth,
@@ -73,7 +66,7 @@ const App = () => {
           // getKKMReceipts()
         ]);
 
-        if (!dataDay || !dataWeek || !dataMonth) {
+        if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
           throw new Error('Failed to fetch data at deals');
         } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
           throw new Error('Failed to fetch data at leads');
@@ -82,34 +75,21 @@ const App = () => {
         //   throw new Error('Failed to fetch data at kkm');
         // }
         
-        const formedDataDay = dealsDataCollector(dataDay);
-        const formedDataWeek = dealsDataCollector(dataWeek);
-        const formedDataMonth = monthDealsDataCollector(dataMonth);
 
-        const dayDate = formatDateRange('day', dateDay);
-        const weekDate = formatDateRange('week', dateWeek);
-        const monthDate = formatDateRange('month', dateMonth);
+        // formedDataDay.date = dayDate;
+        // formedDataWeek.date = weekDate;
+        // formedDataMonth.date = monthDate;
+        
+        setDayDealsData(dealsDataDay);
+        setWeekDealsData(dealsDataWeek);
+        setMonthDealsData(dealDataMonth);
 
-        formedDataDay.date = dayDate;
-        formedDataWeek.date = weekDate;
-        formedDataMonth.date = monthDate;
-
-        setDayFinanceData(formedDataDay);
-        setWeekFinanceData(formedDataWeek);
-        setMonthFinanceData(formedDataMonth);
-
-        const formedDayLeadsData = weekDataSalesFormer(leadsDataDay);
-        const formedWeekLeadsData = weekDataSalesFormer(leadsDataWeek);
-        const formedMonthLeadsData = monthDataSalesFormer(leadsDataMonth);
-
-        formedDayLeadsData.date = dayDate;
-        formedWeekLeadsData.date = weekDate;
-        formedMonthLeadsData.date = monthDate;
-
-        setDayLeadsData(formedDayLeadsData);
-        setWeekLeadsData(formedWeekLeadsData);
-        setMonthLeadsData(formedMonthLeadsData);
-
+        // leadsDataDay.date = dayDate,
+        // leadsDataWeek.date = weekDate;
+        // leadsDataMonth.date = monthDate;
+        setDayLeadsData(leadsDataDay);
+        setWeekLeadsData(leadsDataWeek);
+        setMonthLeadsData(leadsDataMonth);
         // const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
