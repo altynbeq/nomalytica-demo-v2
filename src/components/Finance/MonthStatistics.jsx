@@ -25,9 +25,11 @@ const MonthStatistics = (monthFinanceData) => {
     const weeklyStats = [
         {
             icon: <FiShoppingCart />,
-            amount: `${Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
+            amount: 'XX',
+            // `${Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
             title: 'Топ сделка',
-            desc: `Сотрудник ${data.bestSale.ASSIGNED_BY_ID ? data.bestSale.ASSIGNED_BY_ID : 'Пусто'}`,
+            desc: 'XX',
+            // `Сотрудник ${data.bestSale.ASSIGNED_BY_ID ? data.bestSale.ASSIGNED_BY_ID : 'Пусто'}`,
             iconBg: '#FB9678',
             pcColor: 'green-600',
         },
