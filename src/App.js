@@ -50,7 +50,8 @@ const App = () => {
         const dateDay = getDateRange('today');
         const dateWeek = getDateRange('week');
         const dateMonth = getDateRange('month');
-
+        const dateYear = getDateRange('year');
+        
         const [
           dealsDataDay,
           dealsDataWeek,
@@ -77,10 +78,9 @@ const App = () => {
           throw new Error('Failed to fetch data at deals');
         } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
           throw new Error('Failed to fetch data at leads');
-        } 
-        // else if(!kkmReceipts){
-        //   throw new Error('Failed to fetch data at kkm');
-        // }
+        } else if(!kkmReceipts || !salesProducts || !salesReceipts){
+          throw new Error('Failed to fetch data at data from 1C');
+        }
         
         // formedDataDay.date = dayDate;
         // formedDataWeek.date = weekDate;
@@ -97,7 +97,6 @@ const App = () => {
         setWeekLeadsData(leadsDataWeek);
         setMonthLeadsData(leadsDataMonth);
         
-        console.log("kkmReceipts:", kkmReceipts, "salesProducts:", salesProducts, "salesReceipts", salesReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
