@@ -13,8 +13,7 @@ const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData,
                 <DailySalesStats dayFinanceData={dayFinanceData} dayLeadsData={dayLeadsData} />
                 <WeaklyStatistics weekFinanceData={weekFinanceData} />
             </div>
-            <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'>
-                {/* <BoxTotalStats /> */}
+            <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
                 <FirstRowStats />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">

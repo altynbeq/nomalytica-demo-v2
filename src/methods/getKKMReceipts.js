@@ -1,57 +1,21 @@
-const url = '/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/20240720/20240724';
-const username = 'Алтынбек';
-const password = '5521';
+export async function getKKMReceipts(dateDay){
+  const startDemo = dateDay.startDate.split(" ")[0];
+  const endDemo = dateDay.endDate.split(" ")[0];
+  const start = startDemo.replace(/-/g, '');
+  const end = endDemo.replace(/-/g, '');
 
-// Encode credentials to Base64 using TextEncoder
-const encoder = new TextEncoder();
-const credentials = `${username}:${password}`;
-const utf8Credentials = encoder.encode(credentials);
-
-// Function to convert ArrayBuffer to Base64
-function base64ArrayBuffer(arrayBuffer) {
-  let binary = '';
-  const bytes = new Uint8Array(arrayBuffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
-}
-
-const encodedCredentials = base64ArrayBuffer(utf8Credentials);
-
-export async function getKKMReceipts(){
-    const response  = await fetch(url, 
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Basic ${encodedCredentials}`
-            }
-        }
-    );
-    
-    if (!response.ok) {
-      console.error('Error fetching KKM list');
-      throw new Error('Network response was not ok');
-    }
-
-    const contentType = response.headers.get("content-type");
-    
-    if (contentType && contentType.includes("application/json")) {
-      const data = await response.json();
-      return data;
-  } else if (contentType && contentType.includes("text/plain")) {
-      const text = await response.text();
-      try {
-          const data = JSON.parse(text); // Attempt to parse as JSON
-          return data;
-      } catch (e) {
-          console.error('Error parsing JSON:', e);
-          throw new Error('Error parsing JSON');
+  const url = `https://nomalytics-back.onrender.com/romantic_zhez_1c/kkm?startDate=${start}&endDate=${end}`
+  const response  = await fetch(url, 
+      {
+        method: 'GET',
       }
-  } else {
-      const text = await response.text(); // Get the text response for debugging
-      throw new Error('Received non-JSON response');
+  );
+  
+  if (!response.ok) {
+    console.error('Error fetching KKM list');
+    throw new Error('Network response was not ok');
   }
+  
+  const data  = await response.json();
+  return data;
 }

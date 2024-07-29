@@ -6,7 +6,6 @@ import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '.
 
 const WeaklyTotalSalesChart = ({weekFinanceData, weekLeadsData}) => {
   
-
   const stackedCustomSeries = [
     { 
       dataSource: weekFinanceData.salesSeries,

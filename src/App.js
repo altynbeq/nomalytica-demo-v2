@@ -11,8 +11,12 @@ import { useStateContext } from './contexts/ContextProvider';
 
 import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
+
 import { getDateRange } from './methods/getDateRange';
+
 import { getKKMReceipts } from './methods/getKKMReceipts';
+import { getSalesReceipts } from './methods/getSalesReceipts';
+import { getSalesProducts } from './methods/getSalesProducts';
 
 const App = () => {
   const { isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -36,7 +40,6 @@ const App = () => {
     async function collector() {
       setLoading(true); // Start by setting loading to true
       try {
-        console.log(loading)
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
         if (currentThemeColor && currentThemeMode) {
@@ -55,7 +58,9 @@ const App = () => {
           leadsDataDay,
           leadsDataWeek,
           leadsDataMonth,
-          // kkmReceipts,
+          kkmReceipts,
+          salesProducts,
+          salesReceipts
         ] = await Promise.all([
           fetchDeals(dateDay),
           fetchDeals(dateWeek),
@@ -63,7 +68,9 @@ const App = () => {
           fetchLeads(dateDay),
           fetchLeads(dateWeek),
           fetchLeads(dateMonth),
-          // getKKMReceipts()
+          getKKMReceipts(dateDay),
+          getSalesProducts(dateDay),
+          getSalesReceipts(dateDay),
         ]);
 
         if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
@@ -89,7 +96,8 @@ const App = () => {
         setDayLeadsData(leadsDataDay);
         setWeekLeadsData(leadsDataWeek);
         setMonthLeadsData(leadsDataMonth);
-        // const kkmDataFormWait = kkmReceiptsDataFormer(kkmReceipts);
+        
+        console.log("kkmReceipts:", kkmReceipts, "salesProducts:", salesProducts, "salesReceipts", salesReceipts);
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
