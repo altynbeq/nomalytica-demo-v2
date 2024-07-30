@@ -9,8 +9,16 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 
+import { dealsDataCollector } from './data/Finance/WeekDataFinanceFormer';
+import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
+import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
+import { monthDataSalesFormer } from './data/Sales/MonthDataSalesFormer';
+
 import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
+
+import { fetchDealsFront } from './methods/getDealsFront';
+import { fetchLeadsFront } from './methods/getLeadsFront';
 
 import { getDateRange } from './methods/getDateRange';
 
@@ -66,7 +74,7 @@ const App = () => {
         const [
           dealsDataDay,
           dealsDataWeek,
-          dealDataMonth,
+          dealsDataMonth,
 
           leadsDataDay,
           leadsDataWeek,
@@ -84,13 +92,13 @@ const App = () => {
           salesReceiptsWeek,
           salesReceiptsMonth,
         ] = await Promise.all([
-          fetchDeals(dateDay),
-          fetchDeals(dateWeek),
-          fetchDeals(dateMonth),
+          fetchDealsFront(dateWeek),
+          fetchDealsFront(dateWeek),
+          fetchDealsFront(dateMonth),
 
-          fetchLeads(dateDay),
-          fetchLeads(dateWeek),
-          fetchLeads(dateMonth),
+          fetchLeadsFront(dateDay),
+          fetchLeadsFront(dateWeek),
+          fetchLeadsFront(dateMonth),
 
           getKKMReceipts(dateDay),
           getKKMReceipts(dateWeek),
@@ -105,11 +113,11 @@ const App = () => {
           getSalesReceipts(dateMonth),
         ]);
 
-        // if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
-        //   throw new Error('Failed to fetch data at deals');
-        // } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
-        //   throw new Error('Failed to fetch data at leads');
-        // } 
+        if (!dealsDataDay || !dealsDataWeek || !dealsDataMonth) {
+          throw new Error('Failed to fetch data at deals');
+        } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
+          throw new Error('Failed to fetch data at leads');
+        } 
         // else if(!salesReceiptsDay){
         //   throw new Error('Failed to fetch data at data from 1C');
         // } else if(!kkmReceiptsDay){
@@ -120,29 +128,38 @@ const App = () => {
         // formedDataWeek.date = weekDate;
         // formedDataMonth.date = monthDate;
         
-        setDayDealsData(dealsDataDay);
-        setWeekDealsData(dealsDataWeek);
-        setMonthDealsData(dealDataMonth);
+        const formedDealsDay = dealsDataCollector(dealsDataDay);
+        const formedDealsWeek = dealsDataCollector(dealsDataWeek);
+        const formedDealsMonth = monthDealsDataCollector(dealsDataMonth);
+
+        setDayDealsData(formedDealsDay);
+        setWeekDealsData(formedDealsWeek);
+        setMonthDealsData(formedDealsMonth);
+
+        const formedLeadsDay = weekDataSalesFormer(leadsDataDay);
+        const formedLeadsWeek = weekDataSalesFormer(leadsDataWeek);
+        const formedLeadsMonth = monthDataSalesFormer(leadsDataMonth);
+
+        setDayLeadsData(formedLeadsDay);
+        setWeekLeadsData(formedLeadsWeek);
+        setMonthLeadsData(formedLeadsMonth);
 
         // // // leadsDataDay.date = dayDate,
         // // // leadsDataWeek.date = weekDate;
         // // // leadsDataMonth.date = monthDate;
 
-        setDayLeadsData(leadsDataDay);
-        setWeekLeadsData(leadsDataWeek);
-        setMonthLeadsData(leadsDataMonth);
 
-        setKKM1CDay(kkmReceiptsDay);
-        setKKM1CWeek(kkmReceiptsWeek);
-        setKKM1CMonth(kkmReceiptsMonth);
+        // setKKM1CDay(kkmReceiptsDay);
+        // setKKM1CWeek(kkmReceiptsWeek);
+        // setKKM1CMonth(kkmReceiptsMonth);
 
-        setSales1CDay(salesReceiptsDay);
-        setSales1CWeek(salesReceiptsWeek);
-        setSales1CMonth(salesReceiptsMonth);
+        // setSales1CDay(salesReceiptsDay);
+        // setSales1CWeek(salesReceiptsWeek);
+        // setSales1CMonth(salesReceiptsMonth);
 
-        setSalesProducts1CDay(salesProductsDay);
-        setSalesProducts1CWeek(salesProductsWeek);
-        setSalesProducts1CMonth(salesProductsMonth);
+        // setSalesProducts1CDay(salesProductsDay);
+        // setSalesProducts1CWeek(salesProductsWeek);
+        // setSalesProducts1CMonth(salesProductsMonth);
 
       } catch (error) {
         console.error('Error during data fetching and processing:', error);

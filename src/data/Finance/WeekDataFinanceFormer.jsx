@@ -125,7 +125,7 @@ export const dealsDataCollector = (list) => {
     });
 
     // Calculate min and max sales from dailySalesCount
-    let minSalesInSeries = Number.MAX_SAFE_INTEGER;
+    let minSalesInSeries = 0;
     let maxSalesInSeries = 0;
     
     for (let day in dailySalesCount) {
