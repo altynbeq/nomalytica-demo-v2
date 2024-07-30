@@ -1,6 +1,6 @@
 export async function getKKMReceipts(dateDay){
-  const startDemo = dateDay.startDate.split(" ")[0];
-  const endDemo = dateDay.endDate.split(" ")[0];
+  const startDemo = dateDay.startDate.split("%")[0];
+  const endDemo = dateDay.endDate.split("%")[0];
   const start = startDemo.replace(/-/g, '');
   const end = endDemo.replace(/-/g, '');
 

@@ -1,7 +1,6 @@
-export async function fetchDeals(startDateString, endDateString) {
-  const webhookUrl = `https://nomalytics-back.onrender.com/romantic_zhez_bitrix/deals/${startDateString.dateType}-stats?start=${startDateString.startDate}&end=${startDateString.endDate}`
-  // 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/7f0u8kwqgtgae2kw/crm.deal.list.json';
-  // ${startDateString.dateType == 'month' ? 'month' : 'week'}
+export async function fetchDeals(date) {
+  const webhookUrl = `https://nomalytics-back.onrender.com/romantic_zhez_bitrix/deals/${date.dateType}-stats?start=${date.startDate}&end=${date.endDate}`
+  
   try {
     const response = await fetch(webhookUrl, {
       method: 'GET',

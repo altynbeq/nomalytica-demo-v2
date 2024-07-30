@@ -24,17 +24,28 @@ const App = () => {
   const [ loading, setLoading ] = useState(true);
 
   // deals data for periods
-  const [dayFinanceData, setDayDealsData] = useState([]);
-  const [weekFinanceData, setWeekDealsData] = useState([]);
-  const [monthFinanceData, setMonthDealsData] = useState([]);
+  const [ dayFinanceData, setDayDealsData ] = useState([]);
+  const [ weekFinanceData, setWeekDealsData ] = useState([]);
+  const [ monthFinanceData, setMonthDealsData ] = useState([]);
 
   // leads data for periods
-  const [dayLeadsData, setDayLeadsData] = useState([]);
-  const [weekLeadsData, setWeekLeadsData] = useState([]);
-  const [monthLeadsData, setMonthLeadsData] = useState([]);
+  const [ dayLeadsData, setDayLeadsData ] = useState([]);
+  const [ weekLeadsData, setWeekLeadsData ] = useState([]);
+  const [ monthLeadsData, setMonthLeadsData ] = useState([]);
+
 
   //sales KKM Receipts 
-  const [kkmDataFromed, setKKMDataFromed] = useState([]);
+  const [ kkm1CDay, setKKM1CDay ] = useState([]);
+  const [ kkm1CWeek, setKKM1CWeek ] = useState([]);
+  const [ kkm1CMonth, setKKM1CMonth ] = useState([]);
+
+  const [ sales1CDay, setSales1CDay ] = useState([]);
+  const [ sales1CWeek, setSales1CWeek ] = useState([]);
+  const [ sales1CMonth, setSales1CMonth ] = useState([]);
+
+  const [ salesProducts1CDay, setSalesProducts1CDay ] = useState([]);
+  const [ salesProducts1CWeek, setSalesProducts1CWeek ] = useState([]);
+  const [ salesProducts1CMonth, setSalesProducts1CMonth ] = useState([]);
 
   useEffect(() => {
     async function collector() {
@@ -51,36 +62,59 @@ const App = () => {
         const dateWeek = getDateRange('week');
         const dateMonth = getDateRange('month');
         const dateYear = getDateRange('year');
-        
+
         const [
           dealsDataDay,
           dealsDataWeek,
           dealDataMonth,
+
           leadsDataDay,
           leadsDataWeek,
           leadsDataMonth,
-          kkmReceipts,
-          salesProducts,
-          salesReceipts
+
+          kkmReceiptsDay,
+          kkmReceiptsWeek,
+          kkmReceiptsMonth,
+
+          salesProductsDay,
+          salesProductsWeek,
+          salesProductsMonth,
+
+          salesReceiptsDay,
+          salesReceiptsWeek,
+          salesReceiptsMonth,
         ] = await Promise.all([
           fetchDeals(dateDay),
           fetchDeals(dateWeek),
           fetchDeals(dateMonth),
+
           fetchLeads(dateDay),
           fetchLeads(dateWeek),
           fetchLeads(dateMonth),
+
           getKKMReceipts(dateDay),
+          getKKMReceipts(dateWeek),
+          getKKMReceipts(dateMonth),
+
           getSalesProducts(dateDay),
+          getSalesProducts(dateWeek),
+          getSalesProducts(dateMonth),
+
           getSalesReceipts(dateDay),
+          getSalesReceipts(dateWeek),
+          getSalesReceipts(dateMonth),
         ]);
 
-        if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
-          throw new Error('Failed to fetch data at deals');
-        } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
-          throw new Error('Failed to fetch data at leads');
-        } else if(!kkmReceipts || !salesProducts || !salesReceipts){
-          throw new Error('Failed to fetch data at data from 1C');
-        }
+        // if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
+        //   throw new Error('Failed to fetch data at deals');
+        // } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
+        //   throw new Error('Failed to fetch data at leads');
+        // } 
+        // else if(!salesReceiptsDay){
+        //   throw new Error('Failed to fetch data at data from 1C');
+        // } else if(!kkmReceiptsDay){
+        //   throw new Error('Failed to fetch data at data from 1C');
+        // }
         
         // formedDataDay.date = dayDate;
         // formedDataWeek.date = weekDate;
@@ -90,13 +124,26 @@ const App = () => {
         setWeekDealsData(dealsDataWeek);
         setMonthDealsData(dealDataMonth);
 
-        // leadsDataDay.date = dayDate,
-        // leadsDataWeek.date = weekDate;
-        // leadsDataMonth.date = monthDate;
+        // // // leadsDataDay.date = dayDate,
+        // // // leadsDataWeek.date = weekDate;
+        // // // leadsDataMonth.date = monthDate;
+
         setDayLeadsData(leadsDataDay);
         setWeekLeadsData(leadsDataWeek);
         setMonthLeadsData(leadsDataMonth);
-        
+
+        setKKM1CDay(kkmReceiptsDay);
+        setKKM1CWeek(kkmReceiptsWeek);
+        setKKM1CMonth(kkmReceiptsMonth);
+
+        setSales1CDay(salesReceiptsDay);
+        setSales1CWeek(salesReceiptsWeek);
+        setSales1CMonth(salesReceiptsMonth);
+
+        setSalesProducts1CDay(salesProductsDay);
+        setSalesProducts1CWeek(salesProductsWeek);
+        setSalesProducts1CMonth(salesProductsMonth);
+
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {

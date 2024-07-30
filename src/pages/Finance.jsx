@@ -20,9 +20,14 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
           <WeekRevenueStats weekFinanceData={weekFinanceData} />
       </div>
       <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
-        <PaidToAmount />
-        <PaidToAmount />
-        <PaidToAmount />
+        <PaidToAmount title="Оплачено в"  />
+        <PaidToAmount title="Остаток за неделю" />
+        <PaidToAmount title="Остаток за месяц" />
+      </div>
+      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
+        <PaidToAmount title="Остаток за день"  />
+        <PaidToAmount title="Остаток за неделю" />
+        <PaidToAmount title="Остаток за месяц" />
       </div>
       <div className="flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center">
         <DailyRevenue dayFinanceData={dayFinanceData} />
@@ -31,9 +36,9 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
           <TotalRevenuePie />
         </div>
       </div>
-
+ 
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-        <WeaklyStatistics weekFinanceData={weekFinanceData} />
+        <WeaklyStatistics weekFinanceData={weekFinanceData} width="30%" />
         <OverallRevenueChart />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">

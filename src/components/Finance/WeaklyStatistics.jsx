@@ -4,9 +4,10 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsChatLeft } from 'react-icons/bs';
 
-const WeaklyStatistics = (weekFinanceData) => {
+const WeaklyStatistics = ({ weekFinanceData, title, width }) => {
     const { currentColor, currentMode } = useStateContext();
-    const data = weekFinanceData.weekFinanceData;
+
+    const data = weekFinanceData;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const avgCheck = 0;
 
@@ -24,6 +25,7 @@ const WeaklyStatistics = (weekFinanceData) => {
 
     const weeklyStats = [
         {
+            id: 1,
             icon: <FiShoppingCart />,
             amount:  "XXX",
             // `${data.bestSale.OPPORTUNITY && Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
@@ -34,6 +36,7 @@ const WeaklyStatistics = (weekFinanceData) => {
             pcColor: 'green-600',
         },
         {
+            id: 2,
             icon: <FiStar />,
             amount: `${data.bestWorker.salesCount} продаж`,
             title: 'Топ продаж',
@@ -42,6 +45,7 @@ const WeaklyStatistics = (weekFinanceData) => {
             pcColor: 'green-600',
         },
         {
+            id: 3,
             icon: <FiStar />,
             amount: `${data.bestWorker.totalSales} тг`,
             title: 'Топ прибыль',
@@ -50,6 +54,7 @@ const WeaklyStatistics = (weekFinanceData) => {
             pcColor: 'green-600',
         },
         {
+            id: 4,
             icon: <BsChatLeft />,
             amount: `${data.bestDay.y ? data.bestDay.y : 0} тг`,
             title: 'Лучший день',
@@ -58,6 +63,7 @@ const WeaklyStatistics = (weekFinanceData) => {
             pcColor: 'green-600',
         },
         {
+            id: 5,
             icon: <BsChatLeft />,
             amount: `${data.bestDay.y ? data.bestDay.y : 0} тг`,
             title: 'Топ конверсия',
@@ -66,6 +72,7 @@ const WeaklyStatistics = (weekFinanceData) => {
             pcColor: 'green-600',
         },
         {
+            id: 6,
             icon: <BsChatLeft />,
             amount: `${bestAvgCheckWorker.avgCheck ? bestAvgCheckWorker.avgCheck : 0} тг`,
             title: 'Топ средний чек',
@@ -76,11 +83,11 @@ const WeaklyStatistics = (weekFinanceData) => {
     ];
 
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
+        <div className={`bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[${width}] rounded-2xl subtle-border`}>
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                 <div className="flex justify-between">
-                    <p className="text-xl font-semibold">Недельная статистика</p>
+                    <p className="text-xl font-semibold">{title}</p>
                     <button type="button" className="text-xl font-semibold text-gray-500">
                     <IoIosMore />
                     </button>
@@ -88,7 +95,7 @@ const WeaklyStatistics = (weekFinanceData) => {
 
                 <div className="mt-2">
                     {weeklyStats.map((item) => (
-                    <div key={item.title} className="flex justify-between mt-4 w-full">
+                    <div key={item.id} className="flex justify-between mt-4 w-full">
                         <div className="flex gap-4">
                         <button
                             type="button"
@@ -106,9 +113,6 @@ const WeaklyStatistics = (weekFinanceData) => {
                         <p className={`text-${item.pcColor}`}>{item.amount}</p>
                     </div>
                     ))}
-                    {/* <div className="mt-4">
-                    <SparkLine currentColor={currentColor} id="area-sparkLine" height="160px" type="Area" data={SparklineAreaData}  color="rgb(242, 252, 253)" />
-                    </div> */}
                 </div>
                 </div>
             </div>
@@ -117,3 +121,7 @@ const WeaklyStatistics = (weekFinanceData) => {
 }
 
 export default WeaklyStatistics
+
+{/* <div className="mt-4">
+                    <SparkLine currentColor={currentColor} id="area-sparkLine" height="160px" type="Area" data={SparklineAreaData}  color="rgb(242, 252, 253)" />
+                    </div> */}
