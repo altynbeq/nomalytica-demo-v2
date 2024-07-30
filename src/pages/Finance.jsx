@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { dropdownData } from '../data/ecomData';
 import { useStateContext } from '../contexts/ContextProvider';
-import { MonthStatistics, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
+import { MonthStatistics, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -10,25 +10,10 @@ import { MonthStatistics, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart
 //   </div>
 // );
 
-const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
+const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C}) => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
-
   return (
     <div className="mt-12 flex flex-col  justify-center">
-      <div className="flex mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center ">
-          <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
-          <WeekRevenueStats weekFinanceData={weekFinanceData} />
-      </div>
-      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
-        <PaidToAmount title="Оплачено в"  />
-        <PaidToAmount title="Остаток за неделю" />
-        <PaidToAmount title="Остаток за месяц" />
-      </div>
-      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
-        <PaidToAmount title="Остаток за день"  />
-        <PaidToAmount title="Остаток за неделю" />
-        <PaidToAmount title="Остаток за месяц" />
-      </div>
       <div className="flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center">
         <DailyRevenue dayFinanceData={dayFinanceData} />
         <div className=' flex justify-center align-center flex-col  w-[100%] md:w-[30%]'>
@@ -36,7 +21,20 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData}) => {
           <TotalRevenuePie />
         </div>
       </div>
- 
+      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
+        <PaidToAmount id="PaidToDay" sales1C={sales1C.sales1CDay} title="Остаток за день"  />
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} title="Остаток за неделю" />
+        <PaidToAmount id="PaidToMonth" sales1C={sales1C.sales1CMonth} title="Остаток за месяц" />
+      </div>
+      <div className='flex mt-5 w-[100%] align-center  gap-4 flex-wrap md:flex-row  justify-center'>
+        <KassaKKMPie id="KKMDay" sales1C={sales1C.sales1CDay} title="Фискальный регистратор (день)"   />
+        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)"  />
+        <KassaKKMPie id="KKMMonth" sales1C={sales1C.sales1CMonth} title="Фискальный регистратор (месяц)"  />
+      </div>
+      <div className="flex mt-8  flex-wrap lg:flex-nowrap gap-5 justify-center ">
+          <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
+          <WeekRevenueStats weekFinanceData={weekFinanceData} />
+      </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
         <WeaklyStatistics weekFinanceData={weekFinanceData} />
         <OverallRevenueChart />

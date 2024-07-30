@@ -47,9 +47,11 @@ const App = () => {
   const [ kkm1CWeek, setKKM1CWeek ] = useState([]);
   const [ kkm1CMonth, setKKM1CMonth ] = useState([]);
 
-  const [ sales1CDay, setSales1CDay ] = useState([]);
-  const [ sales1CWeek, setSales1CWeek ] = useState([]);
-  const [ sales1CMonth, setSales1CMonth ] = useState([]);
+  const [ sales1C, setSales1C ] = useState({
+    sales1CDay: {},
+    sales1CWeek: {},
+    sales1CMonth: {}
+  });
 
   const [ salesProducts1CDay, setSalesProducts1CDay ] = useState([]);
   const [ salesProducts1CWeek, setSalesProducts1CWeek ] = useState([]);
@@ -149,17 +151,19 @@ const App = () => {
         // // // leadsDataMonth.date = monthDate;
 
 
-        // setKKM1CDay(kkmReceiptsDay);
-        // setKKM1CWeek(kkmReceiptsWeek);
-        // setKKM1CMonth(kkmReceiptsMonth);
+        setKKM1CDay(kkmReceiptsDay);
+        setKKM1CWeek(kkmReceiptsWeek);
+        setKKM1CMonth(kkmReceiptsMonth);
 
-        // setSales1CDay(salesReceiptsDay);
-        // setSales1CWeek(salesReceiptsWeek);
-        // setSales1CMonth(salesReceiptsMonth);
+        setSales1C({
+          sales1CDay: salesReceiptsDay,
+          sales1CWeek: salesReceiptsWeek,
+          sales1CMonth: salesReceiptsMonth
+        });
 
-        // setSalesProducts1CDay(salesProductsDay);
-        // setSalesProducts1CWeek(salesProductsWeek);
-        // setSalesProducts1CMonth(salesProductsMonth);
+        setSalesProducts1CDay(salesProductsDay);
+        setSalesProducts1CWeek(salesProductsWeek);
+        setSalesProducts1CMonth(salesProductsMonth);
 
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
@@ -225,7 +229,8 @@ const App = () => {
                       <Finance 
                         weekFinanceData={weekFinanceData} 
                         dayFinanceData={dayFinanceData} 
-                        monthFinanceData={monthFinanceData} 
+                        monthFinanceData={monthFinanceData}
+                        sales1C={sales1C}
                       />)} 
                   />
                   <Route path="/sales" element={(
