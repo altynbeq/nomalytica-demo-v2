@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Pie } from '../../components';
 import { Skeleton } from '../../components';
 
-const PaidToAmount = ({id, title, sales1C }) => {
+const PaidToAmountCheck = ({id, title, sales1C }) => {
 
   const [ ready, setReady ] = useState(false);
   const [ pieSeries, setSeries ] = useState([]);
@@ -38,16 +38,16 @@ const PaidToAmount = ({id, title, sales1C }) => {
   }
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[43%]  p-4  flex flex-col justify-center items-center  subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[43%]  py-4  flex flex-col justify-center items-center  subtle-border">
         <div className='text-center'>
             <p className="text-2xl font-semibold ">{title}</p>
             <p className="text-gray-400 text-2xl">{formattedTotalSum} тг</p>
         </div>
         <div className="w-100">
-          <Pie id={id} data={pieSeries} legendVisiblity={true} height="180px" />
+            <Pie id={id} data={pieSeries} legendVisiblity={true} height="220px" />
         </div>
     </div>
   )
 }
 
-export default PaidToAmount
+export default PaidToAmountCheck

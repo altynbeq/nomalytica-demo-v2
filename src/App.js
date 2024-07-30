@@ -43,20 +43,23 @@ const App = () => {
 
 
   //sales KKM Receipts 
-  const [ kkm1CDay, setKKM1CDay ] = useState([]);
-  const [ kkm1CWeek, setKKM1CWeek ] = useState([]);
-  const [ kkm1CMonth, setKKM1CMonth ] = useState([]);
-
+  const [ kkm, setKkm ] = useState({
+    kkmDay: {},
+    kkmWeek: {},
+    kkmMonth: {}
+  })
   const [ sales1C, setSales1C ] = useState({
     sales1CDay: {},
     sales1CWeek: {},
     sales1CMonth: {}
   });
 
-  const [ salesProducts1CDay, setSalesProducts1CDay ] = useState([]);
-  const [ salesProducts1CWeek, setSalesProducts1CWeek ] = useState([]);
-  const [ salesProducts1CMonth, setSalesProducts1CMonth ] = useState([]);
-
+  const [ products1C, setProducts1C ] = useState({
+    products1CDay: {},
+    products1CWeek: {},
+    products1CMonth: {},
+  });
+  
   useEffect(() => {
     async function collector() {
       setLoading(true); // Start by setting loading to true
@@ -150,10 +153,11 @@ const App = () => {
         // // // leadsDataWeek.date = weekDate;
         // // // leadsDataMonth.date = monthDate;
 
-
-        setKKM1CDay(kkmReceiptsDay);
-        setKKM1CWeek(kkmReceiptsWeek);
-        setKKM1CMonth(kkmReceiptsMonth);
+        setKkm({
+          kkmDay: kkmReceiptsDay,
+          kkmWeek: kkmReceiptsWeek,
+          kkmMonth: kkmReceiptsMonth
+        })
 
         setSales1C({
           sales1CDay: salesReceiptsDay,
@@ -161,9 +165,11 @@ const App = () => {
           sales1CMonth: salesReceiptsMonth
         });
 
-        setSalesProducts1CDay(salesProductsDay);
-        setSalesProducts1CWeek(salesProductsWeek);
-        setSalesProducts1CMonth(salesProductsMonth);
+        setProducts1C({
+          products1CDay: salesProductsDay,
+          products1CWeek: salesProductsWeek,
+          products1CMonth: salesProductsMonth,
+        });
 
       } catch (error) {
         console.error('Error during data fetching and processing:', error);

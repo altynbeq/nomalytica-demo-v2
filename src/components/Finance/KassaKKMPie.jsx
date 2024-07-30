@@ -38,21 +38,14 @@ const KassaKKMPie = ({id, title, sales1C}) => {
       <Skeleton />
     )
   }
-
-  // const ecomPieChartData = [
-  //   { x: '2018', y: 30, text: '30%' },
-  //   { x: '2019', y: 30, text: '30%' },
-  //   { x: '2020', y: 30, text: '30%' },
-    
-  // ];
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[28%]  p-4  flex flex-col justify-center items-center  subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[43%]  p-4  flex flex-col justify-center items-center  subtle-border">
         <div className='text-center'>
             <p className="text-2xl font-semibold ">{title}</p>
             <p className="text-gray-400 text-2xl">{formattedTotalSum} тг</p>
         </div>
 
-        <div className="w-60">
+        <div className="w-100">
           <Pie id={id} data={pieSeries} legendVisiblity={true} height="180px" />
         </div>
     </div>

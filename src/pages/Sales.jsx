@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
 
-import { DailySalesStats, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart } from '../components/Sales';
+import { DailySalesStats, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
 import { FirstRowStats } from '../components/General';
 import { WeaklyStatistics } from '../components/Finance';
 
 const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData, weekLeadsData}) => {
     const { currentColor, currentMode,setActiveMenu } = useStateContext(); 
     return (
-        <div className='mt-12 flex flex-col  justify-center '>
+        <div className='mt-12 flex flex-col gap-6  justify-center '>
              <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
                 <DailySalesStats dayFinanceData={dayFinanceData} dayLeadsData={dayLeadsData} />
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Дневная статистика" width="30%" />
+                <WeeklyStats weekFinanceData={weekFinanceData} title="Дневная статистика"  />
             </div>
             <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
                 <FirstRowStats />
             </div>
-            <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem] mb-5  items-center">
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Недельная статистика" />
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Месячная статистика" />
+            <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem]   items-center">
+                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Недельная статистика"  />
+                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Дневная статистика"  />
                 <WeaklyStatistics weekFinanceData={weekFinanceData} title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">

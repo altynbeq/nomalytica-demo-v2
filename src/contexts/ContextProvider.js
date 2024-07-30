@@ -23,7 +23,6 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem('themeMode', e.target.value);
   };
   
-
   useEffect(() => {
     const logCheck = localStorage.getItem('nomalyticsTokenAuth');
     if (logCheck) {
