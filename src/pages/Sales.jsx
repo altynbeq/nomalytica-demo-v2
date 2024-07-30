@@ -17,9 +17,9 @@ const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData,
                 <FirstRowStats />
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem] mb-5  items-center">
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Недельная статистика" width="28%" />
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Месячная статистика"  width="28%" />
-                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Товарная статистика"  width="28%" />
+                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Недельная статистика" />
+                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Месячная статистика" />
+                <WeaklyStatistics weekFinanceData={weekFinanceData} title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <WeaklyTotalSalesChart weekFinanceData={weekFinanceData} weekLeadsData={weekLeadsData} />

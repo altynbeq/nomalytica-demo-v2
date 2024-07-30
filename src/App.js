@@ -105,20 +105,20 @@ const App = () => {
           getSalesReceipts(dateMonth),
         ]);
 
-        // if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
-        //   throw new Error('Failed to fetch data at deals');
-        // } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
-        //   throw new Error('Failed to fetch data at leads');
-        // } 
-        // else if(!salesReceiptsDay){
-        //   throw new Error('Failed to fetch data at data from 1C');
-        // } else if(!kkmReceiptsDay){
-        //   throw new Error('Failed to fetch data at data from 1C');
-        // }
+        if (!dealsDataDay || !dealsDataWeek || !dealDataMonth) {
+          throw new Error('Failed to fetch data at deals');
+        } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
+          throw new Error('Failed to fetch data at leads');
+        } 
+        else if(!salesReceiptsDay){
+          throw new Error('Failed to fetch data at data from 1C');
+        } else if(!kkmReceiptsDay){
+          throw new Error('Failed to fetch data at data from 1C');
+        }
         
-        // formedDataDay.date = dayDate;
-        // formedDataWeek.date = weekDate;
-        // formedDataMonth.date = monthDate;
+        formedDataDay.date = dayDate;
+        formedDataWeek.date = weekDate;
+        formedDataMonth.date = monthDate;
         
         setDayDealsData(dealsDataDay);
         setWeekDealsData(dealsDataWeek);
