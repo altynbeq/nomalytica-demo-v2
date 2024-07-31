@@ -34,7 +34,7 @@ const WeekRevenueStats = (weekFinanceData) => {
                     <p className="text-gray-500 mt-1">Прибыль</p>
                 </div>
               </div>
-              <div className=" gap-5  flex flex-row justify-between">
+              <div className=" gap-2 text-center align-center  flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
                     <p className="text-2xl md:text-3xl font-semibold">{data.leadsCount}</p>
                     <p className="text-gray-500 mt-1">Покупок</p>

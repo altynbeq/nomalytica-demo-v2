@@ -13,7 +13,7 @@ const DropDown = ({ currentMode }) => (
 const ThirdRowLineChart = () => {
     const { currentColor, currentMode } = useStateContext();
     return (
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-[90%] md:w-[50%] subtle-border">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-[90%] md:w-[60%] subtle-border">
             <div className="flex justify-between items-center gap-2 mb-10">
                 <p className="text-xl font-semibold">Обзор продаж</p>
                 <DropDown currentMode={currentMode} />

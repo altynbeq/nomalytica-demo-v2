@@ -28,8 +28,8 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> Altynbek </p>
-          <p className="text-gray-500 text-sm dark:text-gray-400">  CEO   </p>
+          <p className="font-semibold text-xl dark:text-gray-200"> Romantic </p>
+          <p className="text-gray-500 text-sm dark:text-gray-400">  Zhez   </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> alt.quat@gmail.com </p>
         </div>
       </div>

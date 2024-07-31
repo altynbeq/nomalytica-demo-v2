@@ -14,7 +14,7 @@ const DropDown = ({ currentMode }) => (
 const ThirdRowTransList = () => {
     const { currentColor, currentMode } = useStateContext();
     return (
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 w-[90%] md:w-[35%]  rounded-2xl subtle-border">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 w-[90%] md:w-[30%]  rounded-2xl subtle-border">
           <div className="flex justify-between items-center gap-2">
             <p className="text-xl font-semibold">Последние транзакции</p>
             <DropDown currentMode={currentMode} />

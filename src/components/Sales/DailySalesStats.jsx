@@ -7,7 +7,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
     const { currentColor, currentMode } = useStateContext();
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[55%] justify-between rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[60%] justify-between rounded-2xl subtle-border">
         
         <div className="flex justify-between">
             <p className="font-semibold text-xl">Доходы за день</p>
@@ -21,7 +21,7 @@ const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
             </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-10  justify-center">
+        <div className="flex flex-col lg:flex-row   justify-center">
             <div className="flex flex-col justify-left gap-8  text-left md:border-r-1 border-color m-8 md:pr-10">
                 <div className='flex justify-center flex-col text-center'>
                     <p>
@@ -46,10 +46,7 @@ const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
                         </p>
                         <p className="text-gray-500 mt-1">Лидов</p>
                     </div>
-                    <div className='flex justify-center flex-col text-center'>
-                        <p className="md:text-2xl font-semibold">37%</p>
-                        <p className="text-gray-500 mt-1">Конверсия</p>
-                    </div>
+                    
                 </div>
                 <div className='flex flex-row gap-4'>
                     <div className='flex justify-center flex-col text-center'>
