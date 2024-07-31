@@ -25,7 +25,7 @@ const Sales = ({dayFinanceData, dayLeadsData, monthFinanceData, weekFinanceData,
                 <WeaklyTotalSalesChart weekFinanceData={weekFinanceData} weekLeadsData={weekLeadsData} />
                 <MonthlyTotalSalesChart monthFinanceData={monthFinanceData} />
             </div>
-            <div className="flex mt-5 align-center justify-center gap-[1.5rem] w-[100%] items-center">
+            <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />
                 <WeeklyStats weekFinanceData={weekFinanceData} title="Годовая статистика" />
             </div>
