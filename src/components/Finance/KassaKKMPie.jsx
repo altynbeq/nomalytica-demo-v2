@@ -10,6 +10,9 @@ const KassaKKMPie = ({id, title, sales1C}) => {
   const formattedTotalSum =  new Intl.NumberFormat().format(Math.round(sales1C.totalSum)) ;
 
   useEffect(()=>{
+    if (!sales1C || !sales1C.paidTo) {
+      return;
+    }
     const kassaKKMData = sales1C.KassaKKMName;
     const total = Math.round(sales1C.totalSum) // Assuming total is directly available in sales1C
 

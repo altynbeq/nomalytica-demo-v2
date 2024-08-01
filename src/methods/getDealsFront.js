@@ -4,7 +4,7 @@ export async function fetchDealsFront(date){
     let allDeals = [];
     let start = 0;
     const batchSize = 50; // Number of items to fetch per request
-  
+    
     try {
       while (true) {
         const response = await fetch(webhookUrl, {

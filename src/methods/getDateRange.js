@@ -35,7 +35,7 @@ export function getDateRange(option) {
     endDate = endOfDay;
     bitrixStartDate = bitrixStartOfDay;
     bitrixEndDate = bitrixEndOfDay;
-    dateType = 'today';
+    dateType = 'week';
   } else if (option === "week") {
     const firstDayOfWeek = new Date(now);
     firstDayOfWeek.setDate(now.getDate() - day + (day === 0 ? -6 : 1)); // Adjust when day is Sunday (0)

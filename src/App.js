@@ -41,7 +41,7 @@ const App = () => {
   const [ weekLeadsData, setWeekLeadsData ] = useState([]);
   const [ monthLeadsData, setMonthLeadsData ] = useState([]);
 
-
+  
   //sales KKM Receipts 
   const [ kkm, setKkm ] = useState({
     kkmDay: {},
@@ -76,14 +76,16 @@ const App = () => {
         const dateMonth = getDateRange('month');
         const dateYear = getDateRange('year');
 
-        const [
-          dealsDataDay,
-          dealsDataWeek,
-          dealsDataMonth,
+        console.log("dateMonth:",dateMonth)
 
-          leadsDataDay,
-          leadsDataWeek,
-          leadsDataMonth,
+        const [
+          // dealsDataDay,
+          // dealsDataWeek,
+          // dealsDataMonth,
+
+          // leadsDataDay,
+          // leadsDataWeek,
+          // leadsDataMonth,
 
           kkmReceiptsDay,
           kkmReceiptsWeek,
@@ -97,13 +99,20 @@ const App = () => {
           salesReceiptsWeek,
           salesReceiptsMonth,
         ] = await Promise.all([
-          fetchDealsFront(dateWeek),
-          fetchDealsFront(dateWeek),
-          fetchDealsFront(dateMonth),
+          // fetchDealsFront(dateWeek),
+          // fetchDealsFront(dateWeek),
+          // fetchDealsFront(dateMonth),
+          // fetchDeals(dateDay),
+          // fetchDeals(dateWeek),
+          // fetchDeals(dateMonth),
 
-          fetchLeadsFront(dateDay),
-          fetchLeadsFront(dateWeek),
-          fetchLeadsFront(dateMonth),
+          // // fetchLeadsFront(dateDay),
+          // // fetchLeadsFront(dateWeek),
+          // // fetchLeadsFront(dateMonth),
+
+          // fetchLeads(dateDay),
+          // fetchLeads(dateWeek),
+          // fetchLeads(dateMonth),
 
           getKKMReceipts(dateDay),
           getKKMReceipts(dateWeek),
@@ -118,11 +127,11 @@ const App = () => {
           getSalesReceipts(dateMonth),
         ]);
 
-        if (!dealsDataDay || !dealsDataWeek || !dealsDataMonth) {
-          throw new Error('Failed to fetch data at deals');
-        } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
-          throw new Error('Failed to fetch data at leads');
-        } 
+        // if (!dealsDataDay || !dealsDataWeek || !dealsDataMonth) {
+        //   throw new Error('Failed to fetch data at deals');
+        // } else if(!leadsDataDay || !leadsDataWeek || !leadsDataMonth){
+        //   throw new Error('Failed to fetch data at leads');
+        // } 
         // else if(!salesReceiptsDay){
         //   throw new Error('Failed to fetch data at data from 1C');
         // } else if(!kkmReceiptsDay){
@@ -133,22 +142,30 @@ const App = () => {
         // formedDataWeek.date = weekDate;
         // formedDataMonth.date = monthDate;
         
-        const formedDealsDay = dealsDataCollector(dealsDataDay);
-        const formedDealsWeek = dealsDataCollector(dealsDataWeek);
-        const formedDealsMonth = monthDealsDataCollector(dealsDataMonth);
+        // const formedDealsDay = dealsDataCollector(dealsDataDay);
+        // const formedDealsWeek = dealsDataCollector(dealsDataWeek);
+        // const formedDealsMonth = monthDealsDataCollector(dealsDataMonth);
 
-        setDayDealsData(formedDealsDay);
-        setWeekDealsData(formedDealsWeek);
-        setMonthDealsData(formedDealsMonth);
+        // setDayDealsData(formedDealsDay);
+        // setWeekDealsData(formedDealsWeek);
+        // setMonthDealsData(formedDealsMonth);
 
-        const formedLeadsDay = weekDataSalesFormer(leadsDataDay);
-        const formedLeadsWeek = weekDataSalesFormer(leadsDataWeek);
-        const formedLeadsMonth = monthDataSalesFormer(leadsDataMonth);
+        // default empty value while bitrix isn't working
+        setDayDealsData([]);
+        setWeekDealsData([]);
+        setMonthDealsData([]);
 
-        setDayLeadsData(formedLeadsDay);
-        setWeekLeadsData(formedLeadsWeek);
-        setMonthLeadsData(formedLeadsMonth);
+        // const formedLeadsDay = weekDataSalesFormer(leadsDataDay);
+        // const formedLeadsWeek = weekDataSalesFormer(leadsDataWeek);
+        // const formedLeadsMonth = monthDataSalesFormer(leadsDataMonth);
 
+        // setDayLeadsData(formedLeadsDay);
+        // setWeekLeadsData(formedLeadsWeek);
+        // setMonthLeadsData(formedLeadsMonth);
+
+        setDayLeadsData([]);
+        setWeekLeadsData([]);
+        setMonthLeadsData([]);
         // // // leadsDataDay.date = dayDate,
         // // // leadsDataWeek.date = weekDate;
         // // // leadsDataMonth.date = monthDate;
@@ -237,6 +254,7 @@ const App = () => {
                         dayFinanceData={dayFinanceData} 
                         monthFinanceData={monthFinanceData}
                         sales1C={sales1C}
+                        products1C={products1C}
                       />)} 
                   />
                   <Route path="/sales" element={(
@@ -246,6 +264,9 @@ const App = () => {
                         monthFinanceData={monthFinanceData}
                         weekLeadsData={weekLeadsData} 
                         dayLeadsData={dayLeadsData}  
+                        sales1C={sales1C}
+                        kkm={kkm}
+                        products1C={products1C}
                       />)} 
                   />
                   <Route path="/workers" element={(<Workers />)} />

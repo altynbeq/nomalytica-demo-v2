@@ -12,7 +12,7 @@ const Doughnut = ({ id, data, legendVisiblity, height, width, title}) => {
       <ChartsHeader title={title}  />
       <AccumulationChartComponent
         id={id}
-        legendSettings={{ visible: legendVisiblity,  background: "white", alignment: 'Center', enableHighlight: legendVisiblity}}
+        legendSettings={{ visible: legendVisiblity,  background: "white", alignment: 'Center',  enableHighlight: legendVisiblity}}
         height={height}
         width={width}
         background={currentMode === 'Dark' ? '#33373E' : '#fff'}

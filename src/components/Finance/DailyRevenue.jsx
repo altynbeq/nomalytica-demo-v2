@@ -1,13 +1,49 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Button, Pie } from '../../components';
 import { revenueTypesData, weakylRevenue, lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis }  from '../../data/financeData'
-
+import { Skeleton } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const DailyRevenue = (dayFinanceData) => {
+const DailyRevenue = ({dayFinanceData, sales1C}) => {
+  const [ pieSeries, setSeries ] = useState([]);
+  const [ ready, setReady ] = useState(false);
+
   const { currentColor, currentMode } = useStateContext();
-  const data = dayFinanceData.dayFinanceData;
+
+  const data = dayFinanceData;
+  const totalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+  const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
+
+  useEffect(()=>{
+    if (!sales1C || !sales1C.paidTo) {
+      return;
+    }
+   
+    const { paidTo } = sales1C;
+    const total = sales1C.totalSum; // Assuming total is directly available in sales1C
+
+    function seriesCollector() {
+      const seriesData = Object.entries(paidTo).map(([key, value]) => {
+        const roundedValue = Math.round(value);
+        const percentage = ((value / total) * 100).toFixed(2) + '%';
+        return {
+          x: key,
+          y: roundedValue,
+          text: percentage
+        };
+      });
+
+      setSeries(seriesData);
+    }
+
+    seriesCollector();
+    setReady(true);
+  }, [])
+
+  if(!ready){
+    return <Skeleton />
+  }
 
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center align-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
@@ -23,14 +59,14 @@ const DailyRevenue = (dayFinanceData) => {
             </div>
           </div>
           
-          <div className="mt-10 flex gap-10 flex-col md:flex-row w-fit justify-center">
+          <div className="mt-10 flex gap-4 flex-col md:flex-row w-[100%] justify-center">
 
-            <div className=" md:border-r-1 border-color m-4 md:pr-10">
+            <div className="w-[40%] md:border-r-1 border-color m-4 md:pr-10">
               
               <div>
                 <div className='flex justify-center flex-col text-center'>
                     <p>
-                        <span className="text-2xl font-semibold">{data.totalSum} тг</span>
+                        <span className="text-2xl font-semibold">{totalSum} тг</span>
                         <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
                             23%
                         </span>
@@ -40,7 +76,7 @@ const DailyRevenue = (dayFinanceData) => {
               </div>
               <div className="mt-8 gap-7 flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">{data.leadsCount}</p>
+                    <p className="text-2xl font-semibold">{sales1C.totalNumberSales}</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
@@ -56,7 +92,7 @@ const DailyRevenue = (dayFinanceData) => {
                 <div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="text-2xl font-semibold">{data.avgCheck} тг</span>
+                            <span className="text-2xl font-semibold">{avgCheck} тг</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>
@@ -75,42 +111,9 @@ const DailyRevenue = (dayFinanceData) => {
               </div>
             </div>
 
-            <div className='my-auto lg:m-0'> 
-                <div className='flex align-center justify-center'>
-                    <h2>Способы оплат</h2>
-                </div>
-                
-              <Pie id="pie-money-flow" data={revenueTypesData} legendVisiblity={false} height="200px"  />
-              <div className='flex flex-row justify-between gap-8'>
-                <div className=''>
-                    <p className="flex items-center gap-2 text-pink-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Kaspi QR</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-blue-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Halyk QR</span>
-                    </p>
-                </div>
-                <div className=''>
-                    <p className="flex items-center gap-2 text-cyan-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Наличные</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Kaspi QR</span>
-                    </p>
-                </div>
-              </div>
+            <div className='w-[60%] flex text-center flex-col align-center justify-center'> 
+                <h2>Способы оплат</h2>
+                  <Pie id="pie-money-flow" data={pieSeries} legendVisiblity={true} height="200px"  />
             </div>
           </div>
         </div>

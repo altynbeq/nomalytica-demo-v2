@@ -1,117 +1,126 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Button, Pie } from '../../components';
-import { revenueTypesData, weakylRevenue, lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis }  from '../../data/financeData'
+// import { revenueTypesData, weakylRevenue, lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis }  from '../../data/financeData'
 import { useStateContext } from '../../contexts/ContextProvider';
+import { Skeleton } from '@mui/material';
+import { read } from 'xlsx';
 
-const DailySalesStats = ({dayFinanceData, dayLeadsData}) => {
+const DailySalesStats = ({dayFinanceData, dayLeadsData, sales1C, products1C}) => {
     const { currentColor, currentMode } = useStateContext();
-  return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[60%] justify-between rounded-2xl subtle-border">
-        
-        <div className="flex justify-between">
-            <p className="font-semibold text-xl">Доходы за день</p>
-            <div className="flex items-center gap-4">
-                <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                    <span>
-                    <GoPrimitiveDot />
-                    </span>
-                    <span>24 Мая 2024</span>
-                </p>
-            </div>
-        </div>
+    const totalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+    const [ pieSeries, setSeries ] = useState([]);
+    const [ ready, setReady ] = useState(false);
+    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
 
-        <div className="flex flex-col lg:flex-row   justify-center">
-            <div className="flex flex-col justify-left gap-8  text-left md:border-r-1 border-color m-8 md:pr-10">
-                <div className='flex justify-center flex-col text-center'>
-                    <p>
-                        <span className="md:text-2xl  font-semibold">{dayFinanceData.leadsCount}</span>
-                        <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
-                            36% 
+    useEffect(()=>{
+        if (!sales1C || !sales1C.paidTo) {
+          return;
+        }
+       
+        const { paidTo } = sales1C;
+        const total = sales1C.totalSum; // Assuming total is directly available in sales1C
+    
+        function seriesCollector() {
+          const seriesData = Object.entries(paidTo).map(([key, value]) => {
+            const roundedValue = Math.round(value);
+            const percentage = ((value / total) * 100).toFixed(2) + '%';
+            return {
+              x: key,
+              y: roundedValue,
+              text: percentage
+            };
+          });
+    
+          setSeries(seriesData);
+        }
+    
+        seriesCollector();
+        setReady(true);
+      }, [])
+
+    if(!ready){ return <Skeleton /> }
+
+    return (
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[60%] justify-between rounded-2xl subtle-border">
+            
+            <div className="flex justify-between">
+                <p className="font-semibold text-xl">Продажи за день</p>
+                <div className="flex items-center gap-4">
+                    <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
+                        <span>
+                        <GoPrimitiveDot />
                         </span>
+                        <span>24 Мая 2024</span>
                     </p>
-                    <p className="text-gray-500 mt-1">Продаж</p>
-                </div>
-                <div className=" gap-7 flex flex-row justify-between">
-                    <div className='flex justify-center flex-col text-center'>
-                        <p className="md:text-2xl font-semibold">37%</p>
-                        <p className="text-gray-500 mt-1">Конверсия</p>
-                    </div>
-                    <div className='flex justify-center flex-col text-center'>
-                        <p>
-                            <span className="md:text-2xl  font-semibold">{dayLeadsData.leadsCount}</span>
-                            <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
-                                7%
-                            </span>
-                        </p>
-                        <p className="text-gray-500 mt-1">Лидов</p>
-                    </div>
-                    
-                </div>
-                <div className='flex flex-row gap-4'>
-                    <div className='flex justify-center flex-col text-center'>
-                        <p>
-                            <span className="md:text-2xl font-semibold">{dayFinanceData.totalSum}</span>
-                            <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
-                                7%
-                            </span>
-                        </p>
-                        <p className="text-gray-500 mt-1">Выручка</p>
-                    </div>
-                    <div className='flex justify-center flex-col text-center'>
-                        <p>
-                            <span className="md:text-2xl font-semibold">{dayFinanceData.totalSum}</span>
-                            <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
-                                7%
-                            </span>
-                        </p>
-                        <p className="text-gray-500 mt-1">Выручка</p>
-                    </div>
-                </div>
-                
-                
-                <div className="mt-10 flex justify-center">
-                    <Button
-                    color="white"
-                    bgColor={currentColor}
-                    text="Скачать отчет"
-                    borderRadius="10px"
-                    />
                 </div>
             </div>
-                
-            <div className="m-auto flex flex-col justify-center align-center lg:m-0">
-                <div className='flex justify-center text-center flex-col'>
-                    <h2>Способы оплат</h2>
+
+            <div className="flex w-[100%] flex-col lg:flex-row   justify-center">
+                <div className="w-[40%] md:border-r-1 border-color m-4 md:pr-10">
+                    <div className='flex justify-center flex-col text-center'>
+                        <p>
+                            <span className="text-2xl font-semibold">{totalSum} тг</span>
+                            <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
+                                23%
+                            </span>
+                        </p>
+                        <p className="text-gray-500 mt-1">Прибыль</p>
+                    </div>
+                    <div className="mt-8 gap-7 flex flex-row justify-between">
+                        <div className='flex justify-center flex-col text-center'>
+                            <p className="text-2xl font-semibold">{sales1C.totalNumberSales}</p>
+                            <p className="text-gray-500 mt-1">Покупок</p>
+                        </div>
+                        <div className='flex justify-center flex-col text-center'>
+                            <p className="text-2xl font-semibold">?</p>
+                            <p className="text-gray-500 mt-1">Скидок</p>
+                        </div>
+                        <div className='flex justify-center flex-col text-center'>
+                            <p className="text-2xl font-semibold">?</p>
+                            <p className="text-gray-500 mt-1">Cписание</p>
+                        </div>
+                    </div>
+                    <div className="mt-8 gap-7 flex flex-row justify-center">
+                        <div className='flex justify-center flex-col text-center'>
+                            <p className="text-2xl font-semibold">{numberOfItemsSold}</p>
+                            <p className="text-gray-500 mt-1">Товары</p>
+                        </div>
+                        <div className='flex justify-center flex-col text-center'>
+                            <p className="text-2xl font-semibold">???</p>
+                            <p className="text-gray-500 mt-1">Количество товаров</p>
+                        </div>
+                    </div>
+                    <div className="mt-8">
+                        <div>
+                            <div className='flex justify-center flex-col text-center'>
+                                <p>
+                                    <span className="text-2xl font-semibold">? тг</span>
+                                    <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
+                                        7%
+                                    </span>
+                                </p>
+                            <p className="text-gray-500 mt-1">Средний чек</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-8 flex justify-center">
+                        <Button
+                        color="white"
+                        bgColor={currentColor}
+                        text="Скачать отчет"
+                        borderRadius="10px"
+                        />
+                    </div>
                 </div>
-                <div className='w-100'>
-                    <Pie id="pie-money-flow" data={dayLeadsData.leadsSourceSeries} legendVisiblity={false} height="200px" color="red"  />
-                </div>
-                
-                <div className='flex flex-row gap-2 justify-between'>
-                    <p className="flex items-center gap-2 text-cyan-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Intagram</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>WhatsApp</span>
-                    </p>
-                    <p className="flex items-center gap-2 text-blue-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
-                        <span>Другое</span>
-                    </p>
+                    
+                <div className="w-[60%] flex text-center flex-col align-center justify-center">
+                    <h2>Online/Offline</h2>
+                    <Pie id="pie-money-flow" data={pieSeries} legendVisiblity={true} height="200px" color="red"  />
                 </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default DailySalesStats

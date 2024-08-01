@@ -1,5 +1,9 @@
 export async function fetchDeals(date) {
-  const webhookUrl = `https://nomalytics-back.onrender.com/romantic_zhez_bitrix/deals/${date.dateType}-stats?start=${date.startDate}&end=${date.endDate}`
+  let webhookUrl = `https://nomalytics-back.onrender.com/romantic_zhez_bitrix/deals/${date.dateType}-stats?start=${date.bitrixStartDate}&end=${date.bitrixEndDate}`
+
+  if(date.dateType == "month"){
+    webhookUrl = `https://nomalytics-back.onrender.com/romantic_zhez_bitrix/deals/${date.dateType}-stats?start=${date.bitrixStartDate}&end=${date.bitrixEndDate}`
+  }
   
   try {
     const response = await fetch(webhookUrl, {
@@ -14,6 +18,7 @@ export async function fetchDeals(date) {
     }
 
     const data = await response.json();
+    console.log("DEALSDATA:", data)
     return data;
   } catch (error) {
     console.error('Error fetching deals:', error);

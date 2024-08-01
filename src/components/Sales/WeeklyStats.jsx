@@ -3,81 +3,70 @@ import { IoIosMore } from 'react-icons/io';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsChatLeft } from 'react-icons/bs';
+import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 
 const WeeklyStats = ({ weekFinanceData, title }) => {
     const { currentColor, currentMode } = useStateContext();
 
-    const data = weekFinanceData;
-    const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-    const avgCheck = 0;
+    // const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+    // const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
+    // const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
 
-    for (let workerId in data.workersStats) {
-        const { count, sales } = data.workersStats[workerId];
-        const avgCheck = sales / count;
-
-        if (avgCheck > bestAvgCheckWorker.avgCheck) {
-            bestAvgCheckWorker.id = workerId;
-            bestAvgCheckWorker.avgCheck = Math.round(avgCheck);
-            bestAvgCheckWorker.sales = sales;
-            bestAvgCheckWorker.count = count;
-        }
-    }
-
+    // const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
+   
+    
     const weeklyStats = [
         {
-            id: 1,
-            icon: <FiShoppingCart />,
-            amount:  "XXX",
-            // `${data.bestSale.OPPORTUNITY && Math.round(data.bestSale.OPPORTUNITY) > 0 ? Math.round(data.bestSale.OPPORTUNITY) : 0} тг`,
-            title: 'Топ сделка',
-            desc: "XXX",
-            // `Сотрудник ${data.bestSale.ASSIGNED_BY_ID ? data.bestSale.ASSIGNED_BY_ID : 'Пусто'}`,
-            iconBg: '#FB9678',
+            icon: <FaDollarSign />,
+            amount: 'XXX',
+            // newTotalSum + ' тг',
+            title: 'Выручка',
+            // desc: 'XX',
+            iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
-            id: 2,
-            icon: <FiStar />,
-            amount: `${data.bestWorker.salesCount} продаж`,
-            title: 'Топ продаж',
-            desc: `Сотрудник ${data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            icon: <FaMoneyBill />,
+            amount: 'XXX',
+            // avgCheck + ' тг',
+            title: 'Средний чек',
+            // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            iconBg: '#00C292',
+            pcColor: 'green-600',
+        },
+        {
+            icon: <FaMoneyBillAlt />,
+            amount: `? тг`,
+            title: 'Макс чек',
+            desc: `?`,
+            iconBg: '#00C292',
+            pcColor: 'green-600',
+        },
+        {
+            icon: <FaBox />,
+            amount: 'XXX',
+            // products1C.mostSoldItem.count,
+            title: 'Топ товар',
+            desc: 'XXX',
+            // products1C.mostSoldItem.name,
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
-            id: 3,
-            icon: <FiStar />,
-            amount: `${data.bestWorker.totalSales} тг`,
-            title: 'Топ прибыль',
-            desc: `Сотрудник ${data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            icon: <FaFilter />,
+            amount: 0,
+            title: 'Конверсия',
+            desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
-            id: 4,
-            icon: <BsChatLeft />,
-            amount: `${data.bestDay.y ? data.bestDay.y : 0} тг`,
-            title: 'Лучший день',
-            desc: `${data.bestDay.x ? data.bestDay.x : 'Пусто'}`,
-            iconBg: '#00C292',
-            pcColor: 'green-600',
-        },
-        {
-            id: 5,
-            icon: <BsChatLeft />,
-            amount: `${data.bestDay.y ? data.bestDay.y : 0} тг`,
-            title: 'Топ конверсия',
-            desc: `${data.bestDay.x ? data.bestDay.x : 'Пусто'}`,
-            iconBg: '#00C292',
-            pcColor: 'green-600',
-        },
-        {
-            id: 6,
-            icon: <BsChatLeft />,
-            amount: `${bestAvgCheckWorker.avgCheck ? bestAvgCheckWorker.avgCheck : 0} тг`,
-            title: 'Топ средний чек',
-            desc: `${bestAvgCheckWorker.id ? bestAvgCheckWorker.id : 'Пусто'}`,
-            iconBg: '#00C292',
+            icon: <FaChartBar />,
+            amount: 'XXX',
+            // numberOfItemsSold,
+            title: 'Продано товаров',
+            desc: 'DESCC',
+            iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
     ];

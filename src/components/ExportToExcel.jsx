@@ -10,6 +10,7 @@ const jsonData = [
 
 const ExportToExcel = () => {
   const handleExport = () => {
+    console.log("pressed");
     const worksheet = XLSX.utils.json_to_sheet(jsonData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");

@@ -10,37 +10,38 @@ import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyR
 //   </div>
 // );
 
-const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C}) => {
+const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, products1C}) => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
+  console.log(sales1C)
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
       <div className="flex mt-5 w-[100%] align-center gap-4 flex-wrap md:flex-row justify-center">
-        <DailyRevenue dayFinanceData={dayFinanceData} />
+        <DailyRevenue dayFinanceData={dayFinanceData} sales1C={sales1C.sales1CDay} />
         <div className=' flex justify-center align-center flex-col w-[100%] md:w-[30%]'>
           <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
           <TotalRevenuePie />
         </div>
       </div>
       <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-center ">
-          <RevenueByWeekStacked weekFinanceData={weekFinanceData} />
-          <WeekRevenueStats weekFinanceData={weekFinanceData} />
+          <RevenueByWeekStacked weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} />
+          <WeekRevenueStats weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} products1C={products1C.products1CWeek} />
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
-        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} title="Остаток за неделю"  />
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} title="Выручка за неделю"  />
         <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-          <MonthStatistics monthFinanceData={monthFinanceData} />
-          <MonthlyRevenueChart monthFinanceData={monthFinanceData} />
+          <MonthStatistics monthFinanceData={monthFinanceData} sales1C={sales1C.sales1CMonth} products1C={products1C.products1CMonth} />
+          <MonthlyRevenueChart monthFinanceData={monthFinanceData} sales1C={sales1C.sales1CMonth} />
       </div>
-      <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
-        <PaidToAmount id="PaidToMonth" sales1C={sales1C.sales1CDay} title="Остаток за день"  />
+       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
+        <PaidToAmount id="PaidToMonth" sales1C={sales1C.sales1CMonth} title="Выручка за месяц"  />
         <KassaKKMPie id="KKMMonth" sales1C={sales1C.sales1CMonth} title="Фискальный регистратор (месяц)"  />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-        <WeaklyStatistics weekFinanceData={weekFinanceData} title="Годовая статистика" />
+        <WeaklyStatistics weekFinanceData={weekFinanceData}  title="Годовая статистика" />
         <OverallRevenueChart />
-      </div>
+      </div> 
     </div>
   );
 };

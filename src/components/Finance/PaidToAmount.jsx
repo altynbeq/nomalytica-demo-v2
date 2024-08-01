@@ -10,6 +10,9 @@ const PaidToAmount = ({id, title, sales1C }) => {
   const formattedTotalSum =  new Intl.NumberFormat().format(Math.round(sales1C.totalSum)) ;
 
   useEffect(()=>{
+    if (!sales1C || !sales1C.paidTo) {
+      return;
+    }
     const { paidTo } = sales1C;
     const total = sales1C.totalSum; // Assuming total is directly available in sales1C
 
