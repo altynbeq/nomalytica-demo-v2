@@ -10,8 +10,6 @@ const WeekRevenueStats = ({weekFinanceData, sales1C, products1C}) => {
   const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
   const numberOfItems = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
 
-  console.log("products1CWeek:", products1C);
-
   return (
     <div className="bg-white dark:text-gray-200 justify-center text-center align-center dark:bg-secondary-dark-bg m-5 md:m-1 p-4 rounded-2xl w-[90%] md:w-[30%] subtle-border">
           <div className="flex justify-between">

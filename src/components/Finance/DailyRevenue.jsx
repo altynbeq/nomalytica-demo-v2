@@ -1,19 +1,19 @@
 import React,{ useState, useEffect } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Button, Pie } from '../../components';
-import { revenueTypesData, weakylRevenue, lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis }  from '../../data/financeData'
 import { Skeleton } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const DailyRevenue = ({dayFinanceData, sales1C}) => {
+const DailyRevenue = ({dayFinanceData, sales1C, kkm, }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
 
   const { currentColor, currentMode } = useStateContext();
 
   const data = dayFinanceData;
-  const totalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
-  const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
+  const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
+  const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
+  const avgCheck = numberOfItemsSold > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/numberOfItemsSold)) : 0;
 
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {

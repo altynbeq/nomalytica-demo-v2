@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStateContext  } from '../../contexts/ContextProvider';
-import { weakylRevenue } from '../../data/financeData';
 import { SparkLine } from '../../components';
  
 const WeaklyRevenueOverviewStacked = (weekFinanceData) => {

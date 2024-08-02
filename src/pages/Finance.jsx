@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-import { dropdownData } from '../data/ecomData';
 import { useStateContext } from '../contexts/ContextProvider';
 import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 
@@ -10,13 +8,14 @@ import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyR
 //   </div>
 // );
 
-const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, products1C}) => {
+const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, products1C, kkm}) => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
-  console.log(sales1C)
+
+  console.log("kkm:", kkm);
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
       <div className="flex mt-5 w-[100%] align-center gap-4 flex-wrap md:flex-row justify-center">
-        <DailyRevenue dayFinanceData={dayFinanceData} sales1C={sales1C.sales1CDay} />
+        <DailyRevenue dayFinanceData={dayFinanceData} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} />
         <div className=' flex justify-center align-center flex-col w-[100%] md:w-[30%]'>
           <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
           <TotalRevenuePie />

@@ -1,21 +1,17 @@
-export async function getKKMReceipts(dateDay){
-  const startDemo = dateDay.startDate.split("%")[0];
-  const endDemo = dateDay.endDate.split("%")[0];
-  const start = startDemo.replace(/-/g, '');
-  const end = endDemo.replace(/-/g, '');
+export async function getKKMReceipts(dateRanges) {
+  const fetchKKM = async ({ startDate, endDate }) => {
+    const start = startDate.split("%")[0].replace(/-/g, '');
+    const end = endDate.split("%")[0].replace(/-/g, '');
+    const url = `https://nomalytics-back.onrender.com/romantic_zhez_1c/kkm?startDate=${start}&endDate=${end}`;
+    const response = await fetch(url, { method: 'GET' });
 
-  const url = `https://nomalytics-back.onrender.com/romantic_zhez_1c/kkm?startDate=${start}&endDate=${end}`
-  const response  = await fetch(url, 
-      {
-        method: 'GET',
-      }
-  );
-  
-  if (!response.ok) {
-    console.error('Error fetching KKM list');
-    throw new Error('Network response was not ok');
-  }
-  
-  const data  = await response.json();
-  return data;
+    if (!response.ok) {
+      console.error('Error fetching KKM list');
+      throw new Error('Network response was not ok');
+    }
+
+    return response.json();
+  };
+
+  return Promise.all(dateRanges.map(fetchKKM));
 }
