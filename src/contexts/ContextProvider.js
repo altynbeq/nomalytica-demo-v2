@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getDateRange } from '../methods/getDateRange';
 
 const StateContext = createContext();
 
@@ -17,19 +18,27 @@ export const ContextProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(false);
   const [isClicked, setIsClicked] = useState(initialState);
   const [ isLoggedIn, setLoggedIn ] = useState(false);
+  const [ deals, setDeals ] = useState([]);
+  const [ skeletonUp, setSkeletonUp ] = useState(true);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
     localStorage.setItem('themeMode', e.target.value);
   };
-  
+  const handleSkeleton = () => setSkeletonUp(!skeletonUp);
+
+  const dateDay = getDateRange('today');
+  const dateWeek = getDateRange('week');
+  const dateMonth = getDateRange('month');
+  const dateYear = getDateRange('year');
+
+  // for sending requests at once 
+  const dateRanges = [dateDay, dateWeek, dateMonth];
+
   useEffect(() => {
     const logCheck = localStorage.getItem('nomalyticsTokenAuth');
-    if (logCheck) {
-      setLoggedIn(true);
-    } else {
-      setLoggedIn(false);
-    }
+    if (logCheck) { setLoggedIn(true); } else { setLoggedIn(false) }
+
   }, []);
 
   const handleLogIn = () => {
@@ -56,7 +65,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ isLoggedIn, handleLogIn, handleLogOut, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
+    <StateContext.Provider value={{ skeletonUp, handleSkeleton, deals, setDeals, dateRanges, isLoggedIn, handleLogIn, handleLogOut, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
       {children}
     </StateContext.Provider>
   );

@@ -5,6 +5,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader } from './pages';
+import { Skeleton } from '@mui/material';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
@@ -27,7 +28,7 @@ import { getSalesReceipts } from './methods/getSalesReceipts';
 import { getSalesProducts } from './methods/getSalesProducts';
 
 const App = () => {
-  const { isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  const { handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
   const [ hasAccess, setHasAccess ] = useState(false);
   const [ loading, setLoading ] = useState(true);
 
@@ -42,12 +43,6 @@ const App = () => {
   const [ monthLeadsData, setMonthLeadsData ] = useState([]);
 
   const [data, setData] = useState({
-    dayFinanceData: [],
-    weekFinanceData: [],
-    monthFinanceData: [],
-    dayLeadsData: [],
-    weekLeadsData: [],
-    monthLeadsData: [],
     kkm: { kkmDay: {}, kkmWeek: {}, kkmMonth: {} },
     sales1C: { sales1CDay: {}, sales1CWeek: {}, sales1CMonth: {} },
     products1C: { products1CDay: {}, products1CWeek: {}, products1CMonth: {} }
@@ -55,7 +50,7 @@ const App = () => {
 
   useEffect(() => {
     async function collector() {
-      setLoading(true); // Start by setting loading to true
+      setLoading(false); // Start by setting loading to true
       try {
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
@@ -63,14 +58,6 @@ const App = () => {
           setCurrentColor(currentThemeColor);
           setCurrentMode(currentThemeMode);
         }
-
-        const dateDay = getDateRange('today');
-        const dateWeek = getDateRange('week');
-        const dateMonth = getDateRange('month');
-        const dateYear = getDateRange('year');
-
-        // for sending requests at once 
-        const dateRanges = [dateDay, dateWeek, dateMonth];
 
         // try to optimise fetch 
         const [
@@ -113,7 +100,8 @@ const App = () => {
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
-        setLoading(false); // Ensure loading is set to false after processing
+        // setLoading(false); // Ensure loading is set to false after processing
+        handleSkeleton();
       }
     }
     collector();

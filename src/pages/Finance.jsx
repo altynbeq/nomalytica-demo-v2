@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
+import LoadingSkeleton from '../components/LoadingSkeleton';
 
 // const DropDown = ({ currentMode }) => (
 //   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -9,15 +10,24 @@ import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyR
 // );
 
 const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, products1C, kkm}) => {
-  const { currentColor, currentMode, setActiveMenu } = useStateContext();
+  const { skeletonUp ,currentColor, currentMode, setActiveMenu } = useStateContext();
 
-  console.log("kkm:", kkm);
+  if(skeletonUp){
+    return(
+      <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
+        <LoadingSkeleton />
+        <LoadingSkeleton />
+        <LoadingSkeleton />
+      </div>
+    )
+  }
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
       <div className="flex mt-5 w-[100%] align-center gap-4 flex-wrap md:flex-row justify-center">
         <DailyRevenue dayFinanceData={dayFinanceData} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} />
         <div className=' flex justify-center align-center flex-col w-[100%] md:w-[30%]'>
           <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
+          
           <TotalRevenuePie />
         </div>
       </div>

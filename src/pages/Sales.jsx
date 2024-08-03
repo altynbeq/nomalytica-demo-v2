@@ -4,9 +4,21 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { DailySalesStats, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
 import { FirstRowStats } from '../components/General';
 import { WeaklyStatistics } from '../components/Finance';
+import LoadingSkeleton from '../components/LoadingSkeleton'
 
 const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,  weekLeadsData, sales1C, kkm, products1C}) => {
-    const { currentColor, currentMode,setActiveMenu } = useStateContext(); 
+    const { skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
+    
+    if(skeletonUp){
+        return(
+        <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+            <LoadingSkeleton />
+        </div>
+        )
+    }
+
     return (
         <div className='mt-12 flex flex-col gap-6  justify-center '>
              <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
