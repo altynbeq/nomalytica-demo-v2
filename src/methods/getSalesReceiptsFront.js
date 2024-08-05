@@ -69,6 +69,5 @@ export async function getSalesReceiptsFront(dateRanges) {
         readyDayData: dayData
     }
     const formedSalesReceiptsData = sales1CDataFormer(final);
-    console.log(formedSalesReceiptsData);
     return formedSalesReceiptsData;
 }

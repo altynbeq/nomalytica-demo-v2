@@ -33,7 +33,6 @@ const MonthlyRevenueChart = ({monthFinanceData, sales1C}) => {
       } else {
         interval = 100000;
       }
-
       let stackedCustomSeriesYearly = [
           { 
             dataSource: sales1C.salesSumSeries,
@@ -72,7 +71,7 @@ const MonthlyRevenueChart = ({monthFinanceData, sales1C}) => {
       if(!sales1C.salesSumSeries){
         return <Skeleton />
       }
-
+      
     return (
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl  w-[90%] md:w-[55%] subtle-border">
             <div className="flex justify-between items-center gap-2 mb-10">

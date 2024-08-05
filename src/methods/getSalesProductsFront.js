@@ -1,4 +1,4 @@
-// import { kkmReceiptsDataFormer } from "../data/1C/kkmReceiptsDataFormer";
+import { salesProductDataFormer } from "../data/1C/salesProductDataFormer";
 
 const username = 'Алтынбек';
 const password = '5521';
@@ -20,6 +20,7 @@ function base64ArrayBuffer(arrayBuffer) {
 }
 
 const encodedCredentials = base64ArrayBuffer(utf8Credentials);
+
 export async function getSalesProductsFront(dateRanges) {
     const startDate = decodeURIComponent(dateRanges[2].startDate);
     const endDate = decodeURIComponent(dateRanges[2].endDate);
@@ -27,7 +28,7 @@ export async function getSalesProductsFront(dateRanges) {
     // Format dates by removing potential encoding and replacing hyphens
     const formattedStartDate = startDate.split(' ')[0].replace(/-/g, '');
     const formattedEndDate = endDate.split(' ')[0].replace(/-/g, '');
-    // http://212.46.56.10:84/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/${startDate}/${endDate}
+
     const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/${formattedStartDate}/${formattedEndDate}`;
     const response = await fetch(url, {
         method: 'GET',
@@ -67,6 +68,6 @@ export async function getSalesProductsFront(dateRanges) {
         readyWeekData: weekData,
         readyDayData: dayData
     }
-    const formedKKMData = kkmReceiptsDataFormer(final);
-    return final;
+    const formedSalesProductsData = salesProductDataFormer(final);
+    return formedSalesProductsData;
 }

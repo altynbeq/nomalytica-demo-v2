@@ -29,6 +29,7 @@ import { getSalesProducts } from './methods/getSalesProducts';
 
 import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
 import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
+import { getSalesProductsFront } from './methods/getSalesProductsFront';
 
 const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -52,7 +53,7 @@ const App = () => {
   });
   useEffect(() => {
     async function collector() {
-      setLoading(false); // Start by setting loading to true
+      setLoading(true); // Start by setting loading to true
       try {
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
@@ -63,30 +64,34 @@ const App = () => {
 
         // try to optimise fetch 
         const [
-          // kkmFront,
-          // kkmReceiptsFront,
-          kkmReceipts,
-          salesProducts,
-          salesReceipts
-        ] = await Promise.all([
-          // getKKMReceiptsFront(dateRanges),
-          // getSalesReceiptsFront(dateRanges),
-          getKKMReceipts(dateRanges),
-          getSalesProducts(dateRanges),
-          getSalesReceipts(dateRanges)
-        ]);
+          kkmFront,
+          salesReceiptsFront,
+          // salesProductsFront,
 
+          // kkmReceipts,
+          salesProducts,
+          // salesReceipts
+        ] = await Promise.all([
+          getKKMReceiptsFront(dateRanges),
+          getSalesReceiptsFront(dateRanges),
+          // getSalesProductsFront(dateRanges),
+
+          // getKKMReceipts(dateRanges),
+          getSalesProducts(dateRanges),
+          // getSalesReceipts(dateRanges)
+        ]);
+        // console.log("kkm:", kkmFront, "sales1C:", kkmReceiptsFront, "products1C:", salesProductsFront )
         setData({
           // ...data,
-          kkm: {
-            kkmDay: kkmReceipts[0],
-            kkmWeek: kkmReceipts[1],
-            kkmMonth: kkmReceipts[2]
+            kkm: {
+            kkmDay: kkmFront.dayFormedKKM,
+            kkmWeek: kkmFront.weekFormedKKM,
+            kkmMonth: kkmFront.monthFormedKKM
           },
           sales1C: {
-            sales1CDay: salesReceipts[0],
-            sales1CWeek: salesReceipts[1],
-            sales1CMonth: salesReceipts[2]
+            sales1CDay: salesReceiptsFront.dayFormedSales1C,
+            sales1CWeek: salesReceiptsFront.weekFormedSales1C,
+            sales1CMonth: salesReceiptsFront.monthFormedSales1C
           },
           products1C: {
             products1CDay: salesProducts[0],
@@ -94,10 +99,29 @@ const App = () => {
             products1CMonth: salesProducts[2]
           }
         });
+        // setData({
+        //   // ...data,
+        //   kkm: {
+        //     kkmDay: kkmFront.dayFormedKKM,
+        //     kkmWeek: kkmFront.weekFormedKKM,
+        //     kkmMonth: kkmFront.monthFormedKKM
+        //   },
+        //   sales1C: {
+            // sales1CDay: kkmReceiptsFront.dayFormedSales1C,
+            // sales1CWeek: kkmReceiptsFront.weekFormedSales1C,
+            // sales1CMonth: kkmReceiptsFront.monthFormedSales1C
+        //   },
+        //   products1C: {
+        //     products1CDay: salesProductsFront.dayFormedSalesProduct,
+        //     products1CWeek: salesProductsFront.weekFormedSalesProduct,
+        //     products1CMonth: salesProductsFront.monthFormedSalesProduct
+        //   }
+        // });
+        // console.log("kkm:", data.kkm, "sales1C:", data.sales1C, "products1C:", data.products1C )
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
-        // setLoading(false); // Ensure loading is set to false after processing
+        setLoading(false); // Ensure loading is set to false after processing
         handleSkeleton();
       }
     }
