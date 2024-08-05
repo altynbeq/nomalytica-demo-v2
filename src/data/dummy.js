@@ -287,6 +287,24 @@ export const links = [
     }
 ];
 
+// const filterLinksForUser = (userAccess) => {
+//   return linksList.map(section => {
+//     if (section.title === 'аналитика' && userAccess === 'boss') {
+//       return {
+//         ...section,
+//         links: section.links.filter(link => link.name === 'general')
+//       };
+//     }
+//     return section;
+//   });
+// };
+
+// const userAccess = 'boss';
+
+// export const links = filterLinksForUser(userAccess);
+
+
+
 export const cartData = [
   {
     // image:

@@ -31,7 +31,7 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, pr
           <TotalRevenuePie />
         </div>
       </div>
-      <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-center ">
+       <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-center ">
           <RevenueByWeekStacked weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} />
           <WeekRevenueStats weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} products1C={products1C.products1CWeek} />
       </div>

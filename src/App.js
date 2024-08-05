@@ -27,8 +27,11 @@ import { getKKMReceipts } from './methods/getKKMReceipts';
 import { getSalesReceipts } from './methods/getSalesReceipts';
 import { getSalesProducts } from './methods/getSalesProducts';
 
+import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
+import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
+
 const App = () => {
-  const { handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
   const [ hasAccess, setHasAccess ] = useState(false);
   const [ loading, setLoading ] = useState(true);
 
@@ -47,7 +50,6 @@ const App = () => {
     sales1C: { sales1CDay: {}, sales1CWeek: {}, sales1CMonth: {} },
     products1C: { products1CDay: {}, products1CWeek: {}, products1CMonth: {} }
   });
-
   useEffect(() => {
     async function collector() {
       setLoading(false); // Start by setting loading to true
@@ -61,10 +63,14 @@ const App = () => {
 
         // try to optimise fetch 
         const [
+          // kkmFront,
+          // kkmReceiptsFront,
           kkmReceipts,
           salesProducts,
           salesReceipts
         ] = await Promise.all([
+          // getKKMReceiptsFront(dateRanges),
+          // getSalesReceiptsFront(dateRanges),
           getKKMReceipts(dateRanges),
           getSalesProducts(dateRanges),
           getSalesReceipts(dateRanges)
@@ -88,15 +94,6 @@ const App = () => {
             products1CMonth: salesProducts[2]
           }
         });
-
-        setDayDealsData([]);
-        setWeekDealsData([]);
-        setMonthDealsData([]);
-
-        setDayLeadsData([]);
-        setWeekLeadsData([]);
-        setMonthLeadsData([]);
-       
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {

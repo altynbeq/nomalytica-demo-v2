@@ -25,6 +25,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
 
     const weeklyStats = [
         {
+            id: 1,
             icon: <FaDollarSign />,
             amount: '?тг',
             title: 'Выручка',
@@ -33,6 +34,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
             pcColor: 'green-600',
         },
         {
+            id: 2,
             icon: <FaMoneyBill />,
             amount: '? тг',
             title: 'Средний чек',
@@ -41,6 +43,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
             pcColor: 'green-600',
         },
         {
+            id: 3,
             icon: <FaMoneyBillAlt />,
             amount: `?тг`,
             title: 'Макс чек',
@@ -49,6 +52,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
             pcColor: 'green-600',
         },
         {
+            id: 4,
             icon: <FaBox />,
             amount: '?',
             title: 'Топ товар',
@@ -57,6 +61,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
             pcColor: 'green-600',
         },
         {
+            id: 5,
             icon: <FaFilter />,
             amount: '?',
             title: 'Конверсия',
@@ -65,6 +70,7 @@ const WeaklyStatistics = ({ weekFinanceData, title }) => {
             pcColor: 'green-600',
         },
         {
+            id: 6,
             icon: <FaChartBar />,
             amount: '?',
             // numberOfItemsSold,

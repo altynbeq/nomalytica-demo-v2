@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   useEffect(()=> {
-    setActiveMenu(false)
+    setActiveMenu(false);
   },[]);
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';

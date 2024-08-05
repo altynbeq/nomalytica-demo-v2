@@ -10,7 +10,7 @@ export async function getSalesProducts(dateRanges) {
         throw new Error('Network response was not ok');
       }
   
-      return response.json();
+      return await response.json();
     };
   
     return Promise.all(dateRanges.map(fetchSalesProducts));

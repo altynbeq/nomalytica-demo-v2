@@ -20,7 +20,7 @@ const RevenueByWeekStacked = ({weekFinanceData, sales1C}) => {
     return acc;
   }, Infinity);
   
-  const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
+  const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal / 2;
 
   const range = maxSeriesVal - finalMinSeriesVal;
 
@@ -54,7 +54,7 @@ const RevenueByWeekStacked = ({weekFinanceData, sales1C}) => {
   
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
-    minimum: finalMinSeriesVal / 2,
+    minimum: finalMinSeriesVal,
     maximum: maxSeriesVal > 0 ? maxSeriesVal * 1.5 : 10,
     interval: interval,
     majorTickLines: { width: 0 },
@@ -75,7 +75,6 @@ const RevenueByWeekStacked = ({weekFinanceData, sales1C}) => {
     valueType: 'Category',
   };
   
-
   if(!ready) { return <Skeleton /> }
 
   return (

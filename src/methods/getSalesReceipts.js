@@ -11,7 +11,7 @@ export async function getSalesReceipts(dateRanges) {
         throw new Error('Network response was not ok');
       }
   
-      return response.json();
+      return await response.json();
     };
   
     return Promise.all(dateRanges.map(fetchSalesReceipts));

@@ -17,7 +17,7 @@ const MonthlyRevenueChart = ({monthFinanceData, sales1C}) => {
         return acc;
       }, Infinity);
 
-    let  finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
+    let  finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal / 2;
     const range = maxSeriesVal - finalMinSeriesVal;
       let interval;
       if (range <= 10) {
@@ -46,7 +46,7 @@ const MonthlyRevenueChart = ({monthFinanceData, sales1C}) => {
       ];
       let stackedPrimaryXAxisYearly = {
         lineStyle: { width: 0 },
-        minimum: minSeriesVal > 0 ? minSeriesVal / 2 : 0,
+        minimum: minSeriesVal > 0 ? minSeriesVal : 0,
         // data.minAmountSeries > 0 ? data.minAmountSeries : 10,
         maximum: maxSeriesVal > 0 ? maxSeriesVal * 1.3 : 10,
         // data.maxAmountSeries > 0 ? data.maxAmountSeries * 1.1 : 100,
