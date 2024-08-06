@@ -4,24 +4,8 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { ExportToExcel } from '../'
 
-const WeaklyStatistics = ({ weekFinanceData, title }) => {
+const WeaklyStatistics = ({title}) => {
     const { currentColor, currentMode } = useStateContext();
-
-    const data = weekFinanceData;
-    const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-    const avgCheck = 0;
-
-    for (let workerId in data.workersStats) {
-        const { count, sales } = data.workersStats[workerId];
-        const avgCheck = sales / count;
-
-        if (avgCheck > bestAvgCheckWorker.avgCheck) {
-            bestAvgCheckWorker.id = workerId;
-            bestAvgCheckWorker.avgCheck = Math.round(avgCheck);
-            bestAvgCheckWorker.sales = sales;
-            bestAvgCheckWorker.count = count;
-        }
-    }
 
     const weeklyStats = [
         {

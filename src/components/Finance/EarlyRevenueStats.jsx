@@ -3,9 +3,8 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Button } from '../../components'
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const WeekRevenueStats = ({weekFinanceData, sales1C, products1C}) => {
+const WeekRevenueStats = ({sales1C, products1C, kkm, leads, spisanie}) => {
   const { currentColor, currentMode } = useStateContext();
-  const data = weekFinanceData;
   const totalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
   const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
   const numberOfItems = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
@@ -39,26 +38,22 @@ const WeekRevenueStats = ({weekFinanceData, sales1C, products1C}) => {
               </div>
               <div className=" gap-2 text-center align-center  flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl md:text-3xl font-semibold">{sales1C.totalNumberSales}</p>
+                    <p className="text-2xl md:text-3xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl md:text-3xl font-semibold">?</p>
-                    <p className="text-gray-500 mt-1">Скидок</p>
-                </div>
-                <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl md:text-3xl font-semibold">?</p>
+                    <p className="text-2xl md:text-3xl font-semibold">{leads.leadsCount ? leads.leadsCount : 0}</p>
                     <p className="text-gray-500 mt-1">Лидов</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl md:text-3xl font-semibold">?</p>
+                    <p className="text-2xl md:text-3xl font-semibold">{spisanie.totalAmountSpisanie}</p>
                     <p className="text-gray-500 mt-1">Cписание</p>
                 </div>
               </div>
               <div className="">
                     <div className='flex justify-center align-center flex-col text-center'>
                         <p>
-                            <span className="text-3xl font-semibold">{avgCheck} тг</span>
+                            <span className="text-3xl font-semibold">?? тг</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>

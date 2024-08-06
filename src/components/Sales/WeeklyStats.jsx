@@ -5,7 +5,7 @@ import { FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 
-const WeeklyStats = ({ weekFinanceData, title }) => {
+const WeeklyStats = ({ title }) => {
     const { currentColor, currentMode } = useStateContext();
 
     // const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);

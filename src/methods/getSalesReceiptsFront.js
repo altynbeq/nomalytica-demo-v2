@@ -25,9 +25,17 @@ export async function getSalesReceiptsFront(dateRanges) {
     const startDate = decodeURIComponent(dateRanges[2].startDate);
     const endDate = decodeURIComponent(dateRanges[2].endDate);
 
-    // Format dates by removing potential encoding and replacing hyphens
-    const formattedStartDate = startDate.split(' ')[0].replace(/-/g, '');
-    const formattedEndDate = endDate.split(' ')[0].replace(/-/g, '');
+    // Convert start and end dates to Date objects
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+    // // Subtract one day from the start date
+    // const adjustedStartDateObj = new Date(startDateObj);
+    // adjustedStartDateObj.setDate(startDateObj.getDate() - 1);
+
+    // Format the adjusted start date and end date
+    const formattedStartDate = startDateObj.toISOString().split('T')[0].replace(/-/g, '');
+    const formattedEndDate = endDateObj.toISOString().split('T')[0].replace(/-/g, '');
 
     const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts/GetSales/${formattedStartDate}/${formattedEndDate}`;
     const response = await fetch(url, {
@@ -50,24 +58,58 @@ export async function getSalesReceiptsFront(dateRanges) {
     const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
     const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
     const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
+    const monthStart = new Date(decodeURIComponent(dateRanges[2].startDate));
+    const monthEnd = new Date(decodeURIComponent(dateRanges[2].endDate));
+
+    // Adjust dayEnd to include all times up to the end of the day
+    dayEnd.setHours(23, 59, 59, 999);
+
+    // Adjust weekEnd to include all times up to the end of the week
+    weekEnd.setHours(23, 59, 59, 999);
+
+    const monthData = data.filter(item => {
+        const itemDate = new Date(item.Дата);
+        const saleHour = itemDate.getHours();
+
+        if(saleHour < 1){
+            itemDate.setDate(itemDate.getDate() - 1);
+        }
+
+        return itemDate >= monthStart && itemDate <= monthEnd;
+    })
 
     // Filter data for day
     const dayData = data.filter(item => {
         const itemDate = new Date(item.Дата);
+        const saleHour = itemDate.getHours();
+
+        // Adjust date for sales between midnight and 1 AM
+        // if (saleHour < 1) {
+        //     itemDate.setDate(itemDate.getDate() - 1);
+        // }
+
         return itemDate >= dayStart && itemDate <= dayEnd;
     });
 
     // Filter data for week
     const weekData = data.filter(item => {
         const itemDate = new Date(item.Дата);
+        const saleHour = itemDate.getHours();
+
+        // Adjust date for sales between midnight and 1 AM
+        if (saleHour < 1) {
+            itemDate.setDate(itemDate.getDate() - 1);
+        }
+
         return itemDate >= weekStart && itemDate <= weekEnd;
     });
-
+    
     const final = {
-        readyMonthData: data,
+        readyMonthData: monthData,
         readyWeekData: weekData,
         readyDayData: dayData
     }
+    
     const formedSalesReceiptsData = sales1CDataFormer(final);
     return formedSalesReceiptsData;
 }

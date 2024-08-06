@@ -4,7 +4,7 @@ import { Stacked } from '../../components';
 import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 
 
-const WeaklyTotalSalesChart = ({weekFinanceData, weekLeadsData, sales1C}) => {
+const WeaklyTotalSalesChart = ({sales1C}) => {
   const list = sales1C.salesSeries;
  
   const maxSeriesVal = sales1C.salesSeries.reduce((acc, item) => {

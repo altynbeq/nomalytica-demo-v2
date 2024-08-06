@@ -2,16 +2,11 @@ import React, { useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 import LoadingSkeleton from '../components/LoadingSkeleton';
+import { fetchDeals } from '../methods/getDeals';
 
-// const DropDown = ({ currentMode }) => (
-//   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
-//     <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
-//   </div>
-// );
-
-const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, products1C, kkm}) => {
+const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const { skeletonUp ,currentColor, currentMode, setActiveMenu } = useStateContext();
-
+  
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
@@ -24,31 +19,32 @@ const Finance = ({dayFinanceData, weekFinanceData, monthFinanceData, sales1C, pr
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
       <div className="flex mt-5 w-[100%] align-center gap-4 flex-wrap md:flex-row justify-center">
-        <DailyRevenue dayFinanceData={dayFinanceData} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} />
+        <DailyRevenue sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} />
         <div className=' flex justify-center align-center flex-col w-[100%] md:w-[30%]'>
-          <WeaklyRevenueOverviewStacked weekFinanceData={weekFinanceData} />
+          <WeaklyRevenueOverviewStacked deals={deals.dealsWeek} />
           
           <TotalRevenuePie />
         </div>
       </div>
        <div className="flex flex-wrap lg:flex-nowrap gap-5 justify-center ">
-          <RevenueByWeekStacked weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} />
-          <WeekRevenueStats weekFinanceData={weekFinanceData} sales1C={sales1C.sales1CWeek} products1C={products1C.products1CWeek} />
+          <RevenueByWeekStacked  sales1C={sales1C.sales1CWeek} />
+          <MonthStatistics idcomponent="weekStats" title="Недельная статистика" spisanie={spisanie.spisanieWeek} leads={leads.leadsWeek} deals={deals.dealsWeek}  sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} products1C={products1C.products1CWeek} />
+          {/* <WeekRevenueStats spisanie={spisanie.spisanieWeek} leads={leads.leadsWeek} kkm={kkm.kkmWeek} sales1C={sales1C.sales1CWeek} products1C={products1C.products1CWeek} /> */}
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
-        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} title="Выручка за неделю"  />
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} title="Выручка за неделю"  />
         <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-          <MonthStatistics monthFinanceData={monthFinanceData} sales1C={sales1C.sales1CMonth} products1C={products1C.products1CMonth} />
-          <MonthlyRevenueChart monthFinanceData={monthFinanceData} sales1C={sales1C.sales1CMonth} />
+          <MonthStatistics idcomponent="monthStats" title="Месячная статистика" spisanie={spisanie.spisanieMonth} leads={leads.leadsMonth} deals={deals.dealsMonth}  sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} products1C={products1C.products1CMonth} />
+          <MonthlyRevenueChart sales1C={sales1C.sales1CMonth} />
       </div>
        <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
         <PaidToAmount id="PaidToMonth" sales1C={sales1C.sales1CMonth} title="Выручка за месяц"  />
         <KassaKKMPie id="KKMMonth" sales1C={sales1C.sales1CMonth} title="Фискальный регистратор (месяц)"  />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
-        <WeaklyStatistics weekFinanceData={weekFinanceData}  title="Годовая статистика" />
+        <WeaklyStatistics title="Годовая статистика" />
         <OverallRevenueChart />
       </div> 
     </div>

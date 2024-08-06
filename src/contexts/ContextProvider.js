@@ -25,7 +25,7 @@ export const ContextProvider = ({ children }) => {
     setCurrentMode(e.target.value);
     localStorage.setItem('themeMode', e.target.value);
   };
-  const handleSkeleton = (state) => setSkeletonUp(!skeletonUp);
+  const handleSkeleton = (state) => setSkeletonUp(state);
   
   const dateDay = getDateRange('today');
   const dateWeek = getDateRange('week');

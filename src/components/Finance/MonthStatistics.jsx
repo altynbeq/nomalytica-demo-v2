@@ -4,14 +4,15 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { ExportToExcel } from '../'; 
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 
-const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
+const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, title, spisanie}) => {
     const { currentColor, currentMode } = useStateContext();
-    const data = monthFinanceData;
+
     const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
     const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
+    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
+
     // for (let workerId in data.workersStats) {
     //     const { count, sales } = data.workersStats[workerId];
     //     avgCheck = sales / count;
@@ -43,15 +44,15 @@ const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
         },
         {
             icon: <FaMoneyBillAlt />,
-            amount: `? тг`,
-            title: 'Макс чек',
-            desc: `?`,
+            amount: spisanie.totalAmountSpisanie ? spisanie.totalAmountSpisanie + ' шт' : 0 + ' шт',
+            title: 'Списание',
+            desc: `Количество товаров`,
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             icon: <FaBox />,
-            amount: products1C.mostSoldItem.count,
+            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
             title: 'Топ товар',
             desc: products1C.mostSoldItem.name,
             iconBg: 'rgb(254, 201, 15)',
@@ -59,7 +60,7 @@ const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
         },
         {
             icon: <FaFilter />,
-            amount: 0,
+            amount: conversion + '%',
             title: 'Конверсия',
             desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
@@ -69,7 +70,7 @@ const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
             icon: <FaChartBar />,
             amount: numberOfItemsSold,
             title: 'Продано товаров',
-            desc: 'DESCC',
+            desc: 'Уникальных товаров ',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
@@ -80,7 +81,7 @@ const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                     <div className="flex justify-between">
-                        <p className="text-xl font-semibold">Месячная статистика</p>
+                        <p className="text-xl font-semibold">{title}</p>
                         <button type="button" className="text-xl font-semibold text-gray-500">
                         <IoIosMore />
                         </button>
@@ -88,7 +89,7 @@ const MonthStatistics = ({monthFinanceData, sales1C, products1C}) => {
 
                     <div className="mt-10 justify-items-stretch">
                         {weeklyStats.map((item) => (
-                        <div key={item.title} className="flex justify-between mt-4 w-full">
+                        <div key={item.title + idcomponent} className="flex justify-between mt-4 w-full">
                             <div className="flex justify gap-4">
                                 <button
                                     type="button"

@@ -3,10 +3,9 @@ import { Stacked } from '..';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Skeleton } from "..";
 
-const RevenueByWeekStacked = ({weekFinanceData, sales1C}) => {
+const RevenueByWeekStacked = ({sales1C}) => {
   const [ ready, setReady ] = useState(true);
 
-  const data = weekFinanceData;
   const list = sales1C.salesSumSeries;
  
   const maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {

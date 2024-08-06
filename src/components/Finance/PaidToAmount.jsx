@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Pie } from '../../components';
 import { Skeleton } from '../../components';
 
-const PaidToAmount = ({id, title, sales1C }) => {
-
+const PaidToAmount = ({id, title, sales1C, kkm }) => {
   const [ ready, setReady ] = useState(false);
   const [ pieSeries, setSeries ] = useState([]);
 

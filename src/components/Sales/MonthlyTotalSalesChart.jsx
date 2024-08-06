@@ -4,7 +4,7 @@ import { Stacked } from '../../components';
 import { stackedCustomSeriesMonthly, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 import { Skeleton } from '@mui/material';
 
-const MonthlyTotalSalesChart = ({monthFinanceData, sales1C}) => {
+const MonthlyTotalSalesChart = ({sales1C}) => {
   const list = sales1C.salesSeries;
  
   const maxSeriesVal = sales1C.salesSeries.reduce((acc, item) => {

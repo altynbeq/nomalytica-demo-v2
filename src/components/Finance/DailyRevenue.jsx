@@ -4,16 +4,16 @@ import { Button, Pie } from '../../components';
 import { Skeleton } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const DailyRevenue = ({dayFinanceData, sales1C, kkm, }) => {
+const DailyRevenue = ({sales1C, kkm, }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
 
   const { currentColor, currentMode } = useStateContext();
 
-  const data = dayFinanceData;
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
   const avgCheck = numberOfItemsSold > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/numberOfItemsSold)) : 0;
+  const itemsSold = Object.keys(kkm.itemsSold).length;
 
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
@@ -76,23 +76,19 @@ const DailyRevenue = ({dayFinanceData, sales1C, kkm, }) => {
               </div>
               <div className="mt-8 gap-7 flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">{sales1C.totalNumberSales}</p>
+                    <p className="text-2xl font-semibold">?</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">?</p>
-                    <p className="text-gray-500 mt-1">Скидок</p>
-                </div>
-                <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">?</p>
-                    <p className="text-gray-500 mt-1">Cписание</p>
+                    <p className="text-2xl font-semibold">{itemsSold}</p>
+                    <p className="text-gray-500 mt-1">Продано товаров</p>
                 </div>
               </div>
               <div className="mt-8">
                 <div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="text-2xl font-semibold">{avgCheck} тг</span>
+                            <span className="text-2xl font-semibold">? тг</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>

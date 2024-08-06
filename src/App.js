@@ -26,6 +26,7 @@ import { getDateRange } from './methods/getDateRange';
 import { getKKMReceipts } from './methods/getKKMReceipts';
 import { getSalesReceipts } from './methods/getSalesReceipts';
 import { getSalesProducts } from './methods/getSalesProducts';
+import { getSpisanie } from './methods/getSpisanie';
 
 import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
 import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
@@ -36,24 +37,18 @@ const App = () => {
   const [ hasAccess, setHasAccess ] = useState(false);
   const [ loading, setLoading ] = useState(true);
 
-  // deals data for periods
-  const [ dayFinanceData, setDayDealsData ] = useState([]);
-  const [ weekFinanceData, setWeekDealsData ] = useState([]);
-  const [ monthFinanceData, setMonthDealsData ] = useState([]);
-
-  // leads data for periods
-  const [ dayLeadsData, setDayLeadsData ] = useState([]);
-  const [ weekLeadsData, setWeekLeadsData ] = useState([]);
-  const [ monthLeadsData, setMonthLeadsData ] = useState([]);
-
   const [data, setData] = useState({
     kkm: { kkmDay: {}, kkmWeek: {}, kkmMonth: {} },
     sales1C: { sales1CDay: {}, sales1CWeek: {}, sales1CMonth: {} },
-    products1C: { products1CDay: {}, products1CWeek: {}, products1CMonth: {} }
+    products1C: { products1CDay: {}, products1CWeek: {}, products1CMonth: {} },
+    deals: { dealsDay: [], dealsWeek: [], dealsMonth: [] },
+    leads: { leadsDay: [], leadsWeek: [], leadsMonth: [] },
+    spisanie: { spisanieDay: [], spisanieWeek: [], spisanieMonth: [] },
   });
   useEffect(() => {
     async function collector() {
-      setLoading(true); // Start by setting loading to true
+      handleSkeleton(true);
+      setLoading(false);
       try {
         const currentThemeColor = localStorage.getItem('colorMode');
         const currentThemeMode = localStorage.getItem('themeMode');
@@ -61,32 +56,41 @@ const App = () => {
           setCurrentColor(currentThemeColor);
           setCurrentMode(currentThemeMode);
         }
-
-        // try to optimise fetch 
         const [
           kkmFront,
           salesReceiptsFront,
-          // salesProductsFront,
-
-          // kkmReceipts,
           salesProducts,
-          // salesReceipts
+          deals,
+          leads,
+          spisanie
         ] = await Promise.all([
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
-          // getSalesProductsFront(dateRanges),
-
-          // getKKMReceipts(dateRanges),
           getSalesProducts(dateRanges),
-          // getSalesReceipts(dateRanges)
+          fetchDeals(dateRanges),
+          fetchLeads(dateRanges),
+          getSpisanie(dateRanges),
         ]);
-        // console.log("kkm:", kkmFront, "sales1C:", kkmReceiptsFront, "products1C:", salesProductsFront )
         setData({
-          // ...data,
-            kkm: {
+          deals: {
+            dealsDay: deals.dealsDay,
+            dealsWeek: deals.dealsWeek,
+            dealsMonth: deals.dealsMonth
+          },
+          leads: {
+            leadsDay: leads.leadsDay,
+            leadsWeek: leads.leadsWeek,
+            leadsMonth: leads.leadsMonth
+          },
+          kkm: {
             kkmDay: kkmFront.dayFormedKKM,
             kkmWeek: kkmFront.weekFormedKKM,
             kkmMonth: kkmFront.monthFormedKKM
+          },
+          spisanie: {
+            spisanieDay: spisanie.spisanieDay,
+            spisanieWeek: spisanie.spisanieWeek,
+            spisanieMonth: spisanie.spisanieMonth
           },
           sales1C: {
             sales1CDay: salesReceiptsFront.dayFormedSales1C,
@@ -99,30 +103,12 @@ const App = () => {
             products1CMonth: salesProducts[2]
           }
         });
-        // setData({
-        //   // ...data,
-        //   kkm: {
-        //     kkmDay: kkmFront.dayFormedKKM,
-        //     kkmWeek: kkmFront.weekFormedKKM,
-        //     kkmMonth: kkmFront.monthFormedKKM
-        //   },
-        //   sales1C: {
-            // sales1CDay: kkmReceiptsFront.dayFormedSales1C,
-            // sales1CWeek: kkmReceiptsFront.weekFormedSales1C,
-            // sales1CMonth: kkmReceiptsFront.monthFormedSales1C
-        //   },
-        //   products1C: {
-        //     products1CDay: salesProductsFront.dayFormedSalesProduct,
-        //     products1CWeek: salesProductsFront.weekFormedSalesProduct,
-        //     products1CMonth: salesProductsFront.monthFormedSalesProduct
-        //   }
-        // });
-        // console.log("kkm:", data.kkm, "sales1C:", data.sales1C, "products1C:", data.products1C )
+      
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
         setLoading(false); // Ensure loading is set to false after processing
-        handleSkeleton();
+        handleSkeleton(false);
       }
     }
     collector();
@@ -181,9 +167,9 @@ const App = () => {
                   <Route path="/general" element={(<General />)} />
                   <Route path="/finance" element={(
                       <Finance 
-                        weekFinanceData={weekFinanceData} 
-                        dayFinanceData={dayFinanceData} 
-                        monthFinanceData={monthFinanceData}
+                        deals={data.deals}
+                        leads={data.leads}
+                        spisanie={data.spisanie}
                         sales1C={data.sales1C}
                         products1C={data.products1C}
                         kkm={data.kkm}
@@ -191,11 +177,6 @@ const App = () => {
                   />
                   <Route path="/sales" element={(
                       <Sales 
-                        dayFinanceData={dayFinanceData} 
-                        weekFinanceData={weekFinanceData} 
-                        monthFinanceData={monthFinanceData}
-                        weekLeadsData={weekLeadsData} 
-                        dayLeadsData={dayLeadsData}  
                         sales1C={data.sales1C}
                         kkm={data.kkm}
                         products1C={data.products1C}

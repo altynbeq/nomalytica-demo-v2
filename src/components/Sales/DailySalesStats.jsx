@@ -6,7 +6,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { Skeleton } from '@mui/material';
 import { read } from 'xlsx';
 
-const DailySalesStats = ({dayFinanceData, dayLeadsData, sales1C, products1C}) => {
+const DailySalesStats = ({sales1C, products1C}) => {
     const { currentColor, currentMode } = useStateContext();
     const totalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
     const [ pieSeries, setSeries ] = useState([]);
