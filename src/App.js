@@ -1,41 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-
-import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader } from './pages';
 import { Skeleton } from '@mui/material';
 import './App.css';
-
 import { useStateContext } from './contexts/ContextProvider';
-
-import { dealsDataCollector } from './data/Finance/WeekDataFinanceFormer';
-import { monthDealsDataCollector } from './data/Finance/MonthDataFinanceFormer';
-import { weekDataSalesFormer } from './data/Sales/WeekDataSalesFormer';
-import { monthDataSalesFormer } from './data/Sales/MonthDataSalesFormer';
-
 import { fetchDeals } from './methods/getDeals';
 import { fetchLeads } from './methods/getLeads';
-
-import { fetchDealsFront } from './methods/getDealsFront';
-import { fetchLeadsFront } from './methods/getLeadsFront';
-
-import { getDateRange } from './methods/getDateRange';
-
-import { getKKMReceipts } from './methods/getKKMReceipts';
-import { getSalesReceipts } from './methods/getSalesReceipts';
 import { getSalesProducts } from './methods/getSalesProducts';
 import { getSpisanie } from './methods/getSpisanie';
-
 import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
 import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
-import { getSalesProductsFront } from './methods/getSalesProductsFront';
+
+const Navbar = React.lazy(() => import('./components/Navbar'));
+const Footer = React.lazy(() => import('./components/Footer'));
+const Sidebar = React.lazy(() => import('./components/Sidebar'));
+const ThemeSettings = React.lazy(() => import('./components/ThemeSettings'));
+const General = React.lazy(() => import('./pages/General'));
+const Sales = React.lazy(() => import('./pages/Sales'));
+const NoAccess = React.lazy(() => import('./pages/NoAccess'));
+const LogInForm = React.lazy(() => import('./pages/LogInForm'));
+const ComingSoon = React.lazy(() => import('./pages/ComingSoon'));
+const Sklad = React.lazy(() => import('./pages/Sklad'));
+const Finance = React.lazy(() => import('./pages/Finance'));
+const Workers = React.lazy(() => import('./pages/Workers'));
+const Loader = React.lazy(() => import('./pages/Loader'));
 
 const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
-  const [ hasAccess, setHasAccess ] = useState(false);
-  const [ loading, setLoading ] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [data, setData] = useState({
     kkm: { kkmDay: {}, kkmWeek: {}, kkmMonth: {} },
@@ -45,6 +39,7 @@ const App = () => {
     leads: { leadsDay: [], leadsWeek: [], leadsMonth: [] },
     spisanie: { spisanieDay: [], spisanieWeek: [], spisanieMonth: [] },
   });
+
   useEffect(() => {
     async function collector() {
       handleSkeleton(true);
@@ -103,11 +98,10 @@ const App = () => {
             products1CMonth: salesProducts[2]
           }
         });
-      
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
-        setLoading(false); // Ensure loading is set to false after processing
+        setLoading(false); 
         handleSkeleton(false);
       }
     }
@@ -115,98 +109,108 @@ const App = () => {
   }, []);
 
   return (
-   
-      <div className={currentMode === 'Dark' ? 'dark' : ''}>
-        {loading  ? (
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
+      {loading ? (
+        <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
           <Loader />
-        ) : (
+        </Suspense>
+      ) : (
         <BrowserRouter>
-         { isLoggedIn === true ? (<>
-          <div className="flex relative dark:bg-main-dark-bg">
-            <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-              <TooltipComponent
-                content="Settings"
-                position="Top"
-              >
-                {/* <button
-                  type="button"
-                  onClick={() => setThemeSettings(true)}
-                  style={{ background: currentColor, borderRadius: '50%' }}
-                  className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
+          {isLoggedIn ? (
+            <>
+              <div className="flex relative dark:bg-main-dark-bg">
+                <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
+                  <TooltipComponent content="Settings" position="Top">
+                    {/* <button
+                      type="button"
+                      onClick={() => setThemeSettings(true)}
+                      style={{ background: currentColor, borderRadius: '50%' }}
+                      className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
+                    >
+                      <FiSettings />
+                    </button> */}
+                  </TooltipComponent>
+                </div>
+                {activeMenu ? (
+                  <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+                    <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+                      <Sidebar />
+                    </div>
+                  </Suspense>
+                ) : (
+                  <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+                    <div className="w-0 dark:bg-secondary-dark-bg">
+                      <Sidebar />
+                    </div>
+                  </Suspense>
+                )}
+                <div
+                  className={
+                    activeMenu
+                      ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full'
+                      : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'
+                  }
                 >
-                  <FiSettings />
-                </button> */}
-
-              </TooltipComponent>
-            </div>
-            {activeMenu ? (
-              <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-                <Sidebar />
+                  <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+                    <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+                      <Navbar />
+                    </div>
+                  </Suspense>
+                  <div>
+                    {/* {themeSettings && (<ThemeSettings />)} */}
+                    <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+                      <Routes>
+                        {/* dashboard  */}
+                        <Route path="/" element={<General />} />
+                        <Route path="/general" element={<General />} />
+                        <Route path="/finance" element={
+                          <Finance 
+                            deals={data.deals}
+                            leads={data.leads}
+                            spisanie={data.spisanie}
+                            sales1C={data.sales1C}
+                            products1C={data.products1C}
+                            kkm={data.kkm}
+                          />
+                        } />
+                        <Route path="/sales" element={
+                          <Sales 
+                            sales1C={data.sales1C}
+                            kkm={data.kkm}
+                            products1C={data.products1C}
+                          />
+                        } />
+                        <Route path="/workers" element={<Workers />} />
+                        <Route path="/sklad" element={<Sklad />} />
+                        {/* pages  */}
+                        {/* <Route path="/orders" element={<Orders />} /> */}
+                        <Route path="/docs" element={<ComingSoon />} />
+                        <Route path="/resources" element={<ComingSoon />} />
+                        <Route path="/support" element={<ComingSoon />} />
+                        <Route path="/Q&A" element={<ComingSoon />} />
+                        {/* apps  */}
+                        {/* <Route path="/kanban" element={<Kanban />} />
+                        <Route path="/editor" element={<Editor />} />
+                        <Route path="/calendar" element={<Calendar />} />
+                        <Route path="/color-picker" element={<ColorPicker />} /> */}
+                      </Routes>
+                    </Suspense>
+                  </div>
+                  <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+                    <Footer />
+                  </Suspense>
+                </div>
               </div>
-            ) : (
-              <div className="w-0 dark:bg-secondary-dark-bg">
-                <Sidebar />
-              </div>
-            )}
-            <div
-              className={
-                activeMenu
-                  ? 'dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  '
-                  : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 '
-              }
-            >
-              <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-                <Navbar />
-              </div>
-              <div>
-                {/* {themeSettings && (<ThemeSettings />)} */}
-
-                <Routes>
-                  {/* dashboard  */}
-                  <Route path="/" element={(<General />)} />
-                  <Route path="/general" element={(<General />)} />
-                  <Route path="/finance" element={(
-                      <Finance 
-                        deals={data.deals}
-                        leads={data.leads}
-                        spisanie={data.spisanie}
-                        sales1C={data.sales1C}
-                        products1C={data.products1C}
-                        kkm={data.kkm}
-                      />)} 
-                  />
-                  <Route path="/sales" element={(
-                      <Sales 
-                        sales1C={data.sales1C}
-                        kkm={data.kkm}
-                        products1C={data.products1C}
-                      />)} 
-                  />
-                  <Route path="/workers" element={(<Workers />)} />
-                  <Route path="/sklad" element={(<Sklad />)} />
-
-                  {/* pages  */}
-                  {/* <Route path="/orders" element={<Orders />} /> */}
-                  <Route path="/docs" element={<ComingSoon />} />
-                  <Route path="/resources" element={<ComingSoon />} />
-                  <Route path="/support" element={<ComingSoon />} />
-                  <Route path="/Q&A" element={<ComingSoon />} />
-
-                  {/* apps  */}
-                  {/* <Route path="/kanban" element={<Kanban />} />
-                  <Route path="/editor" element={<Editor />} />
-                  <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/color-picker" element={<ColorPicker />} /> */}
-                </Routes>
-              </div>
-              <Footer />
-            </div>
-          </div>
-         </>) :  <LogInForm /> }
+            </>
+          ) : (
+            <Suspense fallback={<Skeleton variant="rectangular" width={210} height={118} />}>
+              <LogInForm />
+            </Suspense>
+          )}
         </BrowserRouter>
-        )}
-      </div>
-  )
+      )}
+    </div>
+  );
 };
 
 export default App;

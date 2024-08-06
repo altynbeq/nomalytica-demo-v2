@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 import LoadingSkeleton from '../components/LoadingSkeleton';
-import { fetchDeals } from '../methods/getDeals';
 
 const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const { skeletonUp ,currentColor, currentMode, setActiveMenu } = useStateContext();

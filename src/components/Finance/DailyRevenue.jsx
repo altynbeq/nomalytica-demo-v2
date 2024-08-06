@@ -48,7 +48,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center align-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
           <div className="flex justify-between">
-            <p className="font-semibold text-xl">Доходы за день1</p>
+            <p className="font-semibold text-xl">Доходы за день</p>
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
                 <span>
