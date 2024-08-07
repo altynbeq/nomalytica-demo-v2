@@ -1,4 +1,5 @@
 import { sales1CDataFormer } from "../data/1C/sales1CDataFormed";
+import { salesReportsData } from '../hoc/shareData';
 
 const username = 'Алтынбек';
 const password = '5521';
@@ -109,7 +110,7 @@ export async function getSalesReceiptsFront(dateRanges) {
         readyWeekData: weekData,
         readyDayData: dayData
     }
-    
+    salesReportsData(final);
     const formedSalesReceiptsData = sales1CDataFormer(final);
     return formedSalesReceiptsData;
 }

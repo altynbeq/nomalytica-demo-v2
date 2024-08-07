@@ -3,11 +3,14 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Button, Pie } from '../../components';
 import { Skeleton } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
+import  ExportToExcel  from '../ExportToExcel'
+import { getKkmData } from '../../hoc/shareData';
 
 const DailyRevenue = ({sales1C, kkm, }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
-
+  const excelData = getKkmData();
+  console.log(excelData)
   const { currentColor, currentMode } = useStateContext();
 
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
@@ -98,12 +101,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
                 </div>
               </div>
               <div className="mt-8 flex justify-center">
-                <Button
-                  color="white"
-                  bgColor={currentColor}
-                  text="Скачать отчет"
-                  borderRadius="10px"
-                />
+                <ExportToExcel title="Чеки ККМ за день" data={excelData.readyDayData} />
               </div>
             </div>
 

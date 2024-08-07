@@ -1,4 +1,5 @@
 import { kkmReceiptsDataFormer } from "../data/1C/kkmReceiptsDataFormer";
+import { setKkmData } from '../hoc/shareData';
 
 const username = 'Алтынбек';
 const password = '5521';
@@ -67,6 +68,7 @@ export async function getKKMReceiptsFront(dateRanges) {
         readyWeekData: weekData,
         readyDayData: dayData
     }
+    setKkmData(final);
     const formedKKMData = kkmReceiptsDataFormer(final);
     return formedKKMData;
 }

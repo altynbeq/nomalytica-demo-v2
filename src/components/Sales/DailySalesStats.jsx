@@ -4,7 +4,7 @@ import { Button, Pie } from '../../components';
 // import { revenueTypesData, weakylRevenue, lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis }  from '../../data/financeData'
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Skeleton } from '@mui/material';
-import { read } from 'xlsx';
+import ExportToExcel from '../../components/ExportToExcel';
 
 const DailySalesStats = ({sales1C, products1C}) => {
     const { currentColor, currentMode } = useStateContext();
@@ -105,12 +105,7 @@ const DailySalesStats = ({sales1C, products1C}) => {
                         </div>
                     </div>
                     <div className="mt-8 flex justify-center">
-                        <Button
-                        color="white"
-                        bgColor={currentColor}
-                        text="Скачать отчет"
-                        borderRadius="10px"
-                        />
+                        <ExportToExcel />
                     </div>
                 </div>
                     

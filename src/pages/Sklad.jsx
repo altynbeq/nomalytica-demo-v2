@@ -5,10 +5,12 @@ import { Orders } from '../pages';
 import { Button } from '../components';
 import { useStateContext } from '../contexts/ContextProvider';
 import LoadingSkeleton from '../components/LoadingSkeleton'
+import { getDataSpisanie } from '../hoc/shareData';
 
 const Sklad = ({spisanie}) => {
   const { skeletonUp } = useStateContext();
-  console.log(spisanie)
+  const dataSpisanie = getDataSpisanie();
+
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
@@ -26,9 +28,9 @@ const Sklad = ({spisanie}) => {
         <SkladStats />
       </div>
       <div className="flex flex-col w-[100%] md:flex-row gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
-        <SpisanieStats idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
-        <SpisanieStats idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
-        <SpisanieStats idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />
+        <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
+        <SpisanieStats rawSpisanie={dataSpisanie.readyWeekData} idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
+        <SpisanieStats rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />
       </div>
       <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">

@@ -4,12 +4,12 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { ExportToExcel } from '../'
 
-const WeaklyStatistics = ({title}) => {
+const WeaklyStatistics = ({ idcomp, title}) => {
     const { currentColor, currentMode } = useStateContext();
 
     const weeklyStats = [
         {
-            id: 1,
+            id: '1',
             icon: <FaDollarSign />,
             amount: '?тг',
             title: 'Выручка',
@@ -18,7 +18,7 @@ const WeaklyStatistics = ({title}) => {
             pcColor: 'green-600',
         },
         {
-            id: 2,
+            id: '2',
             icon: <FaMoneyBill />,
             amount: '? тг',
             title: 'Средний чек',
@@ -27,7 +27,7 @@ const WeaklyStatistics = ({title}) => {
             pcColor: 'green-600',
         },
         {
-            id: 3,
+            id: '3',
             icon: <FaMoneyBillAlt />,
             amount: `?тг`,
             title: 'Макс чек',
@@ -36,7 +36,7 @@ const WeaklyStatistics = ({title}) => {
             pcColor: 'green-600',
         },
         {
-            id: 4,
+            id: '4',
             icon: <FaBox />,
             amount: '?',
             title: 'Топ товар',
@@ -45,7 +45,7 @@ const WeaklyStatistics = ({title}) => {
             pcColor: 'green-600',
         },
         {
-            id: 5,
+            id: '5',
             icon: <FaFilter />,
             amount: '?',
             title: 'Конверсия',
@@ -54,7 +54,7 @@ const WeaklyStatistics = ({title}) => {
             pcColor: 'green-600',
         },
         {
-            id: 6,
+            id: '6',
             icon: <FaChartBar />,
             amount: '?',
             // numberOfItemsSold,
@@ -78,7 +78,7 @@ const WeaklyStatistics = ({title}) => {
 
                     <div className="mt-2">
                         {weeklyStats.map((item) => (
-                        <div key={item.id} className="flex justify-between mt-4 w-full">
+                        <div key={idcomp + item.id} className="flex justify-between mt-4 w-full">
                             <div className="flex gap-4">
                             <button
                                 type="button"

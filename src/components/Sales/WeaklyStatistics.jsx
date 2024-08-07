@@ -1,27 +1,17 @@
 import React from 'react'
 import { IoIosMore } from 'react-icons/io';
 import { useStateContext } from '../../contexts/ContextProvider';
-import { FiStar, FiShoppingCart } from 'react-icons/fi';
-import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
-import ExportToExcel from '../ExportToExcel';
+import { ExportToExcel } from '../'
 
-const WeeklyStats = ({ idcomp, title }) => {
+const WeaklyStatistics = ({ idcomp, title, excelData }) => {
     const { currentColor, currentMode } = useStateContext();
 
-    // const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
-    // const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
-    // const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-
-    // const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-   
-    
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: 'XXX',
-            // newTotalSum + ' тг',
+            amount: '?тг',
             title: 'Выручка',
             // desc: 'XX',
             iconBg: '#00C292',
@@ -30,8 +20,7 @@ const WeeklyStats = ({ idcomp, title }) => {
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: 'XXX',
-            // avgCheck + ' тг',
+            amount: '? тг',
             title: 'Средний чек',
             // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
             iconBg: '#00C292',
@@ -40,7 +29,7 @@ const WeeklyStats = ({ idcomp, title }) => {
         {
             id: '3',
             icon: <FaMoneyBillAlt />,
-            amount: `? тг`,
+            amount: `?тг`,
             title: 'Макс чек',
             desc: `?`,
             iconBg: '#00C292',
@@ -49,18 +38,16 @@ const WeeklyStats = ({ idcomp, title }) => {
         {
             id: '4',
             icon: <FaBox />,
-            amount: 'XXX',
-            // products1C.mostSoldItem.count,
+            amount: '?',
             title: 'Топ товар',
-            desc: 'XXX',
-            // products1C.mostSoldItem.name,
+            desc: '?',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
             id: '5',
             icon: <FaFilter />,
-            amount: 0,
+            amount: '?',
             title: 'Конверсия',
             desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
@@ -69,7 +56,7 @@ const WeeklyStats = ({ idcomp, title }) => {
         {
             id: '6',
             icon: <FaChartBar />,
-            amount: 'XXX',
+            amount: '?',
             // numberOfItemsSold,
             title: 'Продано товаров',
             desc: 'DESCC',
@@ -79,9 +66,9 @@ const WeeklyStats = ({ idcomp, title }) => {
     ];
 
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
+        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
-                <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 mx-3">
+                <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                     <div className="flex justify-between">
                         <p className="text-xl font-semibold">{title}</p>
                         <button type="button" className="text-xl font-semibold text-gray-500">
@@ -109,15 +96,15 @@ const WeeklyStats = ({ idcomp, title }) => {
                             <p className={`text-${item.pcColor}`}>{item.amount}</p>
                         </div>
                         ))}
-                        
                     </div>
-                    <div className="mt-2 flex justify-center">
-                        <ExportToExcel />
-                        </div>
+                    
+                    <div className='mt-4'>
+                        <ExportToExcel title={title} data={excelData} />
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
 
-export default WeeklyStats
+export default WeaklyStatistics

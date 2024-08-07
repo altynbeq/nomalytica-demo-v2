@@ -4,7 +4,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { ExportToExcel } from '../'; 
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 
-const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, title, spisanie}) => {
+const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, title, spisanie, excelData}) => {
     const { currentColor, currentMode } = useStateContext();
 
     const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
@@ -112,7 +112,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
                         </div> */}
                     </div>
                     <div className='mt-4'>
-                        <ExportToExcel />
+                        <ExportToExcel title={title} data={excelData} />
                     </div>
                     
                 </div>

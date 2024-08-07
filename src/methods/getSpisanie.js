@@ -1,4 +1,5 @@
 import { calculateSpisanieData } from '../data/1C/spisanieDataFormer';
+import { setDataSpisanie } from '../hoc/shareData';
 
 const username = 'Алтынбек';
 const password = '5521';
@@ -68,6 +69,7 @@ export async function getSpisanie(dateRanges) {
         readyWeekData: weekData,
         readyDayData: dayData
     }
+    setDataSpisanie(dataFinal);
     const formedSpisanieData = calculateSpisanieData(dataFinal);
     return formedSpisanieData;
 }
