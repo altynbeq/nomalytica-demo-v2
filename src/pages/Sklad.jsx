@@ -6,6 +6,7 @@ import { Button } from '../components';
 import { useStateContext } from '../contexts/ContextProvider';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getDataSpisanie } from '../hoc/shareData';
+import { SpisanieMonthChart } from '../components/Sklad'
 
 const Sklad = ({spisanie}) => {
   const { skeletonUp } = useStateContext();
@@ -23,9 +24,10 @@ const Sklad = ({spisanie}) => {
 
   return (
     <div className="mt-12">
-      <div className="flex flex-col w-[100%] md:flex-row gap-10 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
+      <div className="flex flex-col w-[100%] md:flex-wrap gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
         <SkladStatistivs />
-        <SkladStats />
+        <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
+        {/* <SkladStats /> */}
       </div>
       <div className="flex flex-col w-[100%] md:flex-row gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
         <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
