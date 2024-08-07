@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
 
 import { DailySalesStats, WeaklyStatistics, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
@@ -9,11 +9,20 @@ import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,  weekLeadsData, sales1C, kkm, products1C}) => {
     const { skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
     const excelSalesReport = getSalesReportsData();
+    const [ excelSalesReportDay, setexcelSalesReportDay ] = useState([]);
+    const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
+    const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
+
+    useEffect(()=> {
+        if(excelSalesReport){
+            setexcelSalesReportDay(excelSalesReport.readyDayData);
+            setexcelSalesReportWeek(excelSalesReport.readyWeekData);
+            setexcelSalesReportMonth(excelSalesReport.readyMonthData);
+        }
+    },[]);
     // const excelProductsReport = getSalesProductsData();
     // const excelProductsMonth = excelProductsReport.readyMonthData;
-    const excelSalesReportDay = excelSalesReport.readyDayData;
-    const excelSalesReportWeek = excelSalesReport.readyWeekData;
-    const  excelSalesReportMonth = excelSalesReport.readyMonthData;
+    
     if(skeletonUp){
         return(
         <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>

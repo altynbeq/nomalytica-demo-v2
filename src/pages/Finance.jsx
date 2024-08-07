@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -7,8 +7,16 @@ import { getSalesReportsData } from '../hoc/shareData';
 const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const { skeletonUp ,currentColor, currentMode, setActiveMenu } = useStateContext();
   const excelSalesReport = getSalesReportsData();
-  const excelSalesReportWeek = excelSalesReport.readyWeekData;
-  const  excelSalesReportMonth = excelSalesReport.readyMonthData;
+
+  const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
+  const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
+
+  useEffect(()=>{
+    if(excelSalesReport){
+      setexcelSalesReportWeek(excelSalesReport.readyWeekData);
+      setexcelSalesReportMonth(excelSalesReport.readyMonthData);
+    }
+  }, [])
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
