@@ -56,8 +56,8 @@ const DailySalesStats = ({sales1C, products1C}) => {
                 </div>
             </div>
 
-            <div className="flex w-[100%] flex-col lg:flex-row   justify-center">
-                <div className="w-[40%] md:border-r-1 border-color m-4 md:pr-10">
+            <div className="flex w-[100%] flex-col lg:flex-row text-center   justify-center">
+                <div className="w-[90%] md:w-[40%] md:border-r-1 border-color m-4 md:pr-10">
                     <div className='flex justify-center flex-col text-center'>
                         <p>
                             <span className="text-2xl font-semibold">{totalSum} тг</span>
@@ -109,7 +109,7 @@ const DailySalesStats = ({sales1C, products1C}) => {
                     </div>
                 </div>
                     
-                <div className="w-[60%] flex text-center flex-col align-center justify-center">
+                <div className="w-[90%] md:w-[60%] flex text-center flex-col align-center justify-center">
                     <h2>Online/Offline</h2>
                     <Pie id="pie-money-flow" data={pieSeries} legendVisiblity={true} height="200px" color="red"  />
                 </div>

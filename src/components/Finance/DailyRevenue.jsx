@@ -49,7 +49,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
   }
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 justify-center align-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 text-center justify-center align-center w-[90%] md:w-[55%]  rounded-2xl subtle-border">
           <div className="flex justify-between">
             <p className="font-semibold text-xl">Доходы за день</p>
             <div className="flex items-center gap-4">
@@ -62,9 +62,9 @@ const DailyRevenue = ({sales1C, kkm, }) => {
             </div>
           </div>
           
-          <div className="mt-10 flex gap-4 flex-col md:flex-row w-[100%] justify-center">
+          <div className="mt-10 flex gap-4 flex-col md:flex-row w-[100%] items-center text-center justify-center">
 
-            <div className="w-[40%] md:border-r-1 border-color m-4 md:pr-10">
+            <div className=" w-[100%] md:w-[40%] md:border-r-1 border-color m-4 md:pr-10">
               
               <div>
                 <div className='flex justify-center flex-col text-center'>

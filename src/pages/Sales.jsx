@@ -4,11 +4,13 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { DailySalesStats, WeaklyStatistics, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
 import { FirstRowStats } from '../components/General';
 import LoadingSkeleton from '../components/LoadingSkeleton'
-import { getSalesReportsData } from '../hoc/shareData';
+import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 
 const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,  weekLeadsData, sales1C, kkm, products1C}) => {
     const { skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
     const excelSalesReport = getSalesReportsData();
+    // const excelProductsReport = getSalesProductsData();
+    // const excelProductsMonth = excelProductsReport.readyMonthData;
     const excelSalesReportDay = excelSalesReport.readyDayData;
     const excelSalesReportWeek = excelSalesReport.readyWeekData;
     const  excelSalesReportMonth = excelSalesReport.readyMonthData;

@@ -13,7 +13,7 @@ const LogInForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(email != "" && password!= ""){
+    if(email == "romantic_zhez" && password == "director123"){
       handleLogIn();
     } else {
       alert('Wrong password')
