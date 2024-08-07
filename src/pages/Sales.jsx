@@ -6,12 +6,14 @@ import { FirstRowStats } from '../components/General';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 
-const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,  weekLeadsData, sales1C, kkm, products1C}) => {
+const Sales = ({ leads, sales1C, kkm, products1C, deals}) => {
     const { skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
     const excelSalesReport = getSalesReportsData();
+    const [ ready, setReady ] = useState(false);
     const [ excelSalesReportDay, setexcelSalesReportDay ] = useState([]);
     const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
     const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
+    const [ conversionSeries, setConversionSeries ] = useState({});
 
     useEffect(()=> {
         if(excelSalesReport){
@@ -19,10 +21,20 @@ const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,
             setexcelSalesReportWeek(excelSalesReport.readyWeekData);
             setexcelSalesReportMonth(excelSalesReport.readyMonthData);
         }
+        const monthLeadsSeries = leads.leadsMonth.series;
+        const monthDealsSeries = deals.dealsMonth.salesSeries;
+
+        const conversionSeriesCounter = monthLeadsSeries.map((lead, index) => {
+            const deal = monthDealsSeries[index];
+            if (deal) {
+              const conversion = lead.y !== 0 ? Math.round((deal.y / lead.y) * 100) : 0;
+              return { x: lead.x, y: conversion };
+            }
+            return { x: lead.x, y: 0 };
+        });
+        setConversionSeries({series:conversionSeriesCounter})
     },[]);
-    // const excelProductsReport = getSalesProductsData();
-    // const excelProductsMonth = excelProductsReport.readyMonthData;
-    
+   
     if(skeletonUp){
         return(
         <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
@@ -48,8 +60,12 @@ const Sales = ({dayFinanceData, weekFinanceData, monthFinanceData, dayLeadsData,
                 <WeaklyStatistics idcomp="weekStatis" title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
-                <WeaklyTotalSalesChart sales1C={sales1C.sales1CWeek} />
-                <MonthlyTotalSalesChart sales1C={sales1C.sales1CMonth} />
+                <WeaklyTotalSalesChart sales1C={sales1C.sales1CWeek} title="Продажи за неделю" />
+                <MonthlyTotalSalesChart sales1C={sales1C.sales1CMonth} title="Продажи за месяц" />
+            </div>
+            <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
+                <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" />
+                <MonthlyTotalSalesChart sales1C={conversionSeries} title="Конверсия Bitrix %" />
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />

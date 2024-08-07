@@ -4,14 +4,18 @@ import { Stacked } from '../../components';
 import { stackedCustomSeriesMonthly, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 import { Skeleton } from '@mui/material';
 
-const MonthlyTotalSalesChart = ({sales1C}) => {
-  const list = sales1C.salesSeries;
- 
-  const maxSeriesVal = sales1C.salesSeries.reduce((acc, item) => {
+const MonthlyTotalSalesChart = ({sales1C, title}) => {
+  const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
+  if(!list){
+    return(
+      <Skeleton />
+    )
+  }
+  const maxSeriesVal = list.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
   
-  const minSeriesVal = sales1C.salesSeries.reduce((acc, item) => {
+  const minSeriesVal = list.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
@@ -52,9 +56,9 @@ const MonthlyTotalSalesChart = ({sales1C}) => {
   
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
-    minimum: finalMinSeriesVal / 2,
-    maximum: maxSeriesVal > 0 ? maxSeriesVal * 1.5 : 10,
-    interval: interval,
+    minimum: Math.round(finalMinSeriesVal / 2),
+    maximum: maxSeriesVal > 0 ? Math.round(maxSeriesVal * 1.5) : 10,
+    interval: Math.round(interval),
     majorTickLines: { width: 0 },
     majorGridLines: { width: 1 },
     minorGridLines: { width: 1 },
@@ -78,7 +82,7 @@ const MonthlyTotalSalesChart = ({sales1C}) => {
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
-        <p className="text-xl font-semibold">Продажи за месяц</p>
+        <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
             <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
             <span>

@@ -165,6 +165,8 @@ const App = () => {
                   />
                   <Route path="/sales" element={(
                       <Sales 
+                        deals={data.deals}
+                        leads={data.leads}
                         sales1C={data.sales1C}
                         kkm={data.kkm}
                         products1C={data.products1C}

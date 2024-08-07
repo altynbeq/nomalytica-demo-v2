@@ -10,7 +10,6 @@ const DailyRevenue = ({sales1C, kkm, }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
   const excelData = getKkmData();
-  console.log(excelData)
   const { currentColor, currentMode } = useStateContext();
 
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);

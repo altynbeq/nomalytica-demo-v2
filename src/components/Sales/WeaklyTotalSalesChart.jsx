@@ -4,14 +4,14 @@ import { Stacked } from '../../components';
 import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 
 
-const WeaklyTotalSalesChart = ({sales1C}) => {
-  const list = sales1C.salesSeries;
+const WeaklyTotalSalesChart = ({sales1C, title}) => {
+  const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
  
-  const maxSeriesVal = sales1C.salesSeries.reduce((acc, item) => {
+  const maxSeriesVal = list.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
   
-  const minSeriesVal = sales1C.salesSeries.reduce((acc, item) => {
+  const minSeriesVal = list.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
@@ -76,7 +76,7 @@ const WeaklyTotalSalesChart = ({sales1C}) => {
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
-          <p className="md:text-xl font-semibold">Продажи за неделю</p>
+          <p className="md:text-xl font-semibold">{title}</p>
           <div className="flex items-center gap-4">
               <p className="flex md:text-xl items-center gap-2 text-green-400 hover:drop-shadow-xl">
               <span>
