@@ -93,7 +93,7 @@ const MonthlyTotalSalesChart = ({sales1C, title}) => {
         </div>
         </div>
         <div className="w-[100%]">
-          <Stacked stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  />
+          <Stacked  stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  />
         </div>
     </div>
   )

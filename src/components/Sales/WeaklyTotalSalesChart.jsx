@@ -6,7 +6,11 @@ import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '.
 
 const WeaklyTotalSalesChart = ({sales1C, title}) => {
   const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
- 
+  if(!list){
+    return(
+      <></>
+    )
+  }
   const maxSeriesVal = list.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
@@ -24,7 +28,7 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
 
   let interval;
   if (range <= 10) {
-    interval = 1;
+    interval = 5;
   } else if (range <= 100) {
     interval = 10;
   } else if (range <= 1000) {
@@ -52,9 +56,9 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
   
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
-    minimum: finalMinSeriesVal / 2,
-    maximum: maxSeriesVal > 0 ? maxSeriesVal * 1.5 : 10,
-    interval: interval,
+    minimum: Math.round(finalMinSeriesVal / 2),
+    maximum: Math.round(maxSeriesVal > 0 ? maxSeriesVal * 1.5 : 10),
+    interval: Math.round(interval),
     majorTickLines: { width: 0 },
     majorGridLines: { width: 1 },
     minorGridLines: { width: 1 },

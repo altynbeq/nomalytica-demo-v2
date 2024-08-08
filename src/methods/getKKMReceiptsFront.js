@@ -44,7 +44,7 @@ export async function getKKMReceiptsFront(dateRanges) {
     }
 
     const data = await response.json();
-
+    const dataForFilter = data;
     // Extract date ranges for filtering
     const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
     const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
@@ -52,17 +52,17 @@ export async function getKKMReceiptsFront(dateRanges) {
     const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
 
     // Filter data for day
-    const dayData = data.filter(item => {
+    const dayData = dataForFilter.filter(item => {
         const itemDate = new Date(item.Дата);
         return itemDate >= dayStart && itemDate <= dayEnd;
     });
 
     // Filter data for week
-    const weekData = data.filter(item => {
+    const weekData = dataForFilter.filter(item => {
         const itemDate = new Date(item.Дата);
         return itemDate >= weekStart && itemDate <= weekEnd;
     });
-
+    
     const final = {
         readyMonthData: data,
         readyWeekData: weekData,

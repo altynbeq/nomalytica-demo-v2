@@ -170,6 +170,7 @@ const App = () => {
                         sales1C={data.sales1C}
                         kkm={data.kkm}
                         products1C={data.products1C}
+                        spisanie={data.spisanie}
                       />)} 
                   />
                   <Route path="/workers" element={(<Workers />)} />

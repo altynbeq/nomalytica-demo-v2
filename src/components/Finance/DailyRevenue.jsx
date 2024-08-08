@@ -14,7 +14,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
 
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
-  const avgCheck = numberOfItemsSold > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/numberOfItemsSold)) : 0;
+  const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
   const itemsSold = Object.keys(kkm.itemsSold).length;
 
   useEffect(()=>{
@@ -78,7 +78,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
               </div>
               <div className="mt-8 gap-7 flex flex-row justify-between">
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">?</p>
+                    <p className="text-2xl font-semibold">{kkm.totalNumberSales}</p>
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
@@ -90,7 +90,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
                 <div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="text-2xl font-semibold">? тг</span>
+                            <span className="text-2xl font-semibold">{avgCheck}</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>

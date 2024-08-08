@@ -6,18 +6,14 @@ import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import ExportToExcel from '../ExportToExcel';
 
-const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
+const YearStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
     const { currentColor, currentMode } = useStateContext();
     
-    const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
-    const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
-    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: newTotalSum + 'тг',
+            amount: 'тг',
             title: 'Выручка',
             // desc: 'XX',
             iconBg: '#00C292',
@@ -26,7 +22,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: Math.round(avgCheck) + 'тг',
+            amount: 'тг',
             title: 'Средний чек',
             // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
             iconBg: '#00C292',
@@ -44,16 +40,16 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         {
             id: '4',
             icon: <FaBox />,
-            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
+            amount: ' шт',
             title: 'Топ товар',
-            desc: products1C.mostSoldItem.name,
+            desc: '',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
             id: '5',
             icon: <FaFilter />,
-            amount: conversion+'%',
+            amount: '%',
             title: 'Конверсия',
             desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
@@ -61,7 +57,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         },
         {
             icon: <FaChartBar />,
-            amount: numberOfItemsSold,
+            amount: '',
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
             iconBg: 'rgb(254, 201, 15)',
@@ -111,4 +107,4 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
     )
 }
 
-export default WeeklyStats
+export default YearStats

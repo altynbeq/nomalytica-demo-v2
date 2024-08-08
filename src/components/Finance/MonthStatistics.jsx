@@ -8,11 +8,10 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
     const { currentColor, currentMode } = useStateContext();
 
     const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
-    const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(sales1C.totalSum/sales1C.totalNumberSales));
+    const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales));
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
-
     // for (let workerId in data.workersStats) {
     //     const { count, sales } = data.workersStats[workerId];
     //     avgCheck = sales / count;

@@ -4,14 +4,17 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { ExportToExcel } from '../'
 
-const WeaklyStatistics = ({ idcomp, title, excelData }) => {
+const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
     const { currentColor, currentMode } = useStateContext();
-
+    const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+    const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
+    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
+    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: '?тг',
+            amount: newTotalSum + 'тг',
             title: 'Выручка',
             // desc: 'XX',
             iconBg: '#00C292',
@@ -20,7 +23,7 @@ const WeaklyStatistics = ({ idcomp, title, excelData }) => {
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: '? тг',
+            amount: Math.round(avgCheck) + 'тг',
             title: 'Средний чек',
             // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
             iconBg: '#00C292',
@@ -38,28 +41,26 @@ const WeaklyStatistics = ({ idcomp, title, excelData }) => {
         {
             id: '4',
             icon: <FaBox />,
-            amount: '?',
+            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
             title: 'Топ товар',
-            desc: '?',
+            desc: products1C.mostSoldItem.name,
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
             id: '5',
             icon: <FaFilter />,
-            amount: '?',
+            amount: conversion+'%',
             title: 'Конверсия',
             desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
-            id: '6',
             icon: <FaChartBar />,
-            amount: '?',
-            // numberOfItemsSold,
+            amount: numberOfItemsSold,
             title: 'Продано товаров',
-            desc: 'DESCC',
+            desc: 'Уникальных товаров ',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },

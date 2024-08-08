@@ -6,3 +6,5 @@ export { default as MonthlyTotalSalesChart } from './MonthlyTotalSalesChart';
 export { default as OverallRevenueChart } from './OverallRevenueChart';
 export { default as WeeklyStats } from './WeeklyStats';
 export { default as WeaklyStatistics } from './WeaklyStatistics';
+export { default as ProductsStats } from './ProductsStats';
+export { default as YearStats } from './YearStats'
