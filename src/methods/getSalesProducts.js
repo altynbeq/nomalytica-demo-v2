@@ -12,7 +12,6 @@ export async function getSalesProducts(dateRanges) {
   
       return await response.json();
     };
-  
     return Promise.all(dateRanges.map(fetchSalesProducts));
   }
   

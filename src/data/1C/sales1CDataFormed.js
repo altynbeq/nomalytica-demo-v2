@@ -159,6 +159,5 @@ export const sales1CDataFormer = (data) => {
     weekFormedSales1C: processData(data.readyWeekData),
     monthFormedSales1C: sales1CMonthFormer(data.readyMonthData),
   };
-
   return formedResponse;
 };

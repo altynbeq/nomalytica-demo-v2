@@ -6,49 +6,18 @@ import { FirstRowStats } from '../components/General';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 
-const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie}) => {
+const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSeries, weekSalesSeries}) => {
     const { dateRanges, skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
     const excelSalesReport = getSalesReportsData();
     const [ ready, setReady ] = useState(false);
     const [ excelSalesReportDay, setexcelSalesReportDay ] = useState([]);
     const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
     const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
-    const [ conversion, setConversion ] = useState({});
-    const [ weekSalesSeries, setWeekSalesSeries ] = useState({});
     useEffect(()=> {
         if(excelSalesReport){
             setexcelSalesReportDay(excelSalesReport.readyDayData);
             setexcelSalesReportWeek(excelSalesReport.readyWeekData);
             setexcelSalesReportMonth(excelSalesReport.readyMonthData);
-
-            const monthLeadsSeries = leads.leadsMonth.series;
-            const monthDealsSeries = deals.dealsMonth.salesSeries;
-
-            const conversionSeriesCounter = monthLeadsSeries.map((lead, index) => {
-                const deal = monthDealsSeries[index];
-                if (deal) {
-                const conversion = lead.y !== 0 ? Math.round((deal.y / lead.y) * 100) : 0;
-                return { x: lead.x, y: conversion };
-                }
-                return { x: lead.x, y: 0 };
-            });
-            const salesSeries = kkm.kkmMonth.salesSeries;
-            const weekStartDate = new Date(dateRanges[1].bitrixStartDate);
-            const weekEndDate = new Date(dateRanges[1].bitrixEndDate);
-
-            const weekSalesSeriesCounter = Array.from({ length: 7 }, (_, i) => {
-                const currentDay = new Date(weekStartDate);
-                currentDay.setDate(weekStartDate.getDate() + i);
-
-                const dayIndex = currentDay.getDate() - 1; // Adjust to align with 0-based index
-                const sales = salesSeries[dayIndex] ? salesSeries[dayIndex].y : 0;
-
-                const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                return { x: dayNames[i], y: sales };
-            });
-
-            setConversion({series: conversionSeriesCounter})
-            setWeekSalesSeries({salesSeries: weekSalesSeriesCounter})
         }
     },[excelSalesReport]);
 
@@ -81,7 +50,7 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie}) => {
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" />
-                <MonthlyTotalSalesChart sales1C={conversion} title="Конверсия Bitrix %" />
+                <MonthlyTotalSalesChart sales1C={conversionSeries} title="Конверсия Bitrix %" />
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />

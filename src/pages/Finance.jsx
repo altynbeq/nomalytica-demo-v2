@@ -16,7 +16,7 @@ const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
       setexcelSalesReportWeek(excelSalesReport.readyWeekData);
       setexcelSalesReportMonth(excelSalesReport.readyMonthData);
     }
-  }, [])
+  }, []) 
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>

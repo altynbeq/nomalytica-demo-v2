@@ -32,7 +32,10 @@ const App = () => {
     deals: { dealsDay: [], dealsWeek: [], dealsMonth: [] },
     leads: { leadsDay: [], leadsWeek: [], leadsMonth: [] },
     spisanie: { spisanieDay: [], spisanieWeek: [], spisanieMonth: [] },
+    weekSalesSeries: {},
+    conversionSeries: {},
   });
+
   useEffect(() => {
     async function collector() {
       handleSkeleton(true);
@@ -59,6 +62,33 @@ const App = () => {
           fetchLeads(dateRanges),
           getSpisanie(dateRanges),
         ]);
+
+        const monthLeadsSeries = leads.leadsMonth.series;
+        const monthDealsSeries = deals.dealsMonth.salesSeries;
+        const salesSeries = kkmFront.monthFormedKKM.salesSeries;
+        const weekStartDate = new Date(dateRanges[1].bitrixStartDate);
+        const weekEndDate = new Date(dateRanges[1].bitrixEndDate);
+
+        const conversionSeriesCounter = monthLeadsSeries.map((lead, index) => {
+            const deal = monthDealsSeries[index];
+            if (deal) {
+            const conversion = lead.y !== 0 ? Math.round((deal.y / lead.y) * 100) : 0;
+            return { x: lead.x, y: conversion };
+            }
+            return { x: lead.x, y: 0 };
+        });
+
+        const weekSalesSeriesCounter = Array.from({ length: 7 }, (_, i) => {
+            const currentDay = new Date(weekStartDate);
+            currentDay.setDate(weekStartDate.getDate() + i);
+
+            const dayIndex = currentDay.getDate() - 1; // Adjust to align with 0-based index
+            const sales = salesSeries[dayIndex] ? salesSeries[dayIndex].y : 0;
+
+            const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            return { x: dayNames[i], y: sales };
+        });
+
         setData({
           deals: {
             dealsDay: deals.dealsDay,
@@ -89,9 +119,14 @@ const App = () => {
             products1CDay: salesProducts[0],
             products1CWeek: salesProducts[1],
             products1CMonth: salesProducts[2]
+          },
+          conversionSeries: {
+            series: conversionSeriesCounter
+          },
+          weekSalesSeries: {
+            series: weekSalesSeriesCounter
           }
-        });
-      
+      });
       } catch (error) {
         console.error('Error during data fetching and processing:', error);
       } finally {
@@ -171,6 +206,8 @@ const App = () => {
                         kkm={data.kkm}
                         products1C={data.products1C}
                         spisanie={data.spisanie}
+                        conversionSeries={data.conversionSeries}
+                        weekSalesSeries={data.weekSalesSeries}
                       />)} 
                   />
                   <Route path="/workers" element={(<Workers />)} />

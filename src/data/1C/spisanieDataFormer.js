@@ -34,6 +34,5 @@ export async function calculateSpisanieData(dataFinal) {
         spisanieWeek: await spisanieFormer(dataFinal.readyWeekData),
         spisanieMonth: await spisanieFormer(dataFinal.readyMonthData),
     };
-    
     return formerSpisanieData;
 }
