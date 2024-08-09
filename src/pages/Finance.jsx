@@ -29,7 +29,7 @@ const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
       <div className="flex mt-5 w-[100%] align-center gap-4 flex-wrap md:flex-row justify-center">
-        <DailyRevenue sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} />
+        <DailyRevenue sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} products1C={products1C.products1CDay} deals={deals.dealsDay} leads={leads.leadsDat} />
         <div className=' flex justify-center align-center flex-col w-[100%] md:w-[30%]'>
           <WeaklyRevenueOverviewStacked deals={deals.dealsWeek} />
           <TotalRevenuePie />

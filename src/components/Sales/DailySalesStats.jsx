@@ -12,9 +12,8 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
     const [ pieSeries, setSeries ] = useState([]);
     const [ ready, setReady ] = useState(false);
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(kkm.totalSum/kkm.totalNumberSales) : 0;
+    const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
     const itemsSold = Object.keys(kkm.itemsSold).length;
-
     useEffect(()=>{
         if (!sales1C || !sales1C.paidTo) {
           return;
@@ -89,7 +88,7 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
                             <p className="text-gray-500 mt-1">Товары</p>
                         </div>
                         <div className='flex justify-center flex-col text-center'>
-                            <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie > 0 && itemsSold > 0 ? Math.round(itemsSold/spisanie.totalAmountSpisanie) : 0 }%</p>
+                            <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie > 0 && itemsSold > 0 ? Math.round(itemsSold/spisanie.totalAmountSpisanie) * 100 : 0 }%</p>
                             <p className="text-gray-500 mt-1">Cписание/Товары</p>
                         </div>
                     </div>

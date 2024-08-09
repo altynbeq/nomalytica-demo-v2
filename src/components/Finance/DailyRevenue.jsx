@@ -6,7 +6,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import  ExportToExcel  from '../ExportToExcel'
 import { getKkmData } from '../../hoc/shareData';
 
-const DailyRevenue = ({sales1C, kkm, }) => {
+const DailyRevenue = ({sales1C, kkm }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
   const excelData = getKkmData();
@@ -14,7 +14,7 @@ const DailyRevenue = ({sales1C, kkm, }) => {
 
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
-  const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
+  const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
   const itemsSold = Object.keys(kkm.itemsSold).length;
 
   useEffect(()=>{

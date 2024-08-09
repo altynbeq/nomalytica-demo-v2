@@ -12,7 +12,8 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
     const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
+    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 100) : 0;
+    console.log(leads, deals)
     const weeklyStats = [
         {
             id: '1',
