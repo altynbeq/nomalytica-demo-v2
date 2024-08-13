@@ -62,7 +62,10 @@ const App = () => {
           fetchLeads(dateRanges),
           getSpisanie(dateRanges),
         ]);
-
+        if (!leads || !deals || !kkmFront || !salesReceiptsFront || !salesProducts || !spisanie) {
+          console.error("Data is missing or undefined");
+          return;
+        }
         const monthLeadsSeries = leads.leadsMonth.series;
         const monthDealsSeries = deals.dealsMonth.salesSeries;
         const salesSeries = kkmFront.monthFormedKKM.salesSeries;
@@ -85,7 +88,7 @@ const App = () => {
             const dayIndex = currentDay.getDate() - 1; // Adjust to align with 0-based index
             const sales = salesSeries[dayIndex] ? salesSeries[dayIndex].y : 0;
 
-            const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const dayNames = ['Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', ];
             return { x: dayNames[i], y: sales };
         });
 

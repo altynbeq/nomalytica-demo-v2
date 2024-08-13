@@ -52,7 +52,6 @@ const SpisanieMonthChart = ({spisanie, title}) => {
       background: 'blue',
     },
   ];
-  console.log(maxSeriesVal)
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
     minimum: 0,
