@@ -82,7 +82,7 @@ export const monthDealsDataCollector = (list) => {
     });
 
     // Calculate min and max amount from series
-    let minAmountInSeries = Number.MAX_SAFE_INTEGER;
+    let minAmountInSeries = 0;
     let maxAmountInSeries = 0;
 
     dealsStats.series.forEach(day => {

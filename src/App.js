@@ -19,6 +19,8 @@ import { getSpisanie } from './methods/getSpisanie';
 import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
 import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
 import { getSalesProductsFront } from './methods/getSalesProductsFront';
+import { fetchDealsFront } from './methods/getDealsFront';
+import { fetchLeadsFront } from './methods/getLeadsFront';
 
 const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -47,6 +49,7 @@ const App = () => {
           setCurrentColor(currentThemeColor);
           setCurrentMode(currentThemeMode);
         }
+
         const [
           kkmFront,
           salesReceiptsFront,
@@ -58,14 +61,19 @@ const App = () => {
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
           getSalesProducts(dateRanges),
-          fetchDeals(dateRanges),
-          fetchLeads(dateRanges),
+          fetchDealsFront(dateRanges),
+          fetchLeadsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
+
         if (!leads || !deals || !kkmFront || !salesReceiptsFront || !salesProducts || !spisanie) {
+          // !spisanie
           console.error("Data is missing or undefined");
           return;
         }
+
+        debugger
+
         const monthLeadsSeries = leads.leadsMonth.series;
         const monthDealsSeries = deals.dealsMonth.salesSeries;
         const salesSeries = kkmFront.monthFormedKKM.salesSeries;
@@ -109,9 +117,13 @@ const App = () => {
             kkmMonth: kkmFront.monthFormedKKM
           },
           spisanie: {
-            spisanieDay: spisanie.spisanieDay,
-            spisanieWeek: spisanie.spisanieWeek,
-            spisanieMonth: spisanie.spisanieMonth
+            spisanieDay: [],
+            spisanieWeek: [],
+            spisanieMonth: [],
+
+            // spisanieDay: spisanie.spisanieDay,
+            // spisanieWeek: spisanie.spisanieWeek,
+            // spisanieMonth: spisanie.spisanieMonth
           },
           sales1C: {
             sales1CDay: salesReceiptsFront.dayFormedSales1C,

@@ -20,11 +20,12 @@ export async function fetchDeals(dateRanges) {
       return []; // Return an empty array in case of error
     }
   };
-
+  
   const formedDealsData = {
     dealsDay: await dealsGet(dateRanges[0]),
     dealsWeek: await dealsGet(dateRanges[1]),
     dealsMonth: await dealsGet(dateRanges[2])
   };
+  console.log("formedDealsData", formedDealsData)
   return formedDealsData;
 }
