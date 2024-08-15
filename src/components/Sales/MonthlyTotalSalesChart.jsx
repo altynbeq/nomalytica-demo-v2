@@ -1,10 +1,12 @@
 import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Stacked } from '../../components';
-import { stackedCustomSeriesMonthly, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 import { Skeleton } from '@mui/material';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const MonthlyTotalSalesChart = ({sales1C, title}) => {
+  const { dateRanges } = useStateContext();
+  const date = dateRanges[2].startDate.split('%')[0].split('-')[0] + '-' + dateRanges[2].startDate.split('%')[0].split('-')[1]
   const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
   if(!list){
     return(
@@ -88,7 +90,7 @@ const MonthlyTotalSalesChart = ({sales1C, title}) => {
             <span>
                 <GoPrimitiveDot />
             </span>
-            <span>2024</span>
+            <span>{date}</span>
             </p>
         </div>
         </div>

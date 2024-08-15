@@ -7,7 +7,8 @@ import { Skeleton } from '@mui/material';
 import ExportToExcel from '../../components/ExportToExcel';
 
 const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
-    const { currentColor, currentMode } = useStateContext();
+    const { dateRanges, currentColor, currentMode } = useStateContext();
+    const date = dateRanges[0].bitrixStartDate.split(' ')[0];
     const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
     const [ pieSeries, setSeries ] = useState([]);
     const [ ready, setReady ] = useState(false);
@@ -53,7 +54,7 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
                         <span>
                         <GoPrimitiveDot />
                         </span>
-                        <span>24 Мая 2024</span>
+                        <span>{date}</span>
                     </p>
                 </div>
             </div>

@@ -2,9 +2,14 @@ import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Stacked } from '../../components';
 import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
-
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const WeaklyTotalSalesChart = ({sales1C, title}) => {
+  const { dateRanges } = useStateContext();
+  const dateOne = dateRanges[1].startDate.split('%')[0].split('-')[2];
+  const dateTwo = dateRanges[1].endDate.split('%')[0].split('-')[2];
+  const finalDate = dateOne + '-' + dateTwo + ' ' + dateRanges[1].startDate.split('%')[0].split('-')[1] + '.' + dateRanges[1].startDate.split('%')[0].split('-')[0];
+  
   const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
   if(!list){
     return(
@@ -86,7 +91,7 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
               <span>
                   <GoPrimitiveDot />
               </span>
-              <span>13-19 Мая 2024</span>
+              <span>{finalDate}</span>
               </p>
           </div>
         </div>

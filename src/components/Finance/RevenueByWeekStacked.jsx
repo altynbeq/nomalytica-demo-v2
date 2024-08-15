@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Stacked } from '..';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Skeleton } from "..";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 const RevenueByWeekStacked = ({sales1C}) => {
+  const { dateRanges } = useStateContext();
+  const dateOne = dateRanges[1].startDate.split('%')[0].split('-')[2];
+  const dateTwo = dateRanges[1].endDate.split('%')[0].split('-')[2];
+  const finalDate = dateOne + '-' + dateTwo + ' ' + dateRanges[1].startDate.split('%')[0].split('-')[1] + '.' + dateRanges[1].startDate.split('%')[0].split('-')[0];
   const [ ready, setReady ] = useState(true);
   const list = sales1C.salesSumSeries;
   const maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
@@ -83,7 +88,7 @@ const RevenueByWeekStacked = ({sales1C}) => {
               <span>
                   <GoPrimitiveDot />
               </span>
-              <span>13-19 Мая 2024</span>
+              <span>{finalDate}</span>
               </p>
           </div>
         </div>

@@ -10,8 +10,8 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
   const excelData = getKkmData();
-  const { currentColor, currentMode } = useStateContext();
-
+  const { dateRanges, currentColor, currentMode } = useStateContext();
+  const date = dateRanges[0].bitrixStartDate.split(' ')[0];
   const totalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
   const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
@@ -57,7 +57,7 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
                 <span>
                   <GoPrimitiveDot />
                 </span>
-                <span>24 Мая 2024</span>
+                <span>{date}</span>
               </p>
             </div>
           </div>

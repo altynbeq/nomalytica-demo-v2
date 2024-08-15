@@ -2,8 +2,11 @@ import React from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const MonthlyRevenueChart = ({sales1C}) => {
+    const { dateRanges } = useStateContext();
+    const date = dateRanges[2].startDate.split('%')[0].split('-')[0] + '-' + dateRanges[2].startDate.split('%')[0].split('-')[1]
     let  maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
         return Math.max(acc, item.y);
     }, 0);
@@ -79,7 +82,7 @@ const MonthlyRevenueChart = ({sales1C}) => {
                 <span>
                     <GoPrimitiveDot />
                 </span>
-                <span>2024</span>
+                <span>{date}</span>
                 </p>
             </div>
             </div>
