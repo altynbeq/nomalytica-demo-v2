@@ -3,17 +3,18 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Button, Pie } from '../../components';
 import { revenueTypesDataSales } from '../../data/salesData';
 import { useStateContext } from '../../contexts/ContextProvider';
+import  ExportToExcel  from '../../components/ExportToExcel'
 
 const SkladStatistivs = ({products1C, spisanie}) => {
   const { currentColor, currentMode } = useStateContext();
   return ( 
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[35%] rounded-2xl subtle-border ">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[38%] rounded-2xl subtle-border ">
             <div className="flex flex-col md:flex-row justify-between">
                 <p className="font-semibold  md:text-xl">Обновления по складу</p>
             </div>
             <div className="mt-10 flex flex-col lg:flex-row gap-10 justify-center">
 
-                <div className="md:border-r-1 border-color m-4 md:pr-10">
+                <div className="md:border-r-1 w-[100%] md:w-[40%] border-color m-4 md:pr-10">
                   <div className='flex justify-center flex-col text-center'>
                       <p>
                           <span className="text-2xl  font-semibold">{products1C.productsSold}</span>
@@ -51,20 +52,17 @@ const SkladStatistivs = ({products1C, spisanie}) => {
                  
                   
                   <div className="mt-10 flex justify-center">
-                      <Button
-                      color="white"
-                      bgColor={currentColor}
-                      text="Скачать отчет"
-                      borderRadius="10px"
+                      <ExportToExcel
+                      
                       />
                   </div>
                 </div>
                 
-                <div className="m-auto lg:m-0">
+                <div className="m-auto w-[60%] lg:m-0">
                       <div className='flex justify-center text-center flex-col'>
                         <h2>Способы оплат</h2>
                       </div>
-                  <Pie id="pie-money-flow" data={revenueTypesDataSales} legendVisiblity={false} height="250px" width="250px" />
+                  <Pie id="pie-money-flow" data={revenueTypesDataSales} legendVisiblity={false} height="250px"  />
                   <div className='flex flex-row justify-between'>
                   <p className="flex items-center gap-2 text-cyan-600 hover:drop-shadow-xl">
                          <span>
