@@ -8,10 +8,12 @@ import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getDataSpisanie } from '../hoc/shareData';
 import { SpisanieMonthChart } from '../components/Sklad'
 
-const Sklad = ({spisanie}) => {
+const Sklad = ({spisanie, products1C}) => {
   const { skeletonUp } = useStateContext();
   const dataSpisanie = getDataSpisanie();
-  console.log(spisanie)
+  useEffect(()=> {
+    window.scrollTo(0, 0);
+  }, []);
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
@@ -25,7 +27,7 @@ const Sklad = ({spisanie}) => {
   return (
     <div className="mt-12">
       <div className="flex flex-col w-[100%] md:flex-wrap gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
-        <SkladStatistivs />
+        <SkladStatistivs products1C={products1C.products1CWeek} spisanie={spisanie.spisanieWeek}  />
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
         {/* <SkladStats /> */}
       </div>

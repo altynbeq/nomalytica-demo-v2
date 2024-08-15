@@ -4,50 +4,47 @@ import { Button, Pie } from '../../components';
 import { revenueTypesDataSales } from '../../data/salesData';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const SkladStatistivs = () => {
+const SkladStatistivs = ({products1C, spisanie}) => {
   const { currentColor, currentMode } = useStateContext();
   return ( 
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[35%] rounded-2xl subtle-border ">
             <div className="flex flex-col md:flex-row justify-between">
-                <p className="font-semibold  md:text-xl">Обновления по доходам</p>
+                <p className="font-semibold  md:text-xl">Обновления по складу</p>
             </div>
             <div className="mt-10 flex flex-col lg:flex-row gap-10 justify-center">
 
                 <div className="md:border-r-1 border-color m-4 md:pr-10">
                   <div className='flex justify-center flex-col text-center'>
                       <p>
-                          <span className="text-2xl  font-semibold">210</span>
-                          <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-green-400 ml-3 text-xs">
-                              36% 
-                          </span>
+                          <span className="text-2xl  font-semibold">{products1C.productsSold}</span>
                       </p>
                       <p className="text-gray-500 mt-1">Продаж</p>
                   </div>
                   <div className="mt-8 gap-7 flex flex-row justify-between">
                     <div className='flex justify-center flex-col text-center'>
-                        <p className="text-2xl font-semibold">37%</p>
-                        <p className="text-gray-500 mt-1">Конверсия</p>
+                        <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie}</p>
+                        <p className="text-gray-500 mt-1">Списаний</p>
                     </div>
                     <div className='flex justify-center flex-col text-center'>
                         <p>
-                            <span className="text-2xl  font-semibold">140 500</span>
+                            <span className="text-2xl  font-semibold">???</span>
                             <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                 7%
                             </span>
                         </p>
-                        <p className="text-gray-500 mt-1">Средний чек</p>
+                        <p className="text-gray-500 mt-1">???</p>
                     </div>
                   </div>
                   <div className="mt-8">
                     <div>
                         <div className='flex justify-center flex-col text-center'>
                             <p>
-                                <span className="text-2xl font-semibold">1 104 500 тг</span>
+                                <span className="text-2xl font-semibold">??? тг</span>
                                 <span className="p-1.5 hover:drop-shadow-xl cursor-pointer rounded-full text-white bg-red-400 ml-3 text-xs">
                                     7%
                                 </span>
                             </p>
-                        <p className="text-gray-500 mt-1">Выручка</p>
+                        <p className="text-gray-500 mt-1">???</p>
                         </div>
                     </div>
                   </div>

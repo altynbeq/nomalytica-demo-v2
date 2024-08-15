@@ -6,17 +6,17 @@ import { ExportToExcel } from '../'
 
 const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
     const { currentColor, currentMode } = useStateContext();
-    const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+    const newTotalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
+    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((leads.leadsCount / deals.leadsCount) * 10) : 0;
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
             amount: newTotalSum + 'тг',
             title: 'Выручка',
-            // desc: 'XX',
+            desc: 'Общая',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
@@ -25,7 +25,7 @@ const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, 
             icon: <FaMoneyBill />,
             amount: Math.round(avgCheck) + 'тг',
             title: 'Средний чек',
-            // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            desc: 'Online + Offline',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
@@ -58,9 +58,9 @@ const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, 
         },
         {
             icon: <FaChartBar />,
-            amount: numberOfItemsSold,
+            amount: products1C.productsSold,
             title: 'Продано товаров',
-            desc: 'Уникальных товаров ',
+            desc: 'Общее количество ',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },

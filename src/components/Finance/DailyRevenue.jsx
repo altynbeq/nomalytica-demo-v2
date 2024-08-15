@@ -6,7 +6,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import  ExportToExcel  from '../ExportToExcel'
 import { getKkmData } from '../../hoc/shareData';
 
-const DailyRevenue = ({sales1C, kkm }) => {
+const DailyRevenue = ({sales1C, kkm, products1C }) => {
   const [ pieSeries, setSeries ] = useState([]);
   const [ ready, setReady ] = useState(false);
   const excelData = getKkmData();
@@ -16,6 +16,7 @@ const DailyRevenue = ({sales1C, kkm }) => {
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
   const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
   const itemsSold = Object.keys(kkm.itemsSold).length;
+  
 
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
@@ -82,7 +83,7 @@ const DailyRevenue = ({sales1C, kkm }) => {
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">{itemsSold}</p>
+                    <p className="text-2xl font-semibold">{products1C.productsSold}</p>
                     <p className="text-gray-500 mt-1">Продано товаров</p>
                 </div>
               </div>

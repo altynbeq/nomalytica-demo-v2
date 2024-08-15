@@ -7,7 +7,9 @@ import { ContainerWrapper } from '../components';
 
 const General = () => {
   const { currentColor, currentMode, setActiveMenu } = useStateContext();
-
+  useEffect(()=> {
+    window.scrollTo(0, 0);
+  }, [])
   return (
     <div className="mt-12 flex flex-col gap-6  justify-center">
       {/* <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 

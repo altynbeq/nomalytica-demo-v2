@@ -6,7 +6,8 @@ export const salesProductDataFormer = (data) => {
       itemName: {},
       kassaKKMName: {},
       mostSoldItem: null,
-      mostSoldSum: null
+      mostSoldSum: null,
+      productsSold: 0,
     };
 
     items.forEach(item => {
@@ -58,6 +59,7 @@ export const salesProductDataFormer = (data) => {
           totalSum: currentItem.totalSum
         };
       }
+      salesProductsData.productsSold += currentItem.count;
     }
 
     salesProductsData.mostSoldItem = mostSoldItem;

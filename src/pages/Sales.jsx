@@ -14,6 +14,7 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
     const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
     const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
     useEffect(()=> {
+        window.scrollTo(0, 0);
         if(excelSalesReport){
             setexcelSalesReportDay(excelSalesReport.readyDayData);
             setexcelSalesReportWeek(excelSalesReport.readyWeekData);
@@ -41,7 +42,7 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem]   items-center">
                 <WeaklyStatistics products1C={products1C.products1CWeek} sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek}  excelData={excelSalesReportWeek} idcomp="weekStatis" title="Недельная статистика"  />
-                <WeaklyStatistics products1C={products1C.products1CWeek} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} excelData={excelSalesReportMonth} idcomp="monthStatis" title="Месячная статистика"  />
+                <WeaklyStatistics products1C={products1C.products1CMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} excelData={excelSalesReportMonth} idcomp="monthStatis" title="Месячная статистика"  />
                 <ProductsStats idcomp="weekStatis" title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">

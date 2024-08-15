@@ -8,7 +8,9 @@ import { fetchLeads } from '../methods/getLeads';
 
 const Workers = () => {
   const { setActiveMenu } = useStateContext();
- 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className='mt-12 flex flex-col justify-center align-center '>
         <div className="flex w-[100%] mt-8 md:mt-0 flex-wrap lg:flex-nowrap gap-5 justify-center  ">

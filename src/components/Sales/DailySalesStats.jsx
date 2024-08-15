@@ -14,6 +14,7 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
     const itemsSold = Object.keys(kkm.itemsSold).length;
+    
     useEffect(()=>{
         if (!sales1C || !sales1C.paidTo) {
           return;
@@ -39,7 +40,7 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
         seriesCollector();
         setReady(true);
       }, [])
-
+      
     if(!ready){ return <Skeleton /> }
 
     return (
@@ -84,11 +85,11 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
                     </div>
                     <div className="mt-8 gap-7 flex flex-row justify-center">
                         <div className='flex justify-center flex-col text-center'>
-                            <p className="text-2xl font-semibold">{itemsSold}</p>
-                            <p className="text-gray-500 mt-1">Товары</p>
+                            <p className="text-2xl font-semibold">{products1C.productsSold}</p>
+                            <p className="text-gray-500 mt-1">Продано товаров</p>
                         </div>
                         <div className='flex justify-center flex-col text-center'>
-                            <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie > 0 && itemsSold > 0 ? Math.round(itemsSold/spisanie.totalAmountSpisanie) * 100 : 0 }%</p>
+                            <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie > 0 && products1C.productsSold > 0 ? Math.round((products1C.productsSold/spisanie.totalAmountSpisanie)* 100)  : 0 }%</p>
                             <p className="text-gray-500 mt-1">Cписание/Товары</p>
                         </div>
                     </div>

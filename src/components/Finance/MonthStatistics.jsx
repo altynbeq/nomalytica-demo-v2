@@ -7,11 +7,11 @@ import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar 
 const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, title, spisanie, excelData}) => {
     const { currentColor, currentMode } = useStateContext();
 
-    const newTotalSum = new Intl.NumberFormat('en-US').format(sales1C.totalSum);
+    const newTotalSum = new Intl.NumberFormat('en-US').format(kkm.totalSum);
     const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales));
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-    const conversion = leads.leadsCount > 0 && deals.dealsCount > 0 ? Math.round((leads.leadsCount / deals.dealsCount) * 10) : 0;
+    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((leads.leadsCount / deals.leadsCount) * 10) : 0;
     // for (let workerId in data.workersStats) {
     //     const { count, sales } = data.workersStats[workerId];
     //     avgCheck = sales / count;
@@ -29,7 +29,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             icon: <FaDollarSign />,
             amount: newTotalSum + ' тг',
             title: 'Выручка',
-            // desc: 'XX',
+            desc: 'Общая',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
@@ -37,7 +37,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             icon: <FaMoneyBill />,
             amount: avgCheck + ' тг',
             title: 'Средний чек',
-            // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            desc: `Online + Offline`,
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
@@ -69,7 +69,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             icon: <FaChartBar />,
             amount: numberOfItemsSold,
             title: 'Продано товаров',
-            desc: 'Уникальных товаров ',
+            desc: 'Общее количество',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },

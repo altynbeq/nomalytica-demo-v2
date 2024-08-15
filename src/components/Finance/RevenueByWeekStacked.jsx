@@ -5,7 +5,6 @@ import { Skeleton } from "..";
 
 const RevenueByWeekStacked = ({sales1C}) => {
   const [ ready, setReady ] = useState(true);
-
   const list = sales1C.salesSumSeries;
   const maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);

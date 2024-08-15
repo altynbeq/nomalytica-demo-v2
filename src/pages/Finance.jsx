@@ -7,11 +7,11 @@ import { getSalesReportsData } from '../hoc/shareData';
 const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const { skeletonUp ,currentColor, currentMode, setActiveMenu } = useStateContext();
   const excelSalesReport = getSalesReportsData();
-
   const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
   const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
 
   useEffect(()=>{
+    window.scrollTo(0, 0);
     if(excelSalesReport){
       setexcelSalesReportWeek(excelSalesReport.readyWeekData);
       setexcelSalesReportMonth(excelSalesReport.readyMonthData);
