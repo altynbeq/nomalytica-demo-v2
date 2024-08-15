@@ -69,7 +69,7 @@ import { dealsDataCollector } from '../data/Finance/WeekDataFinanceFormer';
 import { monthDealsDataCollector } from '../data/Finance/MonthDataFinanceFormer';
 
 export async function fetchDealsForRange(date) {
-  const webhookUrl = '/bitrix/rest/20509/qyhraw9d6jnfbksc/crm.deal.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/qyhraw9d6jnfbksc/crm.deal.list.json';
   const batchSize = 50; // Number of items to fetch per request
   let allDeals = [];
   let start = 0;
@@ -124,28 +124,40 @@ export async function fetchDealsForRange(date) {
 
 export async function fetchDealsFront(dateRanges) {
   // Fetch the data for the entire month
+  // Extract date ranges for filtering
+  const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
+  const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
+  const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
+  const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
+  const monthStart = new Date(decodeURIComponent(dateRanges[2].startDate));
+  const monthEnd = new Date(decodeURIComponent(dateRanges[2].endDate));
+
+  // Adjust dayEnd to include all times up to the end of the day
+  dayEnd.setHours(23, 59, 59, 999);
+
+  // Adjust weekEnd to include all times up to the end of the week
+  weekEnd.setHours(23, 59, 59, 999);
+
   const allDeals = await fetchDealsForRange(dateRanges[2]);
 
-  // Filter the data for the day
-  const dayDeals = allDeals.filter(deal => {
-    const dealDate = new Date(deal.DATE_CREATE);
-    return dealDate >= new Date(dateRanges[0].bitrixStartDate) && dealDate <= new Date(dateRanges[0].bitrixEndDate);
-  });
+  const dayDeals = allDeals.filter(item => {
+    const itemDate = new Date(item.Дата);
+    return itemDate >= dayStart && itemDate <= dayEnd;
+});
 
-  // Filter the data for the week
-  const weekDeals = allDeals.filter(deal => {
-    const dealDate = new Date(deal.DATE_CREATE);
-    return dealDate >= new Date(dateRanges[1].bitrixStartDate) && dealDate <= new Date(dateRanges[1].bitrixEndDate);
+  // Filter data for week
+  const weekDeals = allDeals.filter(item => {
+      const itemDate = new Date(item.Дата);
+      return itemDate >= weekStart && itemDate <= weekEnd;
   });
-
+ 
   // Process the data for statistics
   const dayStats = dealsDataCollector(dayDeals);
   const weekStats = dealsDataCollector(weekDeals);
   const monthStats = monthDealsDataCollector(allDeals);
-
   return {
-    day: dayStats,
-    week: weekStats,
-    month: monthStats
+    dealsDay: dayStats,
+    dealsWeek: weekStats,
+    dealsMonth: monthStats
   };
 }

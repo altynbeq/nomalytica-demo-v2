@@ -32,7 +32,7 @@ export async function calculateSpisanieData(dataFinal) {
     const formerSpisanieData = {
         spisanieDay: await spisanieFormer(dataFinal.readyDayData),
         spisanieWeek: await spisanieFormer(dataFinal.readyWeekData),
-        spisanieMonth: await spisanieFormer(dataFinal.readyMonthData),
+        spisanieMonth:  await spisanieFormer(dataFinal.readyMonthData),
     };
     return formerSpisanieData;
 }

@@ -57,7 +57,7 @@ import { weekDataSalesFormer } from '../data/Sales/WeekDataSalesFormer';
 
 /// Function for receiving leads based on given time, used for analytics building, data from Bitrix "Romantic Zhez"
 export async function fetchLeadsForRange(date) {
-  const webhookUrl = '/bitrix/rest/20509/hp29cpcrgqrsfh2f/crm.lead.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/hp29cpcrgqrsfh2f/crm.lead.list.json';
   let allLeads = [];
   let start = 0;
   const batchSize = 50; // Number of items to fetch per request
@@ -124,10 +124,10 @@ export async function fetchLeadsFront(dateRanges) {
   const dayStats = weekDataSalesFormer(dayLeads);
   const weekStats = weekDataSalesFormer(weekLeads);
   const monthStats = monthDataSalesFormer(allLeads);
-
+ 
   return {
-    day: dayStats,
-    week: weekStats,
-    month: monthStats
+    leadsDay: dayStats,
+    leadsWeek: weekStats,
+    leadsMonth: monthStats
   };
 }

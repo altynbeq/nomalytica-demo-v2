@@ -11,7 +11,7 @@ import { SpisanieMonthChart } from '../components/Sklad'
 const Sklad = ({spisanie}) => {
   const { skeletonUp } = useStateContext();
   const dataSpisanie = getDataSpisanie();
-
+  console.log(spisanie)
   if(skeletonUp){
     return(
       <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>

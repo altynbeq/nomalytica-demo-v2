@@ -9,8 +9,9 @@ export async function getSalesProducts(dateRanges) {
         console.error('Error fetching sales products');
         throw new Error('Network response was not ok');
       }
-  
-      return await response.json();
+      const data = await response.json();
+
+      return data;
     };
     return Promise.all(dateRanges.map(fetchSalesProducts));
   }

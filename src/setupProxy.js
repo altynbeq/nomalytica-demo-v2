@@ -14,14 +14,14 @@ module.exports = function(app) {
     );
 
     // Proxy for Bitrix24 API
-    app.use(
-        '/bitrix',
-        createProxyMiddleware({
-        target: 'https://zhezkazgan-romantic.bitrix24.kz', // Bitrix24 API URL
-        changeOrigin: true,
-        pathRewrite: {
-            '^/bitrix': '', // Remove '/api/bitrix' from the request path
-        },
-        })
-    );
+    // app.use(
+    //     '/bitrix',
+    //     createProxyMiddleware({
+    //     target: 'https://zhezkazgan-romantic.bitrix24.kz', // Bitrix24 API URL
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //         '^/bitrix': '', // Remove '/api/bitrix' from the request path
+    //     },
+    //     })
+    // );
 };

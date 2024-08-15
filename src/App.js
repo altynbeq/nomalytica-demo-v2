@@ -60,20 +60,17 @@ const App = () => {
         ] = await Promise.all([
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
-          getSalesProducts(dateRanges),
+          getSalesProductsFront(dateRanges),
           fetchDealsFront(dateRanges),
           fetchLeadsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
-
         if (!leads || !deals || !kkmFront || !salesReceiptsFront || !salesProducts || !spisanie) {
           // !spisanie
           console.error("Data is missing or undefined");
           return;
         }
-
-        debugger
-
+        
         const monthLeadsSeries = leads.leadsMonth.series;
         const monthDealsSeries = deals.dealsMonth.salesSeries;
         const salesSeries = kkmFront.monthFormedKKM.salesSeries;
@@ -99,7 +96,6 @@ const App = () => {
             const dayNames = ['Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', ];
             return { x: dayNames[i], y: sales };
         });
-
         setData({
           deals: {
             dealsDay: deals.dealsDay,
@@ -117,13 +113,9 @@ const App = () => {
             kkmMonth: kkmFront.monthFormedKKM
           },
           spisanie: {
-            spisanieDay: [],
-            spisanieWeek: [],
-            spisanieMonth: [],
-
-            // spisanieDay: spisanie.spisanieDay,
-            // spisanieWeek: spisanie.spisanieWeek,
-            // spisanieMonth: spisanie.spisanieMonth
+            spisanieDay: spisanie.spisanieDay,
+            spisanieWeek: spisanie.spisanieWeek,
+            spisanieMonth: spisanie.spisanieMonth
           },
           sales1C: {
             sales1CDay: salesReceiptsFront.dayFormedSales1C,
@@ -131,9 +123,9 @@ const App = () => {
             sales1CMonth: salesReceiptsFront.monthFormedSales1C
           },
           products1C: {
-            products1CDay: salesProducts[0],
-            products1CWeek: salesProducts[1],
-            products1CMonth: salesProducts[2]
+            products1CDay: salesProducts.dayFormedSalesProduct,
+            products1CWeek: salesProducts.weekFormedSalesProduct,
+            products1CMonth: salesProducts.monthFormedSalesProduct
           },
           conversionSeries: {
             series: conversionSeriesCounter
