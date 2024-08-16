@@ -11,13 +11,13 @@ export const weekDataSalesFormer = (list) => {
         },
         workersStats: {},
         series: [
-            { x: 'Monday', y: 0 },
-            { x: 'Tuesday', y: 0 },
-            { x: 'Wednesday', y: 0 },
             { x: 'Thursday', y: 0 },
             { x: 'Friday', y: 0 },
             { x: 'Saturday', y: 0 },
             { x: 'Sunday', y: 0 },
+            { x: 'Monday', y: 0 },
+            { x: 'Tuesday', y: 0 },
+            { x: 'Wednesday', y: 0 },
         ],
         leadsSource: {
             'Instagram': 0,

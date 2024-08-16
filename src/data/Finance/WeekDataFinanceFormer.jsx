@@ -27,33 +27,33 @@ export const dealsDataCollector = (list) => {
             { x: 7, yval: 0 },
         ],
         salesSeries: [
-            { x: 'Monday', y: 0 },
-            { x: 'Tuesday', y: 0 },
-            { x: 'Wednesday', y: 0 },
             { x: 'Thursday', y: 0 },
             { x: 'Friday', y: 0 },
             { x: 'Saturday', y: 0 },
             { x: 'Sunday', y: 0 },
+            { x: 'Monday', y: 0 },
+            { x: 'Tuesday', y: 0 },
+            { x: 'Wednesday', y: 0 },
         ],
         series: [
-            { x: 'Monday', y: 0 },
-            { x: 'Tuesday', y: 0 },
-            { x: 'Wednesday', y: 0 },
             { x: 'Thursday', y: 0 },
             { x: 'Friday', y: 0 },
             { x: 'Saturday', y: 0 },
             { x: 'Sunday', y: 0 },
+            { x: 'Monday', y: 0 },
+            { x: 'Tuesday', y: 0 },
+            { x: 'Wednesday', y: 0 },
         ]
     };
     const workersStats = {};
     const dailySalesCount = {
-        'Monday': 0,
-        'Tuesday': 0,
-        'Wednesday': 0,
         'Thursday': 0,
         'Friday': 0,
         'Saturday': 0,
         'Sunday': 0,
+        'Monday': 0,
+        'Tuesday': 0,
+        'Wednesday': 0,
     };
 
     list.forEach(lead => {

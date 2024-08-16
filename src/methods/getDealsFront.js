@@ -123,42 +123,39 @@ export async function fetchDealsForRange(date) {
 }
 
 export async function fetchDealsFront(dateRanges) {
-  // Fetch the data for the entire month
-  // Extract date ranges for filtering
+  // Parse and decode date ranges
   const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
   const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
   const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
   const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
-  const monthStart = new Date(decodeURIComponent(dateRanges[2].startDate));
-  const monthEnd = new Date(decodeURIComponent(dateRanges[2].endDate));
 
-  // Adjust dayEnd to include all times up to the end of the day
+  // Adjust dayEnd and weekEnd to include all times up to the end of the period
   dayEnd.setHours(23, 59, 59, 999);
-
-  // Adjust weekEnd to include all times up to the end of the week
   weekEnd.setHours(23, 59, 59, 999);
 
+  // Fetch the data for the entire month
   const allDeals = await fetchDealsForRange(dateRanges[2]);
 
+  // Filter data for the day
   const dayDeals = allDeals.filter(item => {
-    const itemDate = new Date(item.Дата);
+    const itemDate = new Date(item.DATE_CREATE);
     return itemDate >= dayStart && itemDate <= dayEnd;
-});
-
-  // Filter data for week
-  const weekDeals = allDeals.filter(item => {
-      const itemDate = new Date(item.Дата);
-      return itemDate >= weekStart && itemDate <= weekEnd;
   });
- 
+
+  // Filter data for the week
+  const weekDeals = allDeals.filter(item => {
+    const itemDate = new Date(item.DATE_CREATE);
+    return itemDate >= weekStart && itemDate <= weekEnd;
+  });
+
   // Process the data for statistics
   const dayStats = dealsDataCollector(dayDeals);
   const weekStats = dealsDataCollector(weekDeals);
   const monthStats = monthDealsDataCollector(allDeals);
+  
   return {
     dealsDay: dayStats,
     dealsWeek: weekStats,
     dealsMonth: monthStats
   };
-  
 }
