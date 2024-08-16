@@ -124,7 +124,6 @@ export async function fetchLeadsFront(dateRanges) {
   const dayStats = weekDataSalesFormer(dayLeads);
   const weekStats = weekDataSalesFormer(weekLeads);
   const monthStats = monthDataSalesFormer(allLeads);
- 
   return {
     leadsDay: dayStats,
     leadsWeek: weekStats,

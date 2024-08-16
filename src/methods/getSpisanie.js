@@ -71,6 +71,6 @@ export async function getSpisanie(dateRanges) {
     }
     setDataSpisanie(dataFinal);
     const formedSpisanieData = calculateSpisanieData(dataFinal);
-
+    
     return formedSpisanieData;
 }

@@ -160,4 +160,5 @@ export async function fetchDealsFront(dateRanges) {
     dealsWeek: weekStats,
     dealsMonth: monthStats
   };
+  
 }

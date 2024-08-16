@@ -4,7 +4,7 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader } from './pages';
+import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader, TechProb } from './pages';
 import { Skeleton } from '@mui/material';
 import './App.css';
 
@@ -26,6 +26,7 @@ const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
   const [ hasAccess, setHasAccess ] = useState(false);
   const [ loading, setLoading ] = useState(true);
+  const [ techProblem, setTechProblem ] = useState(false);
 
   const [data, setData] = useState({
     kkm: { kkmDay: {}, kkmWeek: {}, kkmMonth: {} },
@@ -66,8 +67,9 @@ const App = () => {
           getSpisanie(dateRanges),
         ]);
         if (!leads || !deals || !kkmFront || !salesReceiptsFront || !salesProducts || !spisanie) {
-          // !spisanie
-          console.error("Data is missing or undefined");
+          // console.error("Data is missing or undefined");
+          setTechProblem(true);
+          setLoading(false);
           return;
         }
         
@@ -135,7 +137,8 @@ const App = () => {
           }
       });
       } catch (error) {
-        console.error('Error during data fetching and processing:', error);
+        // console.error('Error during data fetching and processing:', error);
+        setTechProblem(true);
       } finally {
         setLoading(false); 
         handleSkeleton(false);
@@ -190,12 +193,14 @@ const App = () => {
               </div>
               <div>
                 {/* {themeSettings && (<ThemeSettings />)} */}
-
+              {/* {
+                
+              } */}
                 <Routes>
                   {/* dashboard  */}
-                  <Route path="/" element={(<General />)} />
-                  <Route path="/general" element={(<General />)} />
-                  <Route path="/finance" element={(
+                  <Route path="/" element={(techProblem ? <TechProb /> : <General />)} />
+                  <Route path="/general" element={(techProblem ? <TechProb /> : <General />)} />
+                  <Route path="/finance" element={( techProblem ? <TechProb /> :
                       <Finance 
                         deals={data.deals}
                         leads={data.leads}
@@ -205,7 +210,7 @@ const App = () => {
                         kkm={data.kkm}
                       />)} 
                   />
-                  <Route path="/sales" element={(
+                  <Route path="/sales" element={( techProblem ? <TechProb /> :
                       <Sales 
                         deals={data.deals}
                         leads={data.leads}
@@ -217,8 +222,8 @@ const App = () => {
                         weekSalesSeries={data.weekSalesSeries}
                       />)} 
                   />
-                  <Route path="/workers" element={(<Workers />)} />
-                  <Route path="/sklad" element={(<Sklad spisanie={data.spisanie} products1C={data.products1C}/>)} />
+                  <Route path="/workers" element={(techProblem ? <TechProb /> : <Workers />)} />
+                  <Route path="/sklad" element={(techProblem ? <TechProb /> : <Sklad spisanie={data.spisanie} products1C={data.products1C}/>)} />
 
                   {/* pages  */}
                   {/* <Route path="/orders" element={<Orders />} /> */}

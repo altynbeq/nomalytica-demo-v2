@@ -69,6 +69,7 @@ export async function getKKMReceiptsFront(dateRanges) {
         readyDayData: dayData
     }
     setKkmData(final);
+    
     const formedKKMData = kkmReceiptsDataFormer(final);
     return formedKKMData;
 }

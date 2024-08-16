@@ -110,6 +110,7 @@ export async function getSalesReceiptsFront(dateRanges) {
         readyWeekData: weekData,
         readyDayData: dayData
     }
+    
     salesReportsData(final);
     const formedSalesReceiptsData = sales1CDataFormer(final);
     return formedSalesReceiptsData;

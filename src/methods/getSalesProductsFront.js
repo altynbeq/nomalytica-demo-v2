@@ -70,6 +70,7 @@ export async function getSalesProductsFront(dateRanges) {
         readyDayData: dayData
     }
     salesProductsData(final);
+    
     const formedSalesProductsData = salesProductDataFormer(final);
     return formedSalesProductsData;
 }
