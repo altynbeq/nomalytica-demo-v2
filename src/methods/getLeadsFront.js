@@ -64,7 +64,7 @@ export async function fetchLeadsForRange(date) {
 
   try {
     while (true) {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch('/.netlify/functions/fetchLeads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
