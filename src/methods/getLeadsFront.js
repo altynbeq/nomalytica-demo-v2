@@ -64,7 +64,8 @@ export async function fetchLeadsForRange(date) {
 
   try {
     while (true) {
-      const response = await fetch('/.netlify/functions/fetchLeads', {
+      const response = await fetch( '/.netlify/functions/fetchLeads', {
+        // webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -105,19 +106,29 @@ export async function fetchLeadsForRange(date) {
 }
 
 export async function fetchLeadsFront(dateRanges) {
+  // Parse and decode date ranges
+  const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
+  const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
+  const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
+  const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
+
+  // Adjust dayEnd and weekEnd to include all times up to the end of the period
+  dayEnd.setHours(23, 59, 59, 999);
+  weekEnd.setHours(23, 59, 59, 999);
+
   // Fetch the data for the entire month
   const allLeads = await fetchLeadsForRange(dateRanges[2]);
 
-  // Filter the data for the day
-  const dayLeads = allLeads.filter(lead => {
-    const leadDate = new Date(lead.DATE_CREATE);
-    return leadDate >= new Date(dateRanges[0].bitrixStartDate) && leadDate <= new Date(dateRanges[0].bitrixEndDates);
+  // Filter data for the day
+  const dayLeads = allLeads.filter(item => {
+    const itemDate = new Date(item.DATE_CREATE);
+    return itemDate >= dayStart && itemDate <= dayEnd;
   });
 
-  // Filter the data for the week
-  const weekLeads = allLeads.filter(lead => {
-    const leadDate = new Date(lead.DATE_CREATE);
-    return leadDate >= new Date(dateRanges[1].bitrixStartDate) && leadDate <= new Date(dateRanges[1].bitrixEndDates);
+  // Filter data for the week
+  const weekLeads = allLeads.filter(item => {
+    const itemDate = new Date(item.DATE_CREATE);
+    return itemDate >= weekStart && itemDate <= weekEnd;
   });
 
   // Process the data for statistics

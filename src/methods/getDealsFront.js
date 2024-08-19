@@ -77,6 +77,7 @@ export async function fetchDealsForRange(date) {
   try {
     while (true) {
       const response = await fetch('/.netlify/functions/fetchDeals', {
+        // webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
