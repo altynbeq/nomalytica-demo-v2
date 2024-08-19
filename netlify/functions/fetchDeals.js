@@ -1,15 +1,23 @@
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
   // Dynamically import node-fetch
   const fetch = (await import('node-fetch')).default;
 
-  const { bitrixStartDate, bitrixEndDate } = JSON.parse(event.body);
-  
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/qyhraw9d6jnfbksc/crm.deal.list.json';
-  const batchSize = 50;
-  let allDeals = [];
-  let start = 0;
-
   try {
+    // Ensure event.body is not empty and parse JSON
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'No request body provided' }),
+      };
+    }
+
+    const { bitrixStartDate, bitrixEndDate } = JSON.parse(event.body);
+
+    const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/qyhraw9d6jnfbksc/crm.deal.list.json';
+    const batchSize = 50;
+    let allDeals = [];
+    let start = 0;
+
     while (true) {
       const response = await fetch(webhookUrl, {
         method: 'POST',
@@ -62,6 +70,7 @@ exports.handler = async function(event, context) {
     };
 
   } catch (error) {
+    console.error('Function error:', error); // Log error for debugging
     return {
       statusCode: 500,
       body: JSON.stringify({ error: `Error fetching deals: ${error.message}` }),
