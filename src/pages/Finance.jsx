@@ -9,8 +9,6 @@ const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const excelSalesReport = getSalesReportsData();
   const [ excelSalesReportWeek, setexcelSalesReportWeek ] = useState([]);
   const [ excelSalesReportMonth, setexcelSalesReportMonth ] = useState([]);
-  console.log(leads,deals) 
-  console.log("heeeeyy")
   useEffect(()=>{
     window.scrollTo(0, 0);
     if(excelSalesReport){
