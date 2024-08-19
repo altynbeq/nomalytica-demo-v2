@@ -64,7 +64,7 @@ export async function fetchLeadsForRange(date) {
 
   try {
     while (true) {
-      const response = await fetch('/.netlify/functions/fetchLeads', {
+      const response = await fetch('https://nomalytica.com/.netlify/functions/fetchLeads', {
         // webhookUrl, {
         method: 'POST',
         headers: {
