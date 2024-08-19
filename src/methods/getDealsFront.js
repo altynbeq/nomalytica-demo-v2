@@ -76,7 +76,7 @@ export async function fetchDealsForRange(date) {
 
   try {
     while (true) {
-      const response = await fetch('https://nomalytica.com/.netlify/functions/fetchDeals', {
+      const response = await fetch('/.netlify/functions/fetchDeals', {
         // webhookUrl, {
         method: 'POST',
         headers: {
