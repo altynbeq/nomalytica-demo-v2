@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function (event, context) {
+  // Dynamically import node-fetch
+  const fetch = (await import('node-fetch')).default;
+
   const { date } = JSON.parse(event.body);
 
   const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/hp29cpcrgqrsfh2f/crm.lead.list.json';
