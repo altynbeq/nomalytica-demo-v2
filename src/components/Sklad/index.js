@@ -7,3 +7,4 @@ export { default as AddFlorist } from './AddFlorist';
 export { default as AddSupport } from './AddSupport';
 export { default as SpisanieStats } from './SpisanieStats';
 export { default as SpisanieMonthChart } from './SpisanieMonthChart';
+export { default as SoldItems } from './SoldItemsList';

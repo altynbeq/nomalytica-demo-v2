@@ -246,12 +246,28 @@ export const ordersGrid = [
       textAlign: 'Center',
     },
     {
-      field: 'TotalAmount',
-      headerText: 'Количество',
-      format: 'C2',
+      field: 'Price',
+      headerText: 'Цена',
+      // format: 'C2',
       textAlign: 'Center',
       editType: 'numericedit',
-      width: '150',
+      width: '100',
+    },
+    {
+      field: 'Count',
+      headerText: 'Количество',
+      // format: 'C2',
+      textAlign: 'Center',
+      editType: 'numericedit',
+      width: '100',
+    },
+    {
+      field: 'TotalAmount',
+      headerText: 'Сумма',
+      // format: 'C2',
+      textAlign: 'Center',
+      editType: 'numericedit',
+      width: '100',
     },
     {
       headerText: 'Статус',
@@ -260,10 +276,5 @@ export const ordersGrid = [
       textAlign: 'Center',
       width: '120',
     },
-    {
-      field: 'OrderID',
-      headerText: 'ID заказа',
-      width: '120',
-      textAlign: 'Center',
-    },
+    
   ];

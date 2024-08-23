@@ -4,7 +4,7 @@ import { useStateContext } from '../../contexts/ContextProvider';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { ExportToExcel } from '../'
 
-const ProductsStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
+const ProductsStats = ({ idcomp, title, excelData, spisanie, products1C, isOnSkald}) => {
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const weeklyStats = [
         {
@@ -61,7 +61,17 @@ const ProductsStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, dea
             pcColor: 'green-600',
         },
     ];
-
+    if(isOnSkald){
+        weeklyStats.push({
+                id: '10',
+                icon: <FaBox />,
+                amount: spisanie.totalAmountSpisanie + ' шт',
+                title: 'Списаний',
+                desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
+                iconBg: 'rgb(254, 201, 15)',
+                pcColor: 'green-600',
+        })
+    }
     return (
         <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg  ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
