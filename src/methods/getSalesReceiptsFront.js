@@ -68,6 +68,25 @@ export async function getSalesReceiptsFront(dateRanges) {
     // Adjust weekEnd to include all times up to the end of the week
     weekEnd.setHours(23, 59, 59, 999);
 
+    // Calculate yesterday's date range
+    const yesterdayStart = new Date(dayStart);
+    yesterdayStart.setDate(dayStart.getDate() - 1);
+    const yesterdayEnd = new Date(yesterdayStart);
+    yesterdayEnd.setHours(23, 59, 59, 999);
+
+    // Filter data for yesterday
+    const yesterdayData = data.filter(item => {
+        const itemDate = new Date(item.Дата);
+        const saleHour = itemDate.getHours();
+
+        if(saleHour < 1){
+            itemDate.setDate(itemDate.getDate() - 1);
+        }
+
+        return itemDate >= yesterdayStart && itemDate <= yesterdayEnd;
+    });
+
+    // Filter data for month
     const monthData = data.filter(item => {
         const itemDate = new Date(item.Дата);
         const saleHour = itemDate.getHours();
@@ -77,17 +96,12 @@ export async function getSalesReceiptsFront(dateRanges) {
         }
 
         return itemDate >= monthStart && itemDate <= monthEnd;
-    })
+    });
 
     // Filter data for day
     const dayData = data.filter(item => {
         const itemDate = new Date(item.Дата);
         const saleHour = itemDate.getHours();
-
-        // Adjust date for sales between midnight and 1 AM
-        // if (saleHour < 1) {
-        //     itemDate.setDate(itemDate.getDate() - 1);
-        // }
 
         return itemDate >= dayStart && itemDate <= dayEnd;
     });
@@ -97,18 +111,18 @@ export async function getSalesReceiptsFront(dateRanges) {
         const itemDate = new Date(item.Дата);
         const saleHour = itemDate.getHours();
 
-        // Adjust date for sales between midnight and 1 AM
         if (saleHour < 1) {
             itemDate.setDate(itemDate.getDate() - 1);
         }
 
         return itemDate >= weekStart && itemDate <= weekEnd;
     });
-    
+
     const final = {
         readyMonthData: monthData,
         readyWeekData: weekData,
-        readyDayData: dayData
+        readyDayData: dayData,
+        readyYesterdayData: yesterdayData
     }
     salesReportsData(final);
     const formedSalesReceiptsData = sales1CDataFormer(final);

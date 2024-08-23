@@ -6,7 +6,7 @@ import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import ExportToExcel from '../ExportToExcel';
 
-const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
+const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
     const { currentColor, currentMode } = useStateContext();
     
     const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
@@ -41,15 +41,15 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
-        // {
-        //     id: '4',
-        //     icon: <FaBox />,
-        //     amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
-        //     title: 'Топ товар',
-        //     desc: products1C.mostSoldItem.name,
-        //     iconBg: 'rgb(254, 201, 15)',
-        //     pcColor: 'green-600',
-        // },
+        {
+            id: '4',
+            icon: <FaBox />,
+            amount: spisanie.totalAmountSpisanie + ' шт',
+            title: 'Списаний',
+            desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
+            iconBg: 'rgb(254, 201, 15)',
+            pcColor: 'green-600',
+        },
         {
             id: '5',
             icon: <FaFilter />,

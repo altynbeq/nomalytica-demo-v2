@@ -6,12 +6,12 @@ import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import ExportToExcel from '../ExportToExcel';
 
-const WeekStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
+const WeekStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
     const { currentColor, currentMode } = useStateContext();
     const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((leads.leadsCount / deals.leadsCount) * 100) : 0;
+    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((deals.leadsCount/leads.leadsCount) * 100) : 0;
     const weeklyStats = [
         {
             id: '1',
@@ -40,15 +40,15 @@ const WeekStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, 
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
-        // {
-        //     id: '4',
-        //     icon: <FaBox />,
-        //     amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
-        //     title: 'Топ товар',
-        //     desc: products1C.mostSoldItem.name,
-        //     iconBg: 'rgb(254, 201, 15)',
-        //     pcColor: 'green-600',
-        // },
+        {
+            id: '4',
+            icon: <FaBox />,
+            amount: spisanie.totalAmountSpisanie + ' шт',
+            title: 'Списаний',
+            desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
+            iconBg: 'rgb(254, 201, 15)',
+            pcColor: 'green-600',
+        },
         {
             id: '5',
             icon: <FaFilter />,
@@ -60,8 +60,8 @@ const WeekStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, 
         },
         {
             icon: <FaChartBar />,
-            amount: '?',
-            title: 'Продано онлайн',
+            amount: deals.leadsCount,
+            title: 'Онлайн продаж',
             desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',

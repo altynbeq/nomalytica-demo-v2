@@ -22,15 +22,14 @@ const Sklad = ({spisanie, products1C}) => {
         <LoadingSkeleton />
       </div>
     )
-  }
+  } 
   return (
-    <div className="mt-12">
-      <div className="flex flex-col w-[100%] md:flex-wrap gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
+    <div className="mt-12 flex flex-col justify-center align-center gap-8">
+      <div className="flex flex-col w-[100%] md:flex-row gap-2 justify-center align-center items-center">
         <SkladStatistivs products1C={products1C.products1CWeek} spisanie={spisanie.spisanieWeek}  />
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
-        {/* <SkladStats /> */}
       </div>
-      <div className="flex flex-col w-[100%] md:flex-row gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">
+      <div className="flex flex-col  md:flex-row gap-2 justify-center align-center md:m-5 items-center">
         <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
         <SpisanieStats rawSpisanie={dataSpisanie.readyWeekData} idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
         <SpisanieStats rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />

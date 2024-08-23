@@ -122,6 +122,7 @@ const App = () => {
           sales1C: {
             sales1CDay: salesReceiptsFront.dayFormedSales1C,
             sales1CWeek: salesReceiptsFront.weekFormedSales1C,
+            sales1CYesterday: salesReceiptsFront.yesterdayFromedSales1C,
             sales1CMonth: salesReceiptsFront.monthFormedSales1C
           },
           products1C: {

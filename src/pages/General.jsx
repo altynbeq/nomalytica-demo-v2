@@ -18,7 +18,6 @@ import { WeekStats } from '../components/General'
 const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSeries}) => {
   const { skeletonUp, currentColor, currentMode, setActiveMenu } = useStateContext();
   const dataSpisanie = getDataSpisanie();
-
   useEffect(()=> {
     window.scrollTo(0, 0);
   }, [])
@@ -35,13 +34,13 @@ const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSer
   return ( 
     <div className="mt-12 flex flex-col gap-6  justify-center">
       <div className="flex mt-5  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
-        <WeekStats products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
+        <WeekStats products1C={products1C.products1CDay} spisanie={spisanie.spisanieDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
         <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
         <ProductsStats products1C={products1C.products1CDay}  idcomp="weekStatis" title="Товарная статистика" />
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
-        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} title="Выручка за день"  />
-        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CDay} title="Фискальный регистратор (день)" />
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CYesterday} kkm={kkm.kkmDay} title="Выручка за вчера"  />
+        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CYesterday} title="Фискальный регистратор (вчера)" />
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
         <RevenueByWeekStacked  sales1C={sales1C.sales1CWeek} width="[43%]" />

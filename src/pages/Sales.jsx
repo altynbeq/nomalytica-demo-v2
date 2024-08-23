@@ -35,7 +35,7 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
         <div className='mt-12 flex flex-col gap-6  justify-center '>
              <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
                 <DailySalesStats spisanie={spisanie.spisanieDay}  sales1C={sales1C.sales1CDay} products1C={products1C.products1CDay} kkm={kkm.kkmDay} />
-                <WeeklyStats products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
+                <WeeklyStats spisanie={spisanie.spisanieDay} products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
             </div>
             <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
                 <FirstRowStats />

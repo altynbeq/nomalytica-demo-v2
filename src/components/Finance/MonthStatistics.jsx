@@ -11,7 +11,8 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
     const avgCheck = new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales));
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
-    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((leads.leadsCount / deals.leadsCount) * 10) : 0;
+    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((deals.leadsCount /leads.leadsCount) * 100) : 0;
+    console.log(spisanie)
     const weeklyStats = [
         {
             icon: <FaDollarSign />,
@@ -33,14 +34,14 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             icon: <FaMoneyBillAlt />,
             amount: spisanie.totalAmountSpisanie ? spisanie.totalAmountSpisanie + ' шт' : 0 + ' шт',
             title: 'Списание',
-            desc: `Количество товаров`,
+            desc: Object.keys(spisanie.itemsSpisanie).length > 0 ? Object.keys(spisanie.itemsSpisanie).length + ` товаров` : Object.keys(spisanie.itemsSpisanie).length + 'товар',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             icon: <FaBox />,
             amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
-            title: 'Топ товар',
+            title: 'Топ продаж',
             desc: products1C.mostSoldItem.name,
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',

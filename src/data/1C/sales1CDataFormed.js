@@ -300,6 +300,7 @@ export const sales1CDataFormer = (data) => {
   const formedResponse = {
     dayFormedSales1C: processData(data.readyDayData),
     weekFormedSales1C: processData(data.readyWeekData),
+    yesterdayFromedSales1C: processData(data.readyYesterdayData),
     monthFormedSales1C: sales1CMonthFormer(data.readyMonthData),
   };
 

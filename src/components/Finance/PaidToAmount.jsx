@@ -5,7 +5,6 @@ import { Skeleton } from '../../components';
 const PaidToAmount = ({id, title, sales1C, kkm }) => {
   const [ ready, setReady ] = useState(false);
   const [ pieSeries, setSeries ] = useState([]);
-
   const formattedTotalSum =  new Intl.NumberFormat().format(Math.round(sales1C.totalSum)) ;
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
