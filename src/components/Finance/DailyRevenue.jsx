@@ -16,7 +16,7 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
   const numberOfItemsSold = Object.keys(kkm.itemsSold).length > 0 ? Object.keys(kkm.itemsSold).length : 0;
   const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? new Intl.NumberFormat('en-US').format(Math.round(kkm.totalSum/kkm.totalNumberSales)) : 0;
   const itemsSold = Object.keys(kkm.itemsSold).length;
-  
+
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
       return;

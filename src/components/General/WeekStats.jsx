@@ -6,9 +6,8 @@ import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import ExportToExcel from '../ExportToExcel';
 
-const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
+const WeekStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
     const { currentColor, currentMode } = useStateContext();
-    
     const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
@@ -61,9 +60,9 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         },
         {
             icon: <FaChartBar />,
-            amount: numberOfItemsSold,
-            title: 'Продано товаров',
-            desc: 'Уникальных товаров ',
+            amount: '?',
+            title: 'Продано онлайн',
+            desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
@@ -111,4 +110,4 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
     )
 }
 
-export default WeeklyStats
+export default WeekStats

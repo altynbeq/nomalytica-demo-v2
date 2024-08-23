@@ -7,3 +7,4 @@ export { default as ThirdRowLineChart } from './ThirdRowLineChart';
 export { default as LastRowWeaklyStats } from './LastRowWeaklyStats';
 export { default as LastRowSecondComp } from './LastRowSecondComp';
 export { default as LastRowThirdComp } from './LastRowThirdComp';
+export { default as WeekStats } from './WeekStats'

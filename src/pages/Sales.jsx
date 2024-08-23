@@ -8,6 +8,7 @@ import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 
 const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSeries, weekSalesSeries}) => {
     const { dateRanges, skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
+    console.log(kkm.kkmDay)
     const excelSalesReport = getSalesReportsData();
     const [ ready, setReady ] = useState(false);
     const [ excelSalesReportDay, setexcelSalesReportDay ] = useState([]);
@@ -43,7 +44,7 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem]   items-center">
                 <WeaklyStatistics products1C={products1C.products1CWeek} sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek}  excelData={excelSalesReportWeek} idcomp="weekStatis" title="Недельная статистика"  />
                 <WeaklyStatistics products1C={products1C.products1CMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} excelData={excelSalesReportMonth} idcomp="monthStatis" title="Месячная статистика"  />
-                <ProductsStats idcomp="weekStatis" title="Товарная статистика" />
+                <ProductsStats products1C={products1C.products1CMonth} idcomp="weekStatis" title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <WeaklyTotalSalesChart sales1C={weekSalesSeries} title="Продажи за неделю" />

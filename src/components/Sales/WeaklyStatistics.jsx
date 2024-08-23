@@ -38,15 +38,15 @@ const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, 
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
-        {
-            id: '4',
-            icon: <FaBox />,
-            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
-            title: 'Топ товар',
-            desc: products1C.mostSoldItem.name,
-            iconBg: 'rgb(254, 201, 15)',
-            pcColor: 'green-600',
-        },
+        // {
+        //     id: '4',
+        //     icon: <FaBox />,
+        //     amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
+        //     title: 'Топ товар',
+        //     desc: products1C.mostSoldItem.name,
+        //     iconBg: 'rgb(254, 201, 15)',
+        //     pcColor: 'green-600',
+        // },
         {
             id: '5',
             icon: <FaFilter />,
@@ -67,7 +67,7 @@ const WeaklyStatistics = ({ idcomp, title, excelData, kkm, sales1C, products1C, 
     ];
 
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
+        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                     <div className="flex justify-between">

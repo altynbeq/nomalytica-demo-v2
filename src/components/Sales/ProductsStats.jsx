@@ -5,56 +5,56 @@ import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar 
 import { ExportToExcel } from '../'
 
 const ProductsStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads }) => {
-    
+    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: 'тг',
-            title: 'Топ товар выручка',
-            // desc: 'XX',
+            amount: products1C.mostSoldSum && products1C.mostSoldSum.totalSum ? products1C.mostSoldSum.totalSum + ' тг' : 0  + ' тг',
+            title: 'Топ выручка',
+            desc: products1C.mostSoldSum && products1C.mostSoldSum.name ? products1C.mostSoldSum.name : '',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: 'тг',
-            title: 'Топ товар продаж',
-            // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
+            title: 'Топ продаж',
+            desc: products1C.mostSoldItem && products1C.mostSoldItem.name ? products1C.mostSoldItem.name : '',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             id: '3',
             icon: <FaMoneyBillAlt />,
-            amount: `?тг`,
-            title: 'Худший товар продаж',
-            desc: `?`,
+            amount: products1C.leastSoldItem && products1C.leastSoldItem.count ? products1C.leastSoldItem.count + ' шт' : 0  + ' шт',
+            title: 'Худший продаж',
+            desc: products1C.leastSoldItem && products1C.leastSoldItem.name ? products1C.leastSoldItem.name : '',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
-            id: '4',
-            icon: <FaBox />,
-            amount: ' шт',
-            title: 'Списания к продажам',
-            desc: '',
-            iconBg: 'rgb(254, 201, 15)',
+            id: '7',
+            icon: <FaMoneyBillAlt />,
+            amount: products1C.leastSoldSum && products1C.leastSoldSum.totalSum ? products1C.leastSoldSum.totalSum + ' тг' : 0  + ' тг',
+            title: 'Худшая выручка',
+            desc: products1C.leastSoldSum && products1C.leastSoldSum.name ? products1C.leastSoldSum.name : '',
+            iconBg: '#00C292',
             pcColor: 'green-600',
         },
-        {
-            id: '5',
-            icon: <FaFilter />,
-            amount: '%',
-            title: 'Конверсия',
-            desc: 'Bitrix',
-            iconBg: 'rgb(254, 201, 15)',
-            pcColor: 'green-600',
-        },
+        // {
+        //     id: '5',
+        //     icon: <FaFilter />,
+        //     amount: '%',
+        //     title: 'Конверсия',
+        //     desc: 'Bitrix',
+        //     iconBg: 'rgb(254, 201, 15)',
+        //     pcColor: 'green-600',
+        // },
         {
             icon: <FaChartBar />,
-            amount: "",
+            amount: numberOfItemsSold,
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
             iconBg: 'rgb(254, 201, 15)',
@@ -63,7 +63,7 @@ const ProductsStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, dea
     ];
 
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
+        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg  ml-1 w-[90%] md:w-[29%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                     <div className="flex justify-between">
@@ -95,7 +95,7 @@ const ProductsStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, dea
                         ))}
                     </div>
                     
-                    <div className='mt-4'>
+                    <div className='mt-2'>
                         <ExportToExcel title={title} data={excelData} />
                     </div>
                 </div>

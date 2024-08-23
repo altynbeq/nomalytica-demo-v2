@@ -10,7 +10,7 @@ import { WeeklyStats, ProductsStats, WeaklyTotalSalesChart } from '../components
 import { SpisanieStats } from '../components/Sklad';
 import { getDataSpisanie } from '../hoc/shareData';
 import { PaidToAmount, KassaKKMPie, RevenueByWeekStacked } from '../components/Finance'
-
+import { WeekStats } from '../components/General'
 
 
 
@@ -25,22 +25,23 @@ const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSer
 
   if(skeletonUp){
     return(
-      <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
+      <div className='flex m-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
+        <LoadingSkeleton />
+        <LoadingSkeleton />
         <LoadingSkeleton />
       </div>
-      
     )
   }
   return ( 
     <div className="mt-12 flex flex-col gap-6  justify-center">
       <div className="flex mt-5  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
-        <WeeklyStats products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
+        <WeekStats products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
         <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
-        <ProductsStats idcomp="weekStatis" title="Товарная статистика" />
+        <ProductsStats products1C={products1C.products1CDay}  idcomp="weekStatis" title="Товарная статистика" />
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
-        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} title="Выручка за неделю"  />
-        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} title="Выручка за день"  />
+        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CDay} title="Фискальный регистратор (день)" />
       </div>
       <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
         <RevenueByWeekStacked  sales1C={sales1C.sales1CWeek} width="[43%]" />
