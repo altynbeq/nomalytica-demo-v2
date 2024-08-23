@@ -23,7 +23,6 @@ const Sklad = ({spisanie, products1C}) => {
       </div>
     )
   }
-
   return (
     <div className="mt-12">
       <div className="flex flex-col w-[100%] md:flex-wrap gap-2 justify-center align-top md:m-5 lg:flex-row 2xl:flex-row items-center">

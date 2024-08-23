@@ -6,7 +6,6 @@ import { Skeleton } from '@mui/material';
 
 const WeaklyRevenueOverviewStacked = ({deals}) => {
     const { dateRanges, currentColor, currentMode } = useStateContext();
-    
     return (
         <div className="rounded-2xl  p-4 mx-3" style={{ backgroundColor: currentColor }}>
             <div className="flex flex-col md:flex-row justify-between items-center">

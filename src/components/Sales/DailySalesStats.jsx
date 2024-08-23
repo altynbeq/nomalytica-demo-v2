@@ -43,7 +43,6 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
       }, [])
       
     if(!ready){ return <Skeleton /> }
-
     return (
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[60%] justify-between rounded-2xl subtle-border">
             

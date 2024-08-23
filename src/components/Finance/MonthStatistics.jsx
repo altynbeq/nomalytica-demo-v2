@@ -12,18 +12,6 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((leads.leadsCount / deals.leadsCount) * 10) : 0;
-    // for (let workerId in data.workersStats) {
-    //     const { count, sales } = data.workersStats[workerId];
-    //     avgCheck = sales / count;
-
-    //     if (avgCheck > bestAvgCheckWorker.avgCheck) {
-    //         bestAvgCheckWorker.id = workerId;
-    //         bestAvgCheckWorker.avgCheck = Math.round(avgCheck);
-    //         bestAvgCheckWorker.sales = sales;
-    //         bestAvgCheckWorker.count = count;
-    //     }
-    // }
-    
     const weeklyStats = [
         {
             icon: <FaDollarSign />,
@@ -74,7 +62,6 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             pcColor: 'green-600',
         },
     ];
-
     return (
         <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">

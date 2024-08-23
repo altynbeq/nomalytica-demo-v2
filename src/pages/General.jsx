@@ -4,14 +4,48 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 import { FirstRowStats, SalesDouble, MonthlyRevenueBars, SecondRowPie, ThirdRowTransList, ThirdRowLineChart, LastRowWeaklyStats, LastRowSecondComp, LastRowThirdComp } from '../components/General';
 import { ContainerWrapper } from '../components';
+import LoadingSkeleton from '../components/LoadingSkeleton'
 
-const General = () => {
-  const { currentColor, currentMode, setActiveMenu } = useStateContext();
+import { WeeklyStats, ProductsStats, WeaklyTotalSalesChart } from '../components/Sales'
+import { SpisanieStats } from '../components/Sklad';
+import { getDataSpisanie } from '../hoc/shareData';
+import { PaidToAmount, KassaKKMPie, RevenueByWeekStacked } from '../components/Finance'
+
+
+
+
+
+const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSeries}) => {
+  const { skeletonUp, currentColor, currentMode, setActiveMenu } = useStateContext();
+  const dataSpisanie = getDataSpisanie();
+
   useEffect(()=> {
     window.scrollTo(0, 0);
   }, [])
+
+  if(skeletonUp){
+    return(
+      <div className='flex mx-10 flex-col gap-6 justify-evenly align-center text-center w-[100%]'>
+        <LoadingSkeleton />
+      </div>
+      
+    )
+  }
   return (
     <div className="mt-12 flex flex-col gap-6  justify-center">
+      <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
+        <WeeklyStats products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
+        <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
+        <ProductsStats idcomp="weekStatis" title="Товарная статистика" />
+      </div>
+      <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
+        <PaidToAmount id="PaidToWeek" sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} title="Выручка за неделю"  />
+        <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
+      </div>
+      <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
+        <RevenueByWeekStacked  sales1C={sales1C.sales1CWeek} width="[43%]" />
+        <WeaklyTotalSalesChart sales1C={weekSalesSeries} title="Продажи за неделю" />
+      </div>
       {/* <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
         <FirstRowStats />
       </div>
@@ -32,7 +66,7 @@ const General = () => {
         <LastRowWeaklyStats />
         <LastRowSecondComp />
         <LastRowThirdComp />
-      </div>  */}
+      </div>  */} 
     </div>
   );
 };

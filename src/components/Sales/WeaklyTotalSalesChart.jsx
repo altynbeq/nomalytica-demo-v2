@@ -81,7 +81,6 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
     labelIntersectAction: 'Rotate45',
     valueType: 'Category',
   };
-
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">

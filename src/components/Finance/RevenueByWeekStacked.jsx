@@ -4,7 +4,7 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Skeleton } from "..";
 import { useStateContext } from "../../contexts/ContextProvider";
 
-const RevenueByWeekStacked = ({sales1C}) => {
+const RevenueByWeekStacked = ({sales1C, width}) => {
   const { dateRanges } = useStateContext();
   const dateOne = dateRanges[1].startDate.split('%')[0].split('-')[2];
   const dateTwo = dateRanges[1].endDate.split('%')[0].split('-')[2];
@@ -14,7 +14,6 @@ const RevenueByWeekStacked = ({sales1C}) => {
   const maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
-  
   const minSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
@@ -80,7 +79,7 @@ const RevenueByWeekStacked = ({sales1C}) => {
   if(!ready) { return <Skeleton /> }
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-[90%] md:w-[55%] subtle-border">
+    <div className={`bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl w-[90%] md:w-${width ? width : '[55%]'} subtle-border`}>
       <div className="flex justify-between items-center gap-2 mb-10">
           <p className="text-xl font-semibold">Доход за неделю</p>
           <div className="flex items-center gap-4">

@@ -52,18 +52,18 @@ const App = () => {
         }
 
         const [
+          deals,
+          leads,
           kkmFront,
           salesReceiptsFront,
           salesProducts,
-          deals,
-          leads,
           spisanie
         ] = await Promise.all([
+          fetchDealsFront(dateRanges),
+          fetchLeadsFront(dateRanges),
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
           getSalesProductsFront(dateRanges),
-          fetchDealsFront(dateRanges),
-          fetchLeadsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
         if (!leads || !deals || !kkmFront || !salesReceiptsFront || !salesProducts || !spisanie) {
@@ -198,8 +198,26 @@ const App = () => {
               } */}
                 <Routes>
                   {/* dashboard  */}
-                  <Route path="/" element={(techProblem ? <TechProb /> : <General />)} />
-                  <Route path="/general" element={(techProblem ? <TechProb /> : <General />)} />
+                  <Route path="/" element={(techProblem ? <TechProb /> : 
+                      <General 
+                        deals={data.deals}
+                        leads={data.leads}
+                        spisanie={data.spisanie}
+                        sales1C={data.sales1C}
+                        products1C={data.products1C}
+                        kkm={data.kkm}
+                        weekSalesSeries={data.weekSalesSeries}
+                      />)} />
+                  <Route path="/general" element={(techProblem ? <TechProb /> : 
+                    <General 
+                      deals={data.deals}
+                      leads={data.leads}
+                      spisanie={data.spisanie}
+                      sales1C={data.sales1C}
+                      products1C={data.products1C}
+                      kkm={data.kkm}
+                      weekSalesSeries={data.weekSalesSeries}
+                    />)} />
                   <Route path="/finance" element={( techProblem ? <TechProb /> :
                       <Finance 
                         deals={data.deals}
