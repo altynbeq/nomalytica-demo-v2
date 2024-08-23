@@ -7,7 +7,6 @@ const PaidToAmount = ({id, title, sales1C, kkm }) => {
   const [ pieSeries, setSeries ] = useState([]);
 
   const formattedTotalSum =  new Intl.NumberFormat().format(Math.round(sales1C.totalSum)) ;
-  console.log(sales1C)
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
       return;

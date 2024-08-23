@@ -8,7 +8,6 @@ import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 
 const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSeries, weekSalesSeries}) => {
     const { dateRanges, skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
-    console.log(kkm.kkmDay)
     const excelSalesReport = getSalesReportsData();
     const [ ready, setReady ] = useState(false);
     const [ excelSalesReportDay, setexcelSalesReportDay ] = useState([]);
