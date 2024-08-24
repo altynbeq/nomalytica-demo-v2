@@ -82,7 +82,7 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
                     <p className="text-gray-500 mt-1">Покупок</p>
                 </div>
                 <div className='flex justify-center flex-col text-center'>
-                    <p className="text-2xl font-semibold">{products1C.productsSold}</p>
+                    <p className="text-2xl font-semibold">{Math.round(products1C.productsSold)}</p>
                     <p className="text-gray-500 mt-1">Продано товаров</p>
                 </div>
               </div>

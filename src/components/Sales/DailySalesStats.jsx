@@ -75,10 +75,6 @@ const DailySalesStats = ({sales1C, products1C, kkm, spisanie}) => {
                             <p className="text-gray-500 mt-1">Покупок</p>
                         </div>
                         <div className='flex justify-center flex-col text-center'>
-                            <p className="text-2xl font-semibold">?</p>
-                            <p className="text-gray-500 mt-1">Скидок</p>
-                        </div>
-                        <div className='flex justify-center flex-col text-center'>
                             <p className="text-2xl font-semibold">{spisanie.totalAmountSpisanie}</p>
                             <p className="text-gray-500 mt-1">Cписание</p>
                         </div>

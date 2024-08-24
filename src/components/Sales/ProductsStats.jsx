@@ -10,7 +10,7 @@ const ProductsStats = ({ idcomp, title, excelData, spisanie, products1C, isOnSka
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: products1C.mostSoldSum && products1C.mostSoldSum.totalSum ? products1C.mostSoldSum.totalSum + ' тг' : 0  + ' тг',
+            amount: products1C.mostSoldSum && products1C.mostSoldSum.totalSum ? Math.round(products1C.mostSoldSum.totalSum) + ' тг' : 0  + ' тг',
             title: 'Топ выручка',
             desc: products1C.mostSoldSum && products1C.mostSoldSum.name ? products1C.mostSoldSum.name : '',
             iconBg: '#00C292',
