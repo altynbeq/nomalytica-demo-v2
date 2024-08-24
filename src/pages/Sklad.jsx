@@ -25,7 +25,7 @@ const Sklad = ({spisanie, products1C}) => {
     )
   }  
   return (
-    <div className="mt-12 flex flex-col justify-center  w-[100%] align-center gap-8">
+    <div className="mt-12 flex flex-col justify-center w-[100%]  md:w-[90%] align-center gap-8">
       <div className="flex mt-5  flex-wrap xs:flex-col w-[100%]  gap-2 justify-center ">
         {/* <SoldItems idcomponent="spisanieDay" title="Проданные товары" products={products1C.products1CWeek}  /> */}
         <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
@@ -38,7 +38,7 @@ const Sklad = ({spisanie, products1C}) => {
         </div>
       </div>
       <div className="flex flex-col  md:flex-row gap-2 justify-center align-center  items-center">
-        {/* <SpisanieStats width="35%" rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} /> */}
+        <SpisanieStats width="35%" rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
         <SpisanieStats width="40%" rawSpisanie={dataSpisanie.readyWeekData} idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
         <SpisanieStats width="40%" rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />
       </div>
