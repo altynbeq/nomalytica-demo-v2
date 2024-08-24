@@ -12,6 +12,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const bestAvgCheckWorker = { id: null, avgCheck: 0, sales: 0, count: 0 };
     const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((deals.leadsCount /leads.leadsCount) * 100) : 0;
+    const bestSoldSum = products1C.mostSoldSum && products1C.mostSoldSum.totalSum ? new Intl.NumberFormat('en-US').format(Math.round(products1C.mostSoldSum.totalSum)) : 0
     console.log(spisanie)
     const weeklyStats = [
         {
@@ -47,18 +48,18 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
             pcColor: 'green-600',
         },
         {
-            icon: <FaFilter />,
-            amount: conversion + '%',
-            title: 'Конверсия',
-            desc: 'Bitrix',
+            icon: <FaChartBar />,
+            amount: bestSoldSum + ' тг',
+            title: 'Топ выручка',
+            desc: products1C.mostSoldSum && products1C.mostSoldSum.name ? products1C.mostSoldSum.name : '',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
         {
-            icon: <FaChartBar />,
-            amount: numberOfItemsSold,
-            title: 'Продано товаров',
-            desc: 'Общее количество',
+            icon: <FaFilter />,
+            amount: conversion + '%',
+            title: 'Конверсия',
+            desc: 'Bitrix',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
