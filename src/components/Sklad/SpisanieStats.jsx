@@ -36,7 +36,7 @@ const SpisanieStats = ({ idcomponent, title, spisanie, rawSpisanie, width }) => 
       };
 
     return (
-        <div className={`bg-white dark:text-gray-200 justify-center dark:bg-secondary-dark-bg w-[90%] md:w-[${width}]  rounded-2xl subtle-border`}>
+        <div className={`bg-white dark:text-gray-200 justify-center dark:bg-secondary-dark-bg w-[90%] md:w-[27%]  rounded-2xl subtle-border`}>
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3 h-[400px] overflow-y-auto">
                     <div className="flex justify-between">
