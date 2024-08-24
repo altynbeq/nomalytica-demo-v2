@@ -26,7 +26,7 @@ const Sklad = ({spisanie, products1C}) => {
   }  
   return (
     <div className="mt-12 flex flex-col justify-center align-center gap-8">
-      <div className="flex flex-wrap xs:flex-col w-[100%]  gap-2 justify-center align-center items-center">
+      <div className="flex mt-5 flex-wrap xs:flex-col w-[100%]  gap-2 justify-center align-center items-center">
         {/* <SoldItems idcomponent="spisanieDay" title="Проданные товары" products={products1C.products1CWeek}  /> */}
         <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
