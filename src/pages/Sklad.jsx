@@ -40,11 +40,11 @@ const Sklad = ({spisanie, products1C}) => {
         <SpisanieStats rawSpisanie={dataSpisanie.readyWeekData} idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
         <SpisanieStats rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />
       </div>
-      {/* <div className="w-[100%] flex justify-center align-center mr-5">
+      <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">
           <Orders ordersData={ordersData} defVal={true} title="Список заказов" width="[100%]" />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
