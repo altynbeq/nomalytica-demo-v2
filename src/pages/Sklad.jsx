@@ -31,9 +31,11 @@ const Sklad = ({spisanie, products1C}) => {
         <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
       </div>
-      <div className="flex flex-col w-[100%]  md:flex-row gap-2 justify-center align-center  items-center">
+      <div className="w-[100%] flex justify-center align-center mr-5">
+        <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">
         <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров (неделя)" width="[40%]" />
         <Orders ordersData={products1C.products1CMonth.itemName} rawSpisanie={dataSpisanie.readyMonthData} spisanie={spisanie.spisanieMonth} defVal={false} title="Продано товаров (месяц)" width="[40%]" />
+        </div>
       </div>
       <div className="flex flex-col  md:flex-row gap-2 justify-center align-center md:m-5 items-center">
         <SpisanieStats rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
