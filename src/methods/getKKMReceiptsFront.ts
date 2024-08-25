@@ -1,5 +1,21 @@
-import { salesProductDataFormer } from "../data/1C/salesProductDataFormer";
-import { salesProductsData } from '../hoc/shareData'
+import { kkmReceiptsDataFormer } from "../data/1C/kkmReceiptsDataFormer";
+import { setKkmData } from '../hoc/shareData';
+
+// Define the types for the dateRanges and data objects
+interface DateRange {
+    startDate: string;
+    endDate: string;
+}
+
+interface KKMDataItem {
+    [key: string] : any
+}
+
+interface FinalData {
+    readyMonthData: KKMDataItem[];
+    readyWeekData: KKMDataItem[];
+    readyDayData: KKMDataItem[];
+}
 
 const username = 'Алтынбек';
 const password = '5521';
@@ -10,19 +26,19 @@ const credentials = `${username}:${password}`;
 const utf8Credentials = encoder.encode(credentials);
 
 // Function to convert ArrayBuffer to Base64
-function base64ArrayBuffer(arrayBuffer) {
-  let binary = '';
-  const bytes = new Uint8Array(arrayBuffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
+function base64ArrayBuffer(arrayBuffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(arrayBuffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
 }
 
 const encodedCredentials = base64ArrayBuffer(utf8Credentials);
 
-export async function getSalesProductsFront(dateRanges) {
+export async function getKKMReceiptsFront(dateRanges: DateRange[]): Promise<ReturnType<typeof kkmReceiptsDataFormer>> {
     const startDate = decodeURIComponent(dateRanges[2].startDate);
     const endDate = decodeURIComponent(dateRanges[2].endDate);
 
@@ -44,7 +60,8 @@ export async function getSalesProductsFront(dateRanges) {
         throw new Error('Network response was not ok');
     }
 
-    const data = await response.json();
+    const data: KKMDataItem[] = await response.json();
+    const dataForFilter = data;
 
     // Extract date ranges for filtering
     const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
@@ -53,24 +70,24 @@ export async function getSalesProductsFront(dateRanges) {
     const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
 
     // Filter data for day
-    const dayData = data.filter(item => {
+    const dayData = dataForFilter.filter(item => {
         const itemDate = new Date(item.Дата);
         return itemDate >= dayStart && itemDate <= dayEnd;
     });
 
     // Filter data for week
-    const weekData = data.filter(item => {
+    const weekData = dataForFilter.filter(item => {
         const itemDate = new Date(item.Дата);
         return itemDate >= weekStart && itemDate <= weekEnd;
     });
-
-    const final = {
+    
+    const final: FinalData = {
         readyMonthData: data,
         readyWeekData: weekData,
         readyDayData: dayData
-    }
-    salesProductsData(final);
+    };
     
-    const formedSalesProductsData = salesProductDataFormer(final);
-    return formedSalesProductsData;
+    setKkmData(final);
+    const formedKKMData = kkmReceiptsDataFormer(final);
+    return formedKKMData;
 }
