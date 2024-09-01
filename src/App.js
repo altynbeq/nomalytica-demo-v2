@@ -75,7 +75,7 @@ const App = () => {
         
         const monthLeadsSeries = leads.leadsMonth.series;
         const monthDealsSeries = deals.dealsMonth.salesSeries;
-        const salesSeries = kkmFront.monthFormedKKM.salesSeries;
+        const salesSeries = kkmFront.weekFormedKKM.salesSeries;
         const weekStartDate = new Date(dateRanges[1].bitrixStartDate);
         const weekEndDate = new Date(dateRanges[1].bitrixEndDate);
 

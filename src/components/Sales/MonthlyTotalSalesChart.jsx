@@ -30,7 +30,7 @@ const MonthlyTotalSalesChart = ({sales1C, title}) => {
 
   let interval;
   if (range <= 10) {
-    interval = 1;
+    interval = 5;
   } else if (range <= 100) {
     interval = 10;
   } else if (range <= 1000) {
@@ -58,7 +58,8 @@ const MonthlyTotalSalesChart = ({sales1C, title}) => {
   
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
-    minimum: Math.round(finalMinSeriesVal / 2),
+    minimum: 0,
+    // Math.round(finalMinSeriesVal / 2),
     maximum: maxSeriesVal > 0 ? Math.round(maxSeriesVal * 1.5) : 10,
     interval: Math.round(interval),
     majorTickLines: { width: 0 },

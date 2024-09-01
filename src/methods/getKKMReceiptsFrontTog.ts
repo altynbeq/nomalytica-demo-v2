@@ -8,7 +8,7 @@ interface DateRange {
 }
 
 interface KKMDataItem {
-    [key: string]: any;
+    [key: string] : any
 }
 
 interface FinalData {
@@ -38,12 +38,15 @@ function base64ArrayBuffer(arrayBuffer: ArrayBuffer): string {
 
 const encodedCredentials = base64ArrayBuffer(utf8Credentials);
 
-async function fetchDataForRange(startDate: string, endDate: string): Promise<KKMDataItem[]> {
-    // Decode URL-encoded dates and format them by removing potential encoding and replacing hyphens
-    const decodedStartDate = decodeURIComponent(startDate).split(' ')[0].replace(/-/g, '');
-    const decodedEndDate = decodeURIComponent(endDate).split(' ')[0].replace(/-/g, '');
+export async function getKKMReceiptsFront(dateRanges: DateRange[]): Promise<ReturnType<typeof kkmReceiptsDataFormer>> {
+    const startDate = decodeURIComponent(dateRanges[2].startDate);
+    const endDate = decodeURIComponent(dateRanges[2].endDate);
 
-    const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/${decodedStartDate}/${decodedEndDate}`;
+    // Format dates by removing potential encoding and replacing hyphens
+    const formattedStartDate = startDate.split(' ')[0].replace(/-/g, '');
+    const formattedEndDate = endDate.split(' ')[0].replace(/-/g, '');
+
+    const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts-list/GetSalesReceipts/${formattedStartDate}/${formattedEndDate}`;
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -57,28 +60,33 @@ async function fetchDataForRange(startDate: string, endDate: string): Promise<KK
         throw new Error('Network response was not ok');
     }
 
-    return await response.json();
-}
+    const data: KKMDataItem[] = await response.json();
+    const dataForFilter = data;
 
-export async function getKKMReceiptsFront(dateRanges: DateRange[]): Promise<ReturnType<typeof kkmReceiptsDataFormer>> {
-    console.log(dateRanges);
+    // Extract date ranges for filtering
+    const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
+    const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
+    const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
+    const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
 
-    const [dayRange, weekRange, monthRange] = dateRanges;
+    // Filter data for day
+    const dayData = dataForFilter.filter(item => {
+        const itemDate = new Date(item.Дата);
+        return itemDate >= dayStart && itemDate <= dayEnd;
+    });
 
-    // Fetch data for each time period
-    const [dayData, weekData, monthData] = await Promise.all([
-        fetchDataForRange(dayRange.startDate, dayRange.endDate),
-        fetchDataForRange(weekRange.startDate, weekRange.endDate),
-        fetchDataForRange(monthRange.startDate, monthRange.endDate),
-    ]);
-
-    // Combine data into the final result
+    // Filter data for week
+    const weekData = dataForFilter.filter(item => {
+        const itemDate = new Date(item.Дата);
+        return itemDate >= weekStart && itemDate <= weekEnd;
+    });
+    
     const final: FinalData = {
-        readyMonthData: monthData,
+        readyMonthData: data,
         readyWeekData: weekData,
         readyDayData: dayData
     };
-
+    
     setKkmData(final);
     const formedKKMData = kkmReceiptsDataFormer(final);
     return formedKKMData;

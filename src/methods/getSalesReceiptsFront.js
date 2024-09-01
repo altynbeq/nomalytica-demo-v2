@@ -4,41 +4,20 @@ import { salesReportsData } from '../hoc/shareData';
 const username = 'Алтынбек';
 const password = '5521';
 
-// Encode credentials to Base64 using TextEncoder
-const encoder = new TextEncoder();
-const credentials = `${username}:${password}`;
-const utf8Credentials = encoder.encode(credentials);
-
-// Function to convert ArrayBuffer to Base64
-function base64ArrayBuffer(arrayBuffer) {
-  let binary = '';
-  const bytes = new Uint8Array(arrayBuffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
+// Encode credentials to Base64
+function encodeBase64(string) {
+    return btoa(unescape(encodeURIComponent(string)));
 }
 
-const encodedCredentials = base64ArrayBuffer(utf8Credentials);
+const credentials = `${username}:${password}`;
+const encodedCredentials = encodeBase64(credentials);
 
-export async function getSalesReceiptsFront(dateRanges) {
-    const startDate = decodeURIComponent(dateRanges[2].startDate);
-    const endDate = decodeURIComponent(dateRanges[2].endDate);
+async function fetchDataForRange(startDate, endDate) {
+    // Decode URL-encoded dates
+    const decodedStartDate = decodeURIComponent(startDate).split(' ')[0].replace(/-/g, '');
+    const decodedEndDate = decodeURIComponent(endDate).split(' ')[0].replace(/-/g, '');
 
-    // Convert start and end dates to Date objects
-    const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate);
-
-    // // Subtract one day from the start date
-    // const adjustedStartDateObj = new Date(startDateObj);
-    // adjustedStartDateObj.setDate(startDateObj.getDate() - 1);
-
-    // Format the adjusted start date and end date
-    const formattedStartDate = startDateObj.toISOString().split('T')[0].replace(/-/g, '');
-    const formattedEndDate = endDateObj.toISOString().split('T')[0].replace(/-/g, '');
-
-    const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts/GetSales/${formattedStartDate}/${formattedEndDate}`;
+    const url = `/api/ut_zhezkazgan/hs/sales-kkm-receipts/GetSales/${decodedStartDate}/${decodedEndDate}`;
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -48,24 +27,33 @@ export async function getSalesReceiptsFront(dateRanges) {
     });
 
     if (!response.ok) {
-        console.error('Error fetching KKM list');
+        console.error('Error fetching sales receipts');
         throw new Error('Network response was not ok');
     }
 
-    const data = await response.json();
+    return await response.json();
+}
+
+export async function getSalesReceiptsFront(dateRanges) {
+    const [dayRange, weekRange, monthRange] = dateRanges;
+
+    // Fetch data for each time period
+    const [dayData, weekData, monthData] = await Promise.all([
+        fetchDataForRange(dayRange.startDate, dayRange.endDate),
+        fetchDataForRange(weekRange.startDate, weekRange.endDate),
+        fetchDataForRange(monthRange.startDate, monthRange.endDate),
+    ]);
 
     // Extract date ranges for filtering
-    const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
-    const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
-    const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
-    const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
-    const monthStart = new Date(decodeURIComponent(dateRanges[2].startDate));
-    const monthEnd = new Date(decodeURIComponent(dateRanges[2].endDate));
+    const dayStart = new Date(decodeURIComponent(dayRange.startDate));
+    const dayEnd = new Date(decodeURIComponent(dayRange.endDate));
+    const weekStart = new Date(decodeURIComponent(weekRange.startDate));
+    const weekEnd = new Date(decodeURIComponent(weekRange.endDate));
+    const monthStart = new Date(decodeURIComponent(monthRange.startDate));
+    const monthEnd = new Date(decodeURIComponent(monthRange.endDate));
 
-    // Adjust dayEnd to include all times up to the end of the day
+    // Adjust end times to include all times up to the end of the day/week
     dayEnd.setHours(23, 59, 59, 999);
-
-    // Adjust weekEnd to include all times up to the end of the week
     weekEnd.setHours(23, 59, 59, 999);
 
     // Calculate yesterday's date range
@@ -74,56 +62,24 @@ export async function getSalesReceiptsFront(dateRanges) {
     const yesterdayEnd = new Date(yesterdayStart);
     yesterdayEnd.setHours(23, 59, 59, 999);
 
-    // Filter data for yesterday
-    const yesterdayData = data.filter(item => {
-        const itemDate = new Date(item.Дата);
-        const saleHour = itemDate.getHours();
-
-        if(saleHour < 1){
-            itemDate.setDate(itemDate.getDate() - 1);
-        }
-
-        return itemDate >= yesterdayStart && itemDate <= yesterdayEnd;
-    });
-
-    // Filter data for month
-    const monthData = data.filter(item => {
-        const itemDate = new Date(item.Дата);
-        const saleHour = itemDate.getHours();
-
-        if(saleHour < 1){
-            itemDate.setDate(itemDate.getDate() - 1);
-        }
-
-        return itemDate >= monthStart && itemDate <= monthEnd;
-    });
-
-    // Filter data for day
-    const dayData = data.filter(item => {
-        const itemDate = new Date(item.Дата);
-        const saleHour = itemDate.getHours();
-
-        return itemDate >= dayStart && itemDate <= dayEnd;
-    });
-
-    // Filter data for week
-    const weekData = data.filter(item => {
-        const itemDate = new Date(item.Дата);
-        const saleHour = itemDate.getHours();
-
-        if (saleHour < 1) {
-            itemDate.setDate(itemDate.getDate() - 1);
-        }
-
-        return itemDate >= weekStart && itemDate <= weekEnd;
-    });
+    // Filter data for each period
+    function filterData(data, startDate, endDate) {
+        return data.filter(item => {
+            const itemDate = new Date(item.Дата);
+            if (itemDate.getHours() < 1) {
+                itemDate.setDate(itemDate.getDate() - 1);
+            }
+            return itemDate >= startDate && itemDate <= endDate;
+        });
+    }
 
     const final = {
-        readyMonthData: monthData,
-        readyWeekData: weekData,
-        readyDayData: dayData,
-        readyYesterdayData: yesterdayData
-    }
+        readyMonthData: filterData(monthData, monthStart, monthEnd),
+        readyWeekData: filterData(weekData, weekStart, weekEnd),
+        readyDayData: filterData(dayData, dayStart, dayEnd),
+        readyYesterdayData: filterData(dayData, yesterdayStart, yesterdayEnd) // Use dayData for yesterday
+    };
+
     salesReportsData(final);
     const formedSalesReceiptsData = sales1CDataFormer(final);
     return formedSalesReceiptsData;

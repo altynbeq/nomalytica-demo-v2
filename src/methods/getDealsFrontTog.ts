@@ -78,25 +78,40 @@ export async function fetchDealsForRange({bitrixStartDate, bitrixEndDate}: DateF
   }
 }
 
-export async function fetchDealsFront(dateRanges: DateRange[]): Promise<FetchDealsResults> {
-    // Фетч данных за день
-    const dayDeals = await fetchDealsForRange(dateRanges[0]);
-    
-    // Фетч данных за неделю
-    const weekDeals = await fetchDealsForRange(dateRanges[1]);
+export async function fetchDealsFront(dateRanges:DateRange[]): Promise<FetchDealsResults> {
+  // Parse and decode date ranges
+  const dayStart = new Date(decodeURIComponent(dateRanges[0].startDate));
+  const dayEnd = new Date(decodeURIComponent(dateRanges[0].endDate));
+  const weekStart = new Date(decodeURIComponent(dateRanges[1].startDate));
+  const weekEnd = new Date(decodeURIComponent(dateRanges[1].endDate));
+
+  // Adjust dayEnd and weekEnd to include all times up to the end of the period
+  dayEnd.setHours(23, 59, 59, 999);
+  weekEnd.setHours(23, 59, 59, 999);
+
+  // Fetch the data for the entire month
+  const allDeals = await fetchDealsForRange(dateRanges[2]);
+
+  // Filter data for the day
+  const dayDeals = allDeals.filter(item => {
+    const itemDate = new Date(item.DATE_CREATE);
+    return itemDate >= dayStart && itemDate <= dayEnd;
+  });
+
+  // Filter data for the week
+  const weekDeals = allDeals.filter(item => {
+    const itemDate = new Date(item.DATE_CREATE);
+    return itemDate >= weekStart && itemDate <= weekEnd;
+  });
+
+  // Process the data for statistics
+  const dayStats = dealsDataCollector(dayDeals);
+  const weekStats = dealsDataCollector(weekDeals);
+  const monthStats = monthDealsDataCollector(allDeals);
   
-    // Фетч данных за месяц
-    const monthDeals = await fetchDealsForRange(dateRanges[2]);
-  
-    // Обработка данных для статистики
-    const dayStats = dealsDataCollector(dayDeals);
-    const weekStats = dealsDataCollector(weekDeals);
-    const monthStats = monthDealsDataCollector(monthDeals);
-    
-    return {
-      dealsDay: dayStats,
-      dealsWeek: weekStats,
-      dealsMonth: monthStats
-    };
-  }
-  
+  return {
+    dealsDay: dayStats,
+    dealsWeek: weekStats,
+    dealsMonth: monthStats
+  };
+}
