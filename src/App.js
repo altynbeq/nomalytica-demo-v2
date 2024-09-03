@@ -27,7 +27,7 @@ const App = () => {
   const [ hasAccess, setHasAccess ] = useState(false);
   const [ loading, setLoading ] = useState(true);
   const [ techProblem, setTechProblem ] = useState(false);
-
+  const userType = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
   const [data, setData] = useState({
     kkm: { kkmDay: {}, kkmWeek: {}, kkmMonth: {} },
     sales1C: { sales1CDay: {}, sales1CWeek: {}, sales1CMonth: {} },
@@ -199,7 +199,7 @@ const App = () => {
               } */}
                 <Routes>
                   {/* dashboard  */}
-                  <Route path="/" element={(techProblem ? <TechProb /> : 
+                  <Route path="/" element={(techProblem ? <TechProb /> : userType.userRole == 'admin' ?
                       <General 
                         deals={data.deals}
                         leads={data.leads}
@@ -208,7 +208,16 @@ const App = () => {
                         products1C={data.products1C}
                         kkm={data.kkm}
                         weekSalesSeries={data.weekSalesSeries}
-                      />)} />
+                      /> : userType.userRole == 'rop' ? <Sales 
+                      deals={data.deals}
+                      leads={data.leads}
+                      sales1C={data.sales1C}
+                      kkm={data.kkm}
+                      products1C={data.products1C}
+                      spisanie={data.spisanie}
+                      conversionSeries={data.conversionSeries}
+                      weekSalesSeries={data.weekSalesSeries}
+                    /> : <Sklad spisanie={data.spisanie} products1C={data.products1C}/> )} />
                   <Route path="/general" element={(techProblem ? <TechProb /> : 
                     <General 
                       deals={data.deals}
