@@ -9,7 +9,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
-  const [ navLinks, setNavLinks] = useState([]);
+  const [ navLinks, setNavLinks] = useState(links);
   const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
@@ -18,12 +18,19 @@ const Sidebar = () => {
   };
 
   useEffect(()=> {
+    const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
+
     if(data.userRole == 'sklad'){
-      let filteredLinks = links[0].links.filter(link => link.name !== "sklad");
-      setNavLinks(filteredLinks);
+      let filteredLinks = links[0].links.filter(link => link.name == "sklad");
+
+      console.log("links", links)
+      console.log("filteredLinks", filteredLinks)
+      links[0].links = filteredLinks;
+      setNavLinks(links);
     } else if(data.userRole == 'rop'){
-      let filteredLinks = links[0].links.filter(link => link.name !== "sales");
-      setNavLinks(filteredLinks);
+      let filteredLinks = links[0].links.filter(link => link.name == "sales");
+      links[0].links = filteredLinks;
+      setNavLinks(links);
     }
     setActiveMenu(false);
   },[]);
@@ -51,7 +58,7 @@ const Sidebar = () => {
             </TooltipComponent>
           </div>
           <div className="mt-10 ">
-            {navLinks.map((item) => (
+            {links.map((item) => (
               <div key={item.title}>
                 <p className="text-gray-400 dark:text-gray-400 m-3 mt-4 uppercase">
                   {item.title}
