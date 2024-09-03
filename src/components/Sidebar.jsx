@@ -11,6 +11,11 @@ const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
   const [ navLinks, setNavLinks] = useState([]);
   const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
+  const handleCloseSideBar = () => {
+    if (activeMenu !== undefined && screenSize <= 900) {
+      setActiveMenu(false);
+    }
+  };
 
   useEffect(()=> {
     if(data.userRole == 'sklad'){
@@ -20,11 +25,6 @@ const Sidebar = () => {
       let filteredLinks = links[0].links.filter(link => link.name !== "sales");
       setNavLinks(filteredLinks);
     }
-    const handleCloseSideBar = () => {
-      if (activeMenu !== undefined && screenSize <= 900) {
-        setActiveMenu(false);
-      }
-    };
     setActiveMenu(false);
   },[]);
 
