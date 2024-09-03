@@ -12,21 +12,19 @@ const Sidebar = () => {
   const [ navLinks, setNavLinks] = useState([]);
   const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
 
-  if(data.userRole == 'sklad'){
-    let filteredLinks = links[0].links.filter(link => link.name !== "sklad");
-    setNavLinks(filteredLinks);
-  } else if(data.userRole == 'rop'){
-    let filteredLinks = links[0].links.filter(link => link.name !== "sales");
-    setNavLinks(filteredLinks);
-  }
-  const handleCloseSideBar = () => {
-    if (activeMenu !== undefined && screenSize <= 900) {
-      setActiveMenu(false);
-    }
-  };
-
   useEffect(()=> {
-
+    if(data.userRole == 'sklad'){
+      let filteredLinks = links[0].links.filter(link => link.name !== "sklad");
+      setNavLinks(filteredLinks);
+    } else if(data.userRole == 'rop'){
+      let filteredLinks = links[0].links.filter(link => link.name !== "sales");
+      setNavLinks(filteredLinks);
+    }
+    const handleCloseSideBar = () => {
+      if (activeMenu !== undefined && screenSize <= 900) {
+        setActiveMenu(false);
+      }
+    };
     setActiveMenu(false);
   },[]);
 
