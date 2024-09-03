@@ -14,7 +14,20 @@ const LogInForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(email == "romantic_zhez" && password == "director123"){
-      handleLogIn();
+      handleLogIn({
+        id: 1,
+        userRole: 'admin'
+      });
+    } else if(email == 'romanticZhez_sklad' && password == 'sklad2024') {
+      handleLogIn({
+        id: 2,
+        userRole: 'sklad'
+      });
+    } else if(email == 'romanticZhez_rop' && password == 'rop_qwe') {
+      handleLogIn({
+        id: 3,
+        userRole: 'rop'
+      });
     } else {
       alert('Wrong password')
     }

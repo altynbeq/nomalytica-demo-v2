@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { SiShopware } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
@@ -9,7 +9,16 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const [ navLinks, setNavLinks] = useState([]);
+  const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
 
+  if(data.userRole == 'sklad'){
+    let filteredLinks = links[0].links.filter(link => link.name !== "sklad");
+    setNavLinks(filteredLinks);
+  } else if(data.userRole == 'rop'){
+    let filteredLinks = links[0].links.filter(link => link.name !== "sales");
+    setNavLinks(filteredLinks);
+  }
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
@@ -17,6 +26,7 @@ const Sidebar = () => {
   };
 
   useEffect(()=> {
+
     setActiveMenu(false);
   },[]);
 

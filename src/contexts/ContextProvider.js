@@ -20,6 +20,7 @@ export const ContextProvider = ({ children }) => {
   const [ isLoggedIn, setLoggedIn ] = useState(false);
   const [ deals, setDeals ] = useState([]);
   const [ skeletonUp, setSkeletonUp ] = useState(true);
+  const [ userRole, setUserRole ] = useState("");
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -37,17 +38,14 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const logCheck = localStorage.getItem('nomalyticsTokenAuth');
+    
     if (logCheck) { setLoggedIn(true); } else { setLoggedIn(false) }
 
   }, []);
 
-  const handleLogIn = () => {
-    const data = {
-      id: 1,
-      userRole: 'admin',
-    }
-
-    localStorage.setItem('nomalyticsTokenAuth', JSON.stringify(data));
+  const handleLogIn = (role) => {
+    setUserRole(role.userRole)
+    localStorage.setItem('nomalyticsTokenAuth', JSON.stringify(role));
     setLoggedIn(true);
   }
 
@@ -65,7 +63,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{ skeletonUp, handleSkeleton, deals, setDeals, dateRanges, isLoggedIn, handleLogIn, handleLogOut, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
+    <StateContext.Provider value={{ userRole, skeletonUp, handleSkeleton, deals, setDeals, dateRanges, isLoggedIn, handleLogIn, handleLogOut, currentColor, currentMode, activeMenu, screenSize, setScreenSize, handleClick, isClicked, initialState, setIsClicked, setActiveMenu, setCurrentColor, setCurrentMode, setMode, setColor, themeSettings, setThemeSettings }}>
       {children}
     </StateContext.Provider>
   );
