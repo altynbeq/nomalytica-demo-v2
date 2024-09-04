@@ -11,6 +11,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { getSalesProductsFrontOne } from '../methods/getSalesProductsOne';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 
+
 function formatDates(dates) {
   const formatDate = (date) => {
       const year = date.getFullYear();

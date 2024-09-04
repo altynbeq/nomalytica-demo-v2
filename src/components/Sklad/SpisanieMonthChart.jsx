@@ -1,24 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { Dropdown } from 'primereact/dropdown';
+import { getSpisanie } from '../../methods/getSpisanieOne';
+
+function convertMonthToDateRange(monthName, year) {
+  const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
+  const startDate = new Date(year, monthIndex, 1, 0, 0, 0); // Start of the month
+  const endDate = new Date(year, monthIndex + 1, 0, 23, 59, 59); // End of the month
+
+  const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day}%20${hours}:${minutes}:${seconds}`;
+  };
+
+  return {
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate)
+  };
+}
 
 const SpisanieMonthChart = ({spisanie, title}) => {
   const { dateRanges } = useStateContext();
+  const [ selectedMonth, setSelectedMonth ] = useState('September');
+  const [ spisanieSeries, setSpisanieSeries ] = useState(spisanie.series);
+  const [ ready, setReady ] = useState(false);
+  const cities = [  "January", 
+  "February", 
+  "March", 
+  "April", 
+  "May", 
+  "June", 
+  "July", 
+  "August", 
+  "September", 
+  "October", 
+  "November", 
+  "December"];
   const date = dateRanges[2].startDate.split('%')[0].split('-')[0] + '-' + dateRanges[2].startDate.split('%')[0].split('-')[1]
   
-  const list = spisanie.series;
-  if(!list){
-    return(
-      <Skeleton />
-    )
-  }
-  const maxSeriesVal = list.reduce((acc, item) => {
+  const maxSeriesVal = spisanieSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
   
-  const minSeriesVal = list.reduce((acc, item) => {
+  const minSeriesVal = spisanieSeries.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
@@ -28,7 +61,7 @@ const SpisanieMonthChart = ({spisanie, title}) => {
   const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
 
   const range = maxSeriesVal - finalMinSeriesVal;
-
+  const list = spisanie.series
   let interval;
   if (range <= 10) {
     interval = 1;
@@ -48,7 +81,7 @@ const SpisanieMonthChart = ({spisanie, title}) => {
 
   let stackedCustomSeries = [
     { 
-      dataSource: list,
+      dataSource: spisanieSeries,
       xName: 'x',
       yName: 'y',
       name: 'Продажи',
@@ -78,20 +111,37 @@ const SpisanieMonthChart = ({spisanie, title}) => {
     labelIntersectAction: 'Rotate45',
     valueType: 'Category',
   };
-  // if(sales1C.salesSeries){
-  //   return <Skeleton />
-  // }
+  
+  // useEffect(()=> {
+
+  // }, [])
+
+  const handleMonthChange = async (e) => {
+    const date = convertMonthToDateRange(e, 2024);
+    const data = await getSpisanie(date);
+    setSpisanieSeries(data.series);
+    setSelectedMonth(e);
+  }
+
+  if(!spisanieSeries){
+    return(
+      <Skeleton />
+    )
+  }
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 w-[90%] md:w-[50%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
-            <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
+            {/* <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
             <span>
                 <GoPrimitiveDot />
             </span>
             <span>{date}</span>
-            </p>
+            </p> */}
+
+            <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+                placeholder="Выберите месяц" className="w-full md:w-14rem" />
         </div>
         </div>
         <div className="w-[100%]">
