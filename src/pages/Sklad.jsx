@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  SpisanieStats } from '../components/Sklad';
 import { Orders } from '../pages';
 import { useStateContext } from '../contexts/ContextProvider';
@@ -7,6 +7,9 @@ import { getDataSpisanie } from '../hoc/shareData';
 import { SpisanieMonthChart } from '../components/Sklad'
 import { ordersData } from '../data/ordersData';
 import { ProductsStats } from '../components/Sales'
+
+import { Calendar } from 'primereact/calendar';
+        
 
 const Sklad = ({spisanie, products1C}) => {
   const { skeletonUp } = useStateContext();
@@ -27,14 +30,12 @@ const Sklad = ({spisanie, products1C}) => {
   return (
     <div className="mt-12 flex flex-col justify-center w-[100%]  md:w-[90%] align-center gap-8">
       <div className="flex mt-5  flex-wrap xs:flex-col w-[100%]  gap-2 justify-center ">
-        {/* <SoldItems idcomponent="spisanieDay" title="Проданные товары" products={products1C.products1CWeek}  /> */}
         <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
       </div>
       <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">
-        <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров (неделя)" width="[40%]" />
-        <Orders ordersData={products1C.products1CMonth.itemName} rawSpisanie={dataSpisanie.readyMonthData} spisanie={spisanie.spisanieMonth} defVal={false} title="Продано товаров (месяц)" width="[40%]" />
+        <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров" width="[40%]" />
         </div>
       </div>
       <div className="flex flex-col  md:flex-row gap-2 justify-center align-center  items-center">
