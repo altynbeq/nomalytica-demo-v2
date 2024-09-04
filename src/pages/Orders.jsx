@@ -102,7 +102,7 @@ const Orders = ({ordersData, defVal, title, width }) => {
             <FaCalendarAlt />
           </div>
         
-        <div className='mb-6 z-10 bg-white'>
+        <div className='mb-2 md:mb-6  z-10 bg-white'>
           <Calendar value={dates} onChange={(e) => {
             handleDateChange(e.value)
             setDates(e.value)
