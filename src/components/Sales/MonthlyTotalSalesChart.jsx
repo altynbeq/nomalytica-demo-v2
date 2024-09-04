@@ -125,8 +125,7 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
       const data = await fetchLeadsFront(e);
       setSalesSeries(data.series);
     } else if(type == 'conversion'){
-      const leads = await fetchLeadsFront(e);
-      const deals = await fetchDealsFront(e);
+      const [leads, deals] = await Promise.all([fetchLeadsFront(e), fetchDealsFront(e)]);
       let leadsSeries = leads.series;
       let dealsSeries = deals.series;
       
