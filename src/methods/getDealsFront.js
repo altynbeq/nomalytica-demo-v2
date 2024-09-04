@@ -104,7 +104,7 @@ import { dealsDataCollector } from '../data/Finance/WeekDataFinanceFormer';
 import { monthDealsDataCollector } from '../data/Finance/MonthDataFinanceFormer';
 
 export async function fetchDealsForRange({ bitrixStartDate, bitrixEndDate }) {
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/qyhraw9d6jnfbksc/crm.deal.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/9gd0f1jaied8rkt4/crm.deal.list.json';
   const batchSize = 50; // Number of items to fetch per request
   let allDeals = [];
   let start = 0;

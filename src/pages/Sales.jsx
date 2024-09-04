@@ -47,11 +47,11 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <WeaklyTotalSalesChart sales1C={weekSalesSeries} title="Продажи за неделю" />
-                <MonthlyTotalSalesChart sales1C={kkm.kkmMonth}  title="Продажи за месяц" />
+                <MonthlyTotalSalesChart sales1C={kkm.kkmMonth}  title="Продажи за месяц" type="sales" />
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
-                <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" />
-                <MonthlyTotalSalesChart sales1C={conversionSeries} title="Конверсия Bitrix %" />
+                <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" type="leads" />
+                <MonthlyTotalSalesChart sales1C={conversionSeries} title="Конверсия Bitrix %" type="conversion"/>
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart />

@@ -92,7 +92,7 @@ import { monthDataSalesFormer } from '../data/Sales/MonthDataSalesFormer';
 import { weekDataSalesFormer } from '../data/Sales/WeekDataSalesFormer';
 
 async function fetchLeadsForRange({ bitrixStartDate, bitrixEndDates }) {
-  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/hp29cpcrgqrsfh2f/crm.lead.list.json';
+  const webhookUrl = 'https://zhezkazgan-romantic.bitrix24.kz/rest/20509/99kb8whz37as3yxw/crm.lead.list.json';
   let allLeads = [];
   let start = 0;
   const batchSize = 50; // Number of items to fetch per request
@@ -140,10 +140,11 @@ async function fetchLeadsForRange({ bitrixStartDate, bitrixEndDates }) {
 
 export async function fetchLeadsFront(dateRanges) {
   // Fetch the data for each period separately
-  const dayLeads = await fetchLeadsForRange(dateRanges[0]);
-  const weekLeads = await fetchLeadsForRange(dateRanges[1]);
-  const monthLeads = await fetchLeadsForRange(dateRanges[2]);
-
+  const [dayLeads, weekLeads, monthLeads] = await Promise.all([
+    fetchLeadsForRange(dateRanges[0]),
+    fetchLeadsForRange(dateRanges[1]),
+    fetchLeadsForRange(dateRanges[2])
+  ])
   // Process the data for statistics
   const dayStats = weekDataSalesFormer(dayLeads);
   const weekStats = weekDataSalesFormer(weekLeads);
