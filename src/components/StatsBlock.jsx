@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Stacked } from '../components'
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { Dropdown } from 'primereact/dropdown';
+import { Calendar } from 'primereact/calendar';
 import { getSalesReceiptsFront } from '../methods/getSalesReceiptsOne'
 import { getKKMReceiptsFront } from '../methods/getKKMOne'
+import { useStateContext } from "../contexts/ContextProvider";
 
 function convertMonthToDateRange(monthName, year) {
     const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
@@ -27,13 +29,31 @@ function convertMonthToDateRange(monthName, year) {
     };
 }
 
-    const data = {
-    title: "Финансы",
-    };
 
-const StatsBlockFinance = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
+function formatDates(dates) {
+  const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day}%20${hours}:${minutes}:${seconds}`;
+  };
+
+  return {
+      startDate: formatDate(dates[0]),
+      endDate: formatDate(dates[1])
+  };
+}
+
+
+const StatsBlockFinance = ({ idcomp, cal, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
+    const { dateRanges } = useStateContext();
+    
     const [ selectedMonth, setSelectedMonth ] = useState('September');
-
+    const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
     const [ salesSeries, setSalesSeries ] = useState(sales1C.salesSumSeries);
     const [ newTotalSum, setNewTotalSum ] = useState(new Intl.NumberFormat('en-US').format(kkm.totalSum));
     const [ avgCheck, setAvgCheck ] = useState(kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0)
@@ -132,15 +152,31 @@ const StatsBlockFinance = ({ idcomp, title, excelData, kkm, sales1C, products1C,
         valueType: 'Category',
     };
     
-  
+    const handleDateChange = async (e) => {
+      if(e[1]){
+        const date = formatDates(e);
+        const data = await getSalesReceiptsFront(date);
+        const kkmData = await getKKMReceiptsFront(date);
+
+        setNewTotalSum(new Intl.NumberFormat('en-US').format(kkmData.totalSum));
+        setAvgCheck(kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0);
+        setSalesSeries(data.salesSumSeries);
+      }
+    }
     return (
-      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-9 relative w-[90%] md:w-[40%] ">
+      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-6 relative w-[90%] md:w-[44%] ">
         <div className="flex flex-col pb-6 w-full">
           <div className="flex flex-row justify-between gap-4 w-[100%]">
-            <h2 className="text-black font-bold text-1xl">{data.title}</h2>
+            <h2 className="text-black font-bold text-1xl">Финансы</h2>
             <div className="flex flex-wrap  pb-6 gap-1 ">
-            <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
-                placeholder="Выберите месяц" className="w-full md:w-14rem" />
+              {
+                cal == 'drop' ? <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+                placeholder="Выберите месяц" className="w-full md:w-14rem" /> : <Calendar value={dates} onChange={(e) => {
+                  handleDateChange(e.value)
+                  setDates(e.value)
+                }} selectionMode="range" readOnlyInput hideOnRangeSelection />
+              }
+            
             </div>
           </div>
           {/* <div className="flex items-center space-x-3">
@@ -152,7 +188,7 @@ const StatsBlockFinance = ({ idcomp, title, excelData, kkm, sales1C, products1C,
         </div>
   
         <div className=" rounded-lg my-6">
-            <Stacked id="MonthlyRevenueChart" stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}    />
+            <Stacked id={idcomp} stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}    />
         </div>
   
         {/* <div className="flex justify-between pb-6 text-xl font-bold">
