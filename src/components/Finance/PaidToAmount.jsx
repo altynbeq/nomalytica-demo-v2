@@ -6,7 +6,6 @@ const PaidToAmount = ({id, comb, title, sales1C, kkm }) => {
   const [ ready, setReady ] = useState(false);
   const [ pieSeries, setSeries ] = useState([]);
   const formattedTotalSum =  new Intl.NumberFormat().format(Math.round(sales1C.totalSum));
-  const wid = comb ? '100%' : '43%';
   useEffect(()=>{
     if (!sales1C || !sales1C.paidTo) {
       return;
@@ -38,7 +37,7 @@ const PaidToAmount = ({id, comb, title, sales1C, kkm }) => {
     )
   }
   return (
-    <div className={`bg-white dark:text-gray-200 overflow-hidden dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[${wid}]  p-4  flex flex-col justify-center items-center  subtle-border`}>
+    <div className={`bg-white dark:text-gray-200 overflow-hidden dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[${comb ? '100%' : '43%'}]  p-4  flex flex-col justify-center items-center  subtle-border`}>
         <div className='text-center'>
             <p className="text-2xl font-semibold ">{title}</p>
             <p className="text-gray-400 text-2xl">{formattedTotalSum} тг</p>
