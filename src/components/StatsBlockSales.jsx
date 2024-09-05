@@ -44,12 +44,11 @@ const StatsBlockSales = ({ idcomp, title, excelData, kkm, sales1C, products1C, d
     const handleMonthChange = async (e) => {
         setSelectedMonth(e);
         const date = convertMonthToDateRange(e, 2024);
-        const data = await getKKMReceiptsFront(date);
-        const dealsData = await fetchDealsFront(date);
-
+        
+        const [data, dealsData] = await Promise.all([getKKMReceiptsFront(date), fetchDealsFront(e)])
         setDealsCount(dealsData.leadsCount);
         setSalesSeries(data.salesSeries);
-        salesNumber(data.totalNumberSales);
+        setSalesNumber(data.totalNumberSales);
     }
     const weeklyStats = [
         {
@@ -114,7 +113,7 @@ const StatsBlockSales = ({ idcomp, title, excelData, kkm, sales1C, products1C, d
       // data.minAmountSeries > 0 ? data.minAmountSeries : 10,
       maximum: maxSeriesVal > 0 ? maxSeriesVal * 1.3 : 10,
       // data.maxAmountSeries > 0 ? data.maxAmountSeries * 1.1 : 100,
-      interval: interval ,
+      interval: 10 ,
       // data.maxAmountSeries > 0 ? 50000 : 100,
       majorTickLines: { width: 0 },
       majorGridLines: { width: 1 },
