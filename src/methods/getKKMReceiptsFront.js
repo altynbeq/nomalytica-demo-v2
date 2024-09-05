@@ -131,7 +131,6 @@ async function fetchDataForRange(startDate, endDate) {
 }
 
 export async function getKKMReceiptsFront(dateRanges) {
-    console.log(dateRanges);
 
     const [dayRange, weekRange, monthRange] = dateRanges;
 

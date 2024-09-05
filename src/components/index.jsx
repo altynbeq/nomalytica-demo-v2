@@ -19,3 +19,5 @@ export { default as Area } from './Charts/Area';
 export { default as ExportToExcel } from './ExportToExcel';
 export { default as ContainerWrapper } from './ContainerWrapper';
 export { default as Skeleton } from './LoadingSkeleton';
+export { default as StatsBlockFinance } from './StatsBlock'
+export { default as StatsBlockSales } from './StatsBlockSales'

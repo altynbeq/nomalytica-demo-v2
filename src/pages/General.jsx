@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
 
 import { FirstRowStats, SalesDouble, MonthlyRevenueBars, SecondRowPie, ThirdRowTransList, ThirdRowLineChart, LastRowWeaklyStats, LastRowSecondComp, LastRowThirdComp } from '../components/General';
-import { ContainerWrapper } from '../components';
+import { ContainerWrapper, StatsBlockFinance, StatsBlockSales } from '../components';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 
 import { WeeklyStats, ProductsStats, WeaklyTotalSalesChart } from '../components/Sales'
@@ -33,6 +33,11 @@ const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSer
   }
   return ( 
     <div className="mt-12 flex flex-col gap-6  justify-center">
+      <div className="flex mt-5 gap-4  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3   items-center">
+        <StatsBlockFinance products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} idcomp="weekStats" />
+        <StatsBlockSales products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={kkm.kkmMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} idcomp="weekStatsSales" />
+        {/* <StatsBlock /> */}
+      </div>
       <div className="flex mt-5  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
         <WeekStats products1C={products1C.products1CDay} spisanie={spisanie.spisanieDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
         <SpisanieStats width="27%" rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />

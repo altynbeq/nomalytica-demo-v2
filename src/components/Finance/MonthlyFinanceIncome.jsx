@@ -33,11 +33,7 @@ const MonthlyRevenueChart = ({sales1C}) => {
     const [ selectedMonth, setSelectedMonth ] = useState('September');
     const [ salesSeries, setSalesSeries ] = useState(sales1C.salesSumSeries);
 
-    const cities = [  "January", "February", "March", "April", "May", "June", "July", "August", 
-      "September", 
-      "October", 
-      "November", 
-      "December"];
+    const cities = [  "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     let  maxSeriesVal = salesSeries.reduce((acc, item) => {
         return Math.max(acc, item.y);

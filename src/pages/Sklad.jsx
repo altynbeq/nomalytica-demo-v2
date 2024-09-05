@@ -35,7 +35,7 @@ const Sklad = ({spisanie, products1C}) => {
       </div>
       <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">
-        <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров" width="[40%]" />
+          <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров" width="[100%]" />
         </div>
       </div>
       <div className="flex flex-col  md:flex-row gap-2 justify-center align-center  items-center">
