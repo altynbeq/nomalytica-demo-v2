@@ -96,7 +96,7 @@ const Orders = ({ordersData, defVal, title, width }) => {
   }
   return (
     <div className={`md:p-5 bg-white w-${width} dark:text-black dark:bg-secondary-dark-bg  rounded-3xl subtle-border`}>
-      <div className='flex flex-row align-center  justify-between h-12 mx-5'>
+      <div className='flex flex-row align-center mt-4  justify-between h-12 mx-5'>
         <Header  title={title} />
         <div className='flex flex-row align-top  gap-2'>
           <div className=' text-2xl rounded-2xl'>
