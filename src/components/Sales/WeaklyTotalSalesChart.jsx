@@ -1,26 +1,43 @@
-import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+import React, { useState } from 'react'
 import { Stacked } from '../../components';
-import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { Calendar } from 'primereact/calendar';
+import { getKKMReceiptsFront } from '../../methods/getKKMOne'
+
+function formatDates(dates) {
+  const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day}%20${hours}:${minutes}:${seconds}`;
+  };
+
+  return {
+      startDate: formatDate(dates[0]),
+      endDate: formatDate(dates[1])
+  };
+}
 
 const WeaklyTotalSalesChart = ({sales1C, title}) => {
   const { dateRanges } = useStateContext();
-  const dateOne = dateRanges[1].startDate.split('%')[0].split('-')[2];
-  const dateTwo = dateRanges[1].endDate.split('%')[0].split('-')[2];
-  const finalDate = dateOne + '-' + dateTwo + ' ' + dateRanges[1].startDate.split('%')[0].split('-')[1] + '.' + dateRanges[1].startDate.split('%')[0].split('-')[0];
-  
+  const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
   const list = sales1C.salesSeries ? sales1C.salesSeries : sales1C.series;
-  if(!list){
+  const [ salesSeries, setSalesSeries ] = useState(sales1C.salesSeries ? sales1C.salesSeries : sales1C.series);
+
+  if(!salesSeries){
     return(
       <></>
     )
   }
-  const maxSeriesVal = list.reduce((acc, item) => {
+  const maxSeriesVal = salesSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
   
-  const minSeriesVal = list.reduce((acc, item) => {
+  const minSeriesVal = salesSeries.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
@@ -50,7 +67,7 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
 
   let stackedCustomSeries = [
     { 
-      dataSource: list,
+      dataSource: salesSeries,
       xName: 'x',
       yName: 'y',
       name: 'Продажи',
@@ -81,17 +98,24 @@ const WeaklyTotalSalesChart = ({sales1C, title}) => {
     labelIntersectAction: 'Rotate45',
     valueType: 'Category',
   };
+
+  const handleDateChange = async (e) => {
+    if(e[1]){
+      const date = formatDates(e);
+      const data = await getKKMReceiptsFront(date);
+      setSalesSeries(data.salesSeries);
+    }
+  }
+
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
           <p className="md:text-xl font-semibold">{title}</p>
           <div className="flex items-center gap-4">
-              <p className="flex md:text-xl items-center gap-2 text-green-400 hover:drop-shadow-xl">
-              <span>
-                  <GoPrimitiveDot />
-              </span>
-              <span>{finalDate}</span>
-              </p>
+              <Calendar value={dates} onChange={(e) => {
+                  handleDateChange(e.value)
+                  setDates(e.value)
+                }} selectionMode="range" readOnlyInput hideOnRangeSelection />
           </div>
         </div>
           
