@@ -65,7 +65,7 @@ const MonthStatistics = ({sales1C, products1C, kkm, leads, deals, idcomponent, t
         },
     ];
     return (
-        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
+        <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[35%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
                     <div className="flex justify-between">

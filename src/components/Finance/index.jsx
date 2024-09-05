@@ -12,3 +12,4 @@ export { default as MonthStatistics } from './MonthStatistics';
 export { default as PaidToAmount } from './PaidToAmount';
 export { default as KassaKKMPie } from './KassaKKMPie';
 export { default as PaidToAmountCheck } from './PiadToCheck';
+export { default as MonthCombined } from './MonthCombined'

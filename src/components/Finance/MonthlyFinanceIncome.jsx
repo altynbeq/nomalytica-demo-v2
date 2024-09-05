@@ -1,17 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
+import { Dropdown } from 'primereact/dropdown';
+import { getSalesReceiptsFront } from '../../methods/getSalesReceiptsOne'
+
+function convertMonthToDateRange(monthName, year) {
+  const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
+  const startDate = new Date(year, monthIndex, 1, 0, 0, 0); // Start of the month
+  const endDate = new Date(year, monthIndex + 1, 0, 23, 59, 59); // End of the month
+
+  const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day}%20${hours}:${minutes}:${seconds}`;
+  };
+
+  return {
+      startDate: formatDate(startDate),
+      endDate: formatDate(endDate)
+  };
+}
 
 const MonthlyRevenueChart = ({sales1C}) => {
     const { dateRanges } = useStateContext();
-    const date = dateRanges[2].startDate.split('%')[0].split('-')[0] + '-' + dateRanges[2].startDate.split('%')[0].split('-')[1]
-    let  maxSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
+    const [ selectedMonth, setSelectedMonth ] = useState('September');
+    const [ salesSeries, setSalesSeries ] = useState(sales1C.salesSumSeries);
+
+    const cities = [  "January", "February", "March", "April", "May", "June", "July", "August", 
+      "September", 
+      "October", 
+      "November", 
+      "December"];
+
+    let  maxSeriesVal = salesSeries.reduce((acc, item) => {
         return Math.max(acc, item.y);
     }, 0);
 
-    let  minSeriesVal = sales1C.salesSumSeries.reduce((acc, item) => {
+    let  minSeriesVal = salesSeries.reduce((acc, item) => {
         if (item.y !== 0 || acc === Infinity) {
           return Math.min(acc, item.y);
         }
@@ -36,7 +68,7 @@ const MonthlyRevenueChart = ({sales1C}) => {
     }
     let stackedCustomSeriesYearly = [
         { 
-          dataSource: sales1C.salesSumSeries,
+          dataSource: salesSeries,
           xName: 'x',
           yName: 'y',
           name: 'Продажи',
@@ -68,21 +100,23 @@ const MonthlyRevenueChart = ({sales1C}) => {
         labelIntersectAction: 'Rotate45',
         valueType: 'Category',
     };
+    const handleMonthChange = async (e) => {
+      setSelectedMonth(e);
+      const date = convertMonthToDateRange(e, 2024);
+      const data = await getSalesReceiptsFront(date);
+      setSalesSeries(data.salesSumSeries);
+    }
 
-    if(!sales1C.salesSumSeries){
+    if(!salesSeries){
       return <Skeleton />
     }
     return (
-        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl  w-[90%] md:w-[55%] subtle-border">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl  w-[90%] md:w-[50%] subtle-border">
             <div className="flex justify-between items-center gap-2 mb-10">
             <p className="text-xl font-semibold">Продажи за месяц</p>
             <div className="flex items-center gap-4">
-                <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                <span>
-                    <GoPrimitiveDot />
-                </span>
-                <span>{date}</span>
-                </p>
+              <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+                placeholder="Выберите месяц" className="w-full md:w-14rem" />
             </div>
             </div>
             <div className="w-[100%]">
@@ -93,18 +127,3 @@ const MonthlyRevenueChart = ({sales1C}) => {
 }
 
 export default MonthlyRevenueChart 
-
-// <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 mx-5 md:mx-0 rounded-2xl mr-10 w-[90%] md:w-[85%]">
-//             <div className="flex justify-between items-center gap-2 mb-10">
-//             <p className="text-xl font-semibold">Продажи за месяц</p>
-//             <div className="flex items-center gap-4">
-//                 <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-//                 <span>
-//                     <GoPrimitiveDot />
-//                 </span>
-//                 <span>2024</span>
-//                 </p>
-//             </div>
-//             </div>
-//                 <Stacked id="WeeklyMainRevenueChart" stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryXAxisYearly} stackedPrimaryYAxis={stackedPrimaryYAxisYearly}  />
-//         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
-import { MonthStatistics, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
+import { MonthStatistics, MonthCombined, PaidToAmountCheck, KassaKKMPie, PaidToAmount, MonthlyRevenueChart, OverallRevenueChart, RevenueByWeekStacked, WeekRevenueStats, DailyRevenue, WeaklyRevenueOverviewStacked, TotalRevenuePie, WeaklyStatistics, TotalRevenueChart } from '../components/Finance';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import { getSalesReportsData } from '../hoc/shareData';
 
@@ -45,9 +45,12 @@ const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
         <KassaKKMPie id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
       </div>
       <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
+        <MonthCombined sales1C={sales1C.sales1CMonth} excelData={excelSalesReportMonth} idcomponent="monthStatsComb" title="Месячная статистика" spisanie={spisanie.spisanieMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} kkm={kkm.kkmMonth} products1C={products1C.products1CMonth} />
+      </div>
+      {/* <div className="flex gap-4 my-4 w-full items-center flex-col md:flex-row justify-center">
           <MonthStatistics excelData={excelSalesReportMonth} idcomponent="monthStats" title="Месячная статистика" spisanie={spisanie.spisanieMonth} leads={leads.leadsMonth} deals={deals.dealsMonth}  sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} products1C={products1C.products1CMonth} />
           <MonthlyRevenueChart sales1C={sales1C.sales1CMonth} />
-      </div>
+      </div> */}
        <div className="flex gap-4 w-full items-center flex-col md:flex-row justify-center">
         <PaidToAmount id="PaidToMonth" sales1C={sales1C.sales1CMonth} title="Выручка за месяц"  />
         <KassaKKMPie id="KKMMonth" sales1C={sales1C.sales1CMonth} title="Фискальный регистратор (месяц)"  />
