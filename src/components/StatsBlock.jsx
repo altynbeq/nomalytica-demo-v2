@@ -134,7 +134,7 @@ const StatsBlockFinance = ({ idcomp, title, excelData, kkm, sales1C, products1C,
     
   
     return (
-      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-9 relative w-[40%] ">
+      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-9 relative w-[90%] md:w-[40%] ">
         <div className="flex flex-col pb-6 w-full">
           <div className="flex flex-row justify-between gap-4 w-[100%]">
             <h2 className="text-black font-bold text-1xl">{data.title}</h2>
@@ -151,7 +151,7 @@ const StatsBlockFinance = ({ idcomp, title, excelData, kkm, sales1C, products1C,
             </div> */}
         </div>
   
-        <div className=" bg-gray-400 rounded-lg my-6">
+        <div className=" rounded-lg my-6">
             <Stacked id="MonthlyRevenueChart" stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}    />
         </div>
   
