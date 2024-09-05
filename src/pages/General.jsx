@@ -34,7 +34,7 @@ const General = ({leads, sales1C, kkm, products1C, deals, spisanie, weekSalesSer
   return ( 
     <div className="mt-12 flex flex-col gap-6  justify-center">
       <div className="flex mt-5 gap-4  w-[100%] flex-col md:flex-row  justify-center align-top   md:mx-3   items-center">
-        <StatsBlockFinance products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} idcomp="weekStats" />
+        <StatsBlockFinance cal={true} products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} idcomp="weekStats" />
         <StatsBlockSales products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={kkm.kkmMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} idcomp="weekStatsSales" />
         {/* <StatsBlock /> */}
       </div>

@@ -5,6 +5,7 @@ import { DailySalesStats, YearStats, WeaklyStatistics, ProductsStats, BestSalesS
 import { FirstRowStats } from '../components/General';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
+import { StatsBlockSales } from '../components'
 
 const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSeries, weekSalesSeries}) => {
     const { dateRanges, skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
@@ -46,8 +47,8 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
                 <ProductsStats products1C={products1C.products1CMonth} idcomp="weekStatis" title="Товарная статистика" />
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
-                <WeaklyTotalSalesChart sales1C={weekSalesSeries} title="Продажи за неделю" />
-                <MonthlyTotalSalesChart sales1C={kkm.kkmMonth}  title="Продажи за месяц" type="sales" />
+                <StatsBlockSales idcomp="weekStatsSales" products1C={products1C.products1CWeek} spisanie={spisanie.spisanieWeek} sales1C={weekSalesSeries} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek} />
+                <StatsBlockSales cal="drop" idcomp="monthStatsSales" products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={kkm.kkmMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} />
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" type="leads" />

@@ -249,7 +249,7 @@ function formatDate(date) {
 }
 
 export async function fetchDealsFront(date) {
-    const dateProp = convertMonthToBitrixDates(date, 2024);
+    const dateProp = !date.bitrixStartDate ? convertMonthToBitrixDates(date, 2024) : date;
     const data = await fetchDealsForRange(dateProp);
     const formedData =  monthDealsDataCollector(data);
     return formedData;
