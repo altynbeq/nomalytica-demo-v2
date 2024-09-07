@@ -1,6 +1,11 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaTasks } from "react-icons/fa";
 
+import avatar2 from './avatar2.jpg'
+import avatar3 from './avatar3.png'
+import avatar4 from './avatar4.jpg'
+import avatarR from './avatarR.jpg'
+
 
 
 export const floristList = [
@@ -50,43 +55,48 @@ export const floristList = [
 export const cusSupportList = [
   {
     icon: <FaRegUserCircle />,
+    img: avatar2,
     amount: '+56%',
-    title: 'Топ продаж',
-    desc: 'Кайрат Нуртам',
+    title: 'Топ выручки',
+    desc: 'Асель Ниязова',
     iconBg: '#FB9678',
     pcColor: 'green-600',
   },
   {
     icon: <FaRegUserCircle />,
+    img: avatar3,
     amount: '+27%',
     title: 'Лучший продавец',
-    desc: 'Саня Сутулый',
+    desc: 'Саят Мусин',
     iconBg: 'rgb(254, 201, 15)',
     pcColor: 'green-600',
   },
   {
     icon: <FaRegUserCircle />,
     amount: '+4%',
-    title: 'Самые обсуждаемые',
-    desc: 'Пепси 0,5',
+    img: avatarR,
+    title: 'Топ коверсия',
+    desc: 'Азат Нурбек',
     iconBg: '#00C292',
     pcColor: 'green-600',
   },
   {
       icon: <FaRegUserCircle />,
+      img: avatar3,
       amount: '+2%',
       title: 'Топ продаж',
-      desc: 'Кайрат Нуртам',
+      desc: 'Саят Мусин',
       iconBg: '#FB9678',
       pcColor: 'green-600',
     },
     {
       icon: <FaRegUserCircle />,
-      amount: '-7%',
-      title: 'Лучший продавец',
-      desc: 'Саня Сутулый',
+      amount: '+7%',
+      img: avatar4,
+      title: 'Лучший флорист',
+      desc: 'Виталий Ким',
       iconBg: 'rgb(254, 201, 15)',
-      pcColor: 'red-600',
+      pcColor: 'green-600',
     },
 ];
 

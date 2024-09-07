@@ -28,10 +28,10 @@ const SupportList = ({ data, title, onDelete, onAdd }) => {
                 <div className="flex gap-4">
                   <button
                     type="button"
-                    style={{ background: item.iconBg }}
+                    // style={{ background: item.iconBg }}
                     className="text-2xl hover:drop-shadow-xl text-white rounded-full p-3"
                   >
-                    {item.icon}
+                    <img src={item.img} className='h-[50px] w-[50px] rounded-2xl' />
                   </button>
                   <div>
                     <p className="text-md font-semibold">{item.title}</p>
