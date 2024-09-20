@@ -10,17 +10,14 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 
-import { fetchDeals } from './methods/getDeals';
-import { fetchLeads } from './methods/getLeads';
 
-import { getSalesProducts } from './methods/getSalesProducts';
-import { getSpisanie } from './methods/getSpisanie';
+import { getSpisanie } from './methods/products&spisanie/getSpisanieFront';
 
-import { getKKMReceiptsFront } from './methods/getKKMReceiptsFront';
-import { getSalesReceiptsFront } from './methods/getSalesReceiptsFront';
-import { getSalesProductsFront } from './methods/getSalesProductsFront';
-import { fetchDealsFront } from './methods/getDealsFront';
-import { fetchLeadsFront } from './methods/getLeadsFront';
+import { getKKMReceiptsFront } from './methods/kkmReceipts/getKKMReceiptsFront';
+import { getSalesReceiptsFront } from './methods/salesReceipts/getSalesReceiptsFront';
+import { getSalesProductsFront } from './methods/products&spisanie/getSalesProductsFront';
+import { fetchDealsFront } from './methods/bitrixDeals/getDealsFront';
+import { fetchLeadsFront } from './methods/bitrixLeads/getLeadsFront';
 
 const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();

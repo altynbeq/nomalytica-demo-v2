@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useStateContext  } from '../../contexts/ContextProvider';
 import { SparkLine } from '../../components';
-import { fetchDeals } from '../../methods/getDeals'; 
 import { Skeleton } from '@mui/material';
 
 const WeaklyRevenueOverviewStacked = ({deals}) => {

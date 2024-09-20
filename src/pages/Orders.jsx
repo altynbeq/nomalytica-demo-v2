@@ -8,7 +8,7 @@ import { Calendar } from 'primereact/calendar';
 import { OrdersEditModal, ExcelReader } from '../components/Sklad';
 import { useState } from 'react';
 import { FaCalendarAlt } from "react-icons/fa";
-import { getSalesProductsFrontOne } from '../methods/getSalesProductsOne';
+import { getSalesProductsFront } from '../methods/products&spisanie/getSalesProductsFront'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 
 
@@ -47,7 +47,7 @@ const Orders = ({ordersData, defVal, title, width }) => {
   }
 
   async function dataGetter(date){
-    const data = await getSalesProductsFrontOne(date);
+    const data = await getSalesProductsFront(date);
   
     const orders = Object.entries(data.itemName).map(([name, details], index) => {
       return {

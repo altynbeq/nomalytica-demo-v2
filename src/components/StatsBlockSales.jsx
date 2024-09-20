@@ -3,9 +3,8 @@ import { Stacked } from '../components'
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
-import { getSalesReceiptsFront } from '../methods/getSalesReceiptsOne'
-import { getKKMReceiptsFront } from '../methods/getKKMOne'
-import { fetchDealsFront } from '../methods/getDealsOne'
+import { getKKMReceiptsFront } from '../methods/kkmReceipts/getKKMReceiptsFront'
+import { fetchDealsFront } from '../methods/bitrixDeals/getDealsFront'
 import { useStateContext } from "../contexts/ContextProvider";
 
 function convertMonthToDateRange(monthName, year) {

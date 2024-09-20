@@ -26,6 +26,5 @@ export async function fetchDeals(dateRanges) {
     dealsWeek: await dealsGet(dateRanges[1]),
     dealsMonth: await dealsGet(dateRanges[2])
   };
-  console.log("formedDealsData", formedDealsData)
   return formedDealsData;
 }

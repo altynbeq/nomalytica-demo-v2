@@ -4,9 +4,9 @@ import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Dropdown } from 'primereact/dropdown';
-import { getKKMReceiptsFront } from '../../methods/getKKMOne'
-import { fetchLeadsFront } from '../../methods/getLeadsOne'
-import { fetchDealsFront } from '../../methods/getDealsOne'
+import { getKKMReceiptsFront } from '../../methods/kkmReceipts/getKKMReceiptsFront'
+import { fetchLeadsFront } from '../../methods/bitrixLeads/getLeadsFront'
+import { fetchDealsFront } from '../../methods/bitrixDeals/getDealsFront'
 
 function convertMonthToDateRange(monthName, year) {
   const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)

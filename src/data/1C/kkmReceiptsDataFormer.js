@@ -77,10 +77,5 @@ export const kkmReceiptsDataFormer = (data) => {
     return response;
   };
 
-  const formedResponse = {
-    monthFormedKKM: processData(data.readyMonthData),
-    weekFormedKKM: processData(data.readyWeekData),
-    dayFormedKKM: processData(data.readyDayData),
-  };
-  return formedResponse;
+  return processData(data);
 };

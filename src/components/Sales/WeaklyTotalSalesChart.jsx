@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Stacked } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Calendar } from 'primereact/calendar';
-import { getKKMReceiptsFront } from '../../methods/getKKMOne'
+import { getKKMReceiptsFront } from '../../methods/kkmReceipts/getKKMReceiptsFront'
 
 function formatDates(dates) {
   const formatDate = (date) => {

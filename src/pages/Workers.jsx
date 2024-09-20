@@ -4,7 +4,6 @@ import { floristsStats, callCenterStats } from '../data/workersData';
 
 import { FloristList, SupportList, Tasks, WorkerStats } from '../components/Workers';
 import { useStateContext } from '../contexts/ContextProvider';
-import { fetchLeads } from '../methods/getLeads';
 
 const Workers = () => {
   const { setActiveMenu } = useStateContext();

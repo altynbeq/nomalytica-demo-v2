@@ -28,11 +28,7 @@ export async function calculateSpisanieData(dataFinal) {
     
         return spisanieData;
     };
-    
-    const formerSpisanieData = {
-        spisanieDay: await spisanieFormer(dataFinal.readyDayData),
-        spisanieWeek: await spisanieFormer(dataFinal.readyWeekData),
-        spisanieMonth:  await spisanieFormer(dataFinal.readyMonthData),
-    };
-    return formerSpisanieData;
+    const resp = await spisanieFormer(dataFinal);
+
+    return resp;
 }

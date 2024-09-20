@@ -4,7 +4,7 @@ import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Dropdown } from 'primereact/dropdown';
-import { getSalesReceiptsFront } from '../../methods/getSalesReceiptsOne'
+import { getSalesReceiptsFront } from '../../methods/salesReceipts/getSalesReceiptsFront'
 
 function convertMonthToDateRange(monthName, year) {
   const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)

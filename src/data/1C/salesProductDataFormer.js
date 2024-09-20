@@ -93,12 +93,5 @@ export const salesProductDataFormer = (data) => {
     return salesProductsData;
   };
   
-
-  const formedResponse = {
-    dayFormedSalesProduct: processData(data.readyDayData),
-    weekFormedSalesProduct: processData(data.readyWeekData),
-    monthFormedSalesProduct: processData(data.readyMonthData),
-  };
-
-  return formedResponse;
+  return processData(data);
 };
