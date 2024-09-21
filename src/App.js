@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-
+import { GoBell } from "react-icons/go";
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import { General, Sales, NoAccess, LogInForm, ComingSoon, Sklad, Finance, Workers, Loader, TechProb } from './pages';
-import { Skeleton } from '@mui/material';
 import './App.css';
-
 import { useStateContext } from './contexts/ContextProvider';
-
-
 import { getSpisanie } from './methods/products&spisanie/getSpisanieFront';
-
 import { getKKMReceiptsFront } from './methods/kkmReceipts/getKKMReceiptsFront';
 import { getSalesReceiptsFront } from './methods/salesReceipts/getSalesReceiptsFront';
 import { getSalesProductsFront } from './methods/products&spisanie/getSalesProductsFront';
 import { fetchDealsFront } from './methods/bitrixDeals/getDealsFront';
 import { fetchLeadsFront } from './methods/bitrixLeads/getLeadsFront';
+import { Avatar, Button, Container, Flex, Grid, Indicator, Menu, Text, ThemeIcon, Title } from '@mantine/core';
+import { TbAdjustmentsDollar } from "react-icons/tb";
+import { FaMailBulk } from "react-icons/fa";
+import { IoPersonOutline } from "react-icons/io5";
+
+import { chatData } from './data/dummy';
+import avatar from './data/avatar.jpg';
 
 const App = () => {
   const { skeletonUp, handleSkeleton, dateRanges, isLoggedIn, setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -69,7 +70,7 @@ const App = () => {
           setLoading(false);
           return;
         }
-        
+
         const monthLeadsSeries = leads.leadsMonth.series;
         const monthDealsSeries = deals.dealsMonth.salesSeries;
         const salesSeries = kkmFront.weekFormedKKM.salesSeries;
@@ -138,7 +139,7 @@ const App = () => {
         // console.error('Error during data fetching and processing:', error);
         setTechProblem(true);
       } finally {
-        setLoading(false); 
+        setLoading(false);
         handleSkeleton(false);
       }
     }
@@ -146,7 +147,7 @@ const App = () => {
   }, []);
 
   return (
-   
+
       <div className={currentMode === 'Dark' ? 'dark' : ''}>
         {loading  ? (
           <Loader />
@@ -189,15 +190,104 @@ const App = () => {
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                 <Navbar />
               </div>
+              <Container fluid h={60}>
+                <Flex gap="md" justify="flex-end" align="center" direction="row">
+                  <Menu position="bottom-end" offset={16} shadow="md">
+                    <Menu.Target>
+                      <Indicator inline withBorder radius="md" size={12}>
+                        <ThemeIcon variant="light" size="md" radius="lg">
+                          <GoBell size="xl" />
+                        </ThemeIcon>
+                      </Indicator>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Label>
+                        <Text size="xl" fw={700}>
+                          Notifications
+                        </Text>
+                      </Menu.Label>
+                      {
+                        chatData.map((note, index) => {
+                          return (
+                            <Menu.Item  key={index}>
+                              <Flex direction="row" gap={16}>
+                                  <Avatar radius="xl" src={note.image} alt={note.message} />
+                                <Flex direction="column">
+                                  <Text fw={700}>{note.message}</Text>
+                                  <Text size="sm">{note.desc}</Text>
+                                </Flex>
+                              </Flex>
+                            </Menu.Item>
+                          )
+                        })
+                      }
+                      <Menu.Item>
+                        <Button fullWidth>See all notifications</Button>
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+
+                  <Menu position="bottom-end" offset={16} shadow="md">
+                    <Menu.Target>
+                  <Flex direction="row" gap={8} justify="center" align="center">
+                    <Avatar radius="xl" src={avatar} alt="it's me" />
+                    <Text>Hi,</Text><Text fw={700}>Romantic</Text>
+                  </Flex>
+                  </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Label>
+
+                        <Text size="xl" fw={700}>
+                          Профиль
+                        </Text>
+
+                      </Menu.Label>
+                       <Menu.Item>
+                        <Flex direction="row" gap={16} justify="flex-start" align="center">
+                          <ThemeIcon variant="light" size="md" radius="lg">
+                            <IoPersonOutline size="md" />
+                          </ThemeIcon>
+                          <Flex direction="column">
+                            <Text fw={700}>Профиль  </Text>
+                            <Text size="sm">Настройка аккаунта</Text>
+                          </Flex>
+                        </Flex>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Flex direction="row" gap={16} justify="flex-start" align="center">
+                          <ThemeIcon variant="light" size="md" radius="lg">
+                            <FaMailBulk size="md" />
+                          </ThemeIcon>
+                          <Flex direction="column">
+                            <Text fw={700}>Почта</Text>
+                            <Text size="sm">Messages & Emails</Text>
+                          </Flex>
+                        </Flex>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Flex direction="row" gap={16} justify="flex-start" align="center">
+                          <ThemeIcon variant="light" size="md" radius="lg">
+                            <TbAdjustmentsDollar size="xl" />
+                          </ThemeIcon>
+                          <Flex direction="column">
+                            <Text fw={700}>Подписка</Text>
+                            <Text size="sm">Оплаты и сроки</Text>
+                          </Flex>
+                        </Flex>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Button fullWidth>Выйти</Button>
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+
+                </Flex>
+              </Container>
               <div>
-                {/* {themeSettings && (<ThemeSettings />)} */}
-              {/* {
-                
-              } */}
                 <Routes>
                   {/* dashboard  */}
                   <Route path="/" element={(techProblem ? <TechProb /> : userType.userRole == 'admin' ?
-                      <General 
+                      <General
                         deals={data.deals}
                         leads={data.leads}
                         spisanie={data.spisanie}
@@ -205,7 +295,7 @@ const App = () => {
                         products1C={data.products1C}
                         kkm={data.kkm}
                         weekSalesSeries={data.weekSalesSeries}
-                      /> : userType.userRole == 'rop' ? <Sales 
+                      /> : userType.userRole == 'rop' ? <Sales
                       deals={data.deals}
                       leads={data.leads}
                       sales1C={data.sales1C}
@@ -215,8 +305,8 @@ const App = () => {
                       conversionSeries={data.conversionSeries}
                       weekSalesSeries={data.weekSalesSeries}
                     /> : <Sklad spisanie={data.spisanie} products1C={data.products1C}/> )} />
-                  <Route path="/general" element={(techProblem ? <TechProb /> : 
-                    <General 
+                  <Route path="/general" element={(techProblem ? <TechProb /> :
+                    <General
                       deals={data.deals}
                       leads={data.leads}
                       spisanie={data.spisanie}
@@ -226,17 +316,17 @@ const App = () => {
                       weekSalesSeries={data.weekSalesSeries}
                     />)} />
                   <Route path="/finance" element={( techProblem ? <TechProb /> :
-                      <Finance 
+                      <Finance
                         deals={data.deals}
                         leads={data.leads}
                         spisanie={data.spisanie}
                         sales1C={data.sales1C}
                         products1C={data.products1C}
                         kkm={data.kkm}
-                      />)} 
+                      />)}
                   />
                   <Route path="/sales" element={( techProblem ? <TechProb /> :
-                      <Sales 
+                      <Sales
                         deals={data.deals}
                         leads={data.leads}
                         sales1C={data.sales1C}
@@ -245,7 +335,7 @@ const App = () => {
                         spisanie={data.spisanie}
                         conversionSeries={data.conversionSeries}
                         weekSalesSeries={data.weekSalesSeries}
-                      />)} 
+                      />)}
                   />
                   <Route path="/workers" element={(techProblem ? <TechProb /> : <Workers />)} />
                   <Route path="/sklad" element={(techProblem ? <TechProb /> : <Sklad spisanie={data.spisanie} products1C={data.products1C}/>)} />

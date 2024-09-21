@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Button, Pie } from '../../components';
 import { revenueTypesDataSales } from '../../data/salesData';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -7,7 +7,7 @@ import  ExportToExcel  from '../../components/ExportToExcel'
 
 const SkladStatistivs = ({products1C, spisanie}) => {
   const { currentColor, currentMode } = useStateContext();
-  return ( 
+  return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 w-[90%] md:w-[38%] rounded-2xl subtle-border ">
             <div className="flex flex-col md:flex-row justify-between">
                 <p className="font-semibold  md:text-xl">Обновления по складу</p>
@@ -49,15 +49,15 @@ const SkladStatistivs = ({products1C, spisanie}) => {
                         </div>
                     </div>
                   </div>
-                 
-                  
+
+
                   <div className="mt-10 flex justify-center">
                       <ExportToExcel
-                      
+
                       />
                   </div>
                 </div>
-                
+
                 <div className="m-auto w-[60%] lg:m-0">
                       <div className='flex justify-center text-center flex-col'>
                         <h2>Способы оплат</h2>
@@ -65,15 +65,9 @@ const SkladStatistivs = ({products1C, spisanie}) => {
                   <Pie id="pie-money-flow" data={revenueTypesDataSales} legendVisiblity={false} height="250px"  />
                   <div className='flex flex-row justify-between'>
                   <p className="flex items-center gap-2 text-cyan-600 hover:drop-shadow-xl">
-                         <span>
-                         <GoPrimitiveDot />
-                         </span>
                          <span>Online</span>
                      </p>
                      <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
-                         <span>
-                         <GoPrimitiveDot />
-                         </span>
                          <span>Offline</span>
                      </p>
                </div>

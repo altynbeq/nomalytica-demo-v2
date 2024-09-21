@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Stacked } from '..';
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Skeleton } from "..";
 import { useStateContext } from "../../contexts/ContextProvider";
 
@@ -20,7 +20,7 @@ const RevenueByWeekStacked = ({sales1C, width}) => {
     }
     return acc;
   }, Infinity);
-  
+
   const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal / 2;
 
   const range = maxSeriesVal - finalMinSeriesVal;
@@ -43,7 +43,7 @@ const RevenueByWeekStacked = ({sales1C, width}) => {
   }
 
   let stackedCustomSeries = [
-    { 
+    {
       dataSource: list,
       xName: 'x',
       yName: 'y',
@@ -52,7 +52,7 @@ const RevenueByWeekStacked = ({sales1C, width}) => {
       background: 'blue',
     },
   ];
-  
+
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
     minimum: finalMinSeriesVal,
@@ -75,7 +75,7 @@ const RevenueByWeekStacked = ({sales1C, width}) => {
     labelIntersectAction: 'Rotate45',
     valueType: 'Category',
   };
-  
+
   if(!ready) { return <Skeleton /> }
 
   return (
@@ -84,10 +84,7 @@ const RevenueByWeekStacked = ({sales1C, width}) => {
           <p className="text-xl font-semibold">Доход за неделю</p>
           <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-              <span>
-                  <GoPrimitiveDot />
-              </span>
-              <span>{finalDate}</span>
+                <span>{finalDate}</span>
               </p>
           </div>
         </div>

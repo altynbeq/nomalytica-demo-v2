@@ -6,8 +6,6 @@ import avatar3 from './avatar3.png'
 import avatar4 from './avatar4.jpg'
 import avatarR from './avatarR.jpg'
 
-
-
 export const floristList = [
   {
     icon: <FaRegUserCircle />,
@@ -49,7 +47,7 @@ export const floristList = [
       iconBg: 'rgb(254, 201, 15)',
       pcColor: 'red-600',
     },
-   
+
 ];
 
 export const cusSupportList = [

@@ -1,23 +1,23 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Stacked } from '../../components';
 import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/salesData';
 
 
 const WeaklyTotalSalesChart = ({leads, sales1C}) => {
   const list = leads.series ? leads.series : sales1C.series ;
- 
+
   const maxSeriesVal = list.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
-  
+
   const minSeriesVal = list.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
     return acc;
   }, Infinity);
-  
+
   const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
 
   const range = maxSeriesVal - finalMinSeriesVal;
@@ -40,7 +40,7 @@ const WeaklyTotalSalesChart = ({leads, sales1C}) => {
   }
 
   let stackedCustomSeries = [
-    { 
+    {
       dataSource: list,
       xName: 'x',
       yName: 'y',
@@ -49,7 +49,7 @@ const WeaklyTotalSalesChart = ({leads, sales1C}) => {
       background: 'blue',
     },
   ];
-  
+
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
     minimum: finalMinSeriesVal / 2,
@@ -80,13 +80,13 @@ const WeaklyTotalSalesChart = ({leads, sales1C}) => {
           <div className="flex items-center gap-4">
               <p className="flex md:text-xl items-center gap-2 text-green-400 hover:drop-shadow-xl">
               <span>
-                  <GoPrimitiveDot />
+
               </span>
               <span>13-19 Мая 2024</span>
               </p>
           </div>
         </div>
-          
+
         <Stacked stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  />
     </div>
   )

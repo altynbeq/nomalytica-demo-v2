@@ -8,8 +8,8 @@ const WorkerStats = ({workersList, mainTitle}) => {
         <h2 className='flex justify-center mt-5 text-2xl xs:text-base'>{mainTitle}</h2>
         <div className="flex flex-row justify-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg mx-3 p-4 rounded-2xl flex-wrap ">
         {
-                workersList.map((worker) => (
-                    <div className='flex z-1 justify-center md:mx-3 flex-col align-center'>
+                workersList.map((worker, index) => (
+                    <div key={index} className='flex z-1 justify-center md:mx-3 flex-col align-center'>
                         <Pie title={worker.name} data={worker.tasksStats} legendVisiblity="false" height="250px" />
                         <div className='flex flex-col align-center gap-2 text-center justify-center text-1xl'>
                             <p className={`${worker.itemsSold < 100 ? 'text-red-400' : 'text-green-400'}`}>Продано товаров: {worker.itemsSold}</p>
@@ -21,7 +21,7 @@ const WorkerStats = ({workersList, mainTitle}) => {
         }
         </div>
     </div>
-    
+
   )
 }
 

@@ -8,6 +8,7 @@ async function fetchLeadsForRange({ bitrixStartDate, bitrixEndDates }) {
   const batchSize = 50; // Number of items to fetch per request
 
   try {
+    /* eslint-disable no-constant-condition */
     while (true) {
       const response = await fetch(webhookUrl, {
         method: 'POST',
@@ -90,7 +91,7 @@ export async function fetchLeadsFront(dateRanges) {
       fetchLeadsForRange(dateRanges[1]),
       fetchLeadsForRange(dateRanges[2])
     ])
-   
+
     // Process the data for statistics
     const dayStats = weekDataSalesFormer(dayLeads);
     const weekStats = weekDataSalesFormer(weekLeads);
@@ -108,5 +109,5 @@ export async function fetchLeadsFront(dateRanges) {
 
     return formedData;
   }
-  
+
 }

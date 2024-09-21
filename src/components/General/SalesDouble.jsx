@@ -1,6 +1,4 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
-
 import { Stacked, Button, SparkLine, ExportToExcel } from '../../components';
 import { SparklineAreaData } from '../../data/ecomData';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -14,15 +12,9 @@ const SalesDouble = () => {
                 <p className="font-semibold text-xl">Обновления по FIN</p>
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
                         <span>Затраты</span>
                     </p>
                     <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                        <span>
-                        <GoPrimitiveDot />
-                        </span>
                         <span>Бюджет</span>
                     </p>
                 </div>
@@ -88,13 +80,13 @@ export default SalesDouble
                 <div className="flex items-center gap-4">
                 <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                     <span>
-                    <GoPrimitiveDot />
+
                     </span>
                     <span>Затраты</span>
                 </p>
                 <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
                     <span>
-                    <GoPrimitiveDot />
+
                     </span>
                     <span>Бюджет</span>
                 </p>

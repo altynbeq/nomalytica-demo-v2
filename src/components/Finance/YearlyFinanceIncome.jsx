@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Stacked } from '../../components';
 import { stackedCustomSeriesYearly, stackedPrimaryYAxisYearly, stackedPrimaryXAxisYearly } from '../../data/salesData';
 
@@ -10,9 +10,6 @@ const OverallRevenueChart = () => {
         <p className="text-xl font-semibold">Продажи за год</p>
         <div className="flex items-center gap-4">
             <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-            <span>
-                <GoPrimitiveDot />
-            </span>
             <span>2024</span>
             </p>
         </div>
@@ -24,4 +21,4 @@ const OverallRevenueChart = () => {
   );
 }
 
-export default OverallRevenueChart 
+export default OverallRevenueChart

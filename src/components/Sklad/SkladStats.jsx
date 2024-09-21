@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Button } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
 
@@ -11,14 +11,11 @@ const SkladStats = () => {
             <p className="font-semibold text-xl">Доходы за год</p>
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                <span>
-                  <GoPrimitiveDot />
-                </span>
                 <span>2024</span>
               </p>
             </div>
           </div>
-          
+
           <div className="mt-10 flex gap-10 flex-row p-4 md:ml-10 justify-center">
             <div className="  border-color m-8  ">
               <div>

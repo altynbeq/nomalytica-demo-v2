@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { LineChart } from '../../components';
 import { lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis } from '../../data/financeData';
 
@@ -11,9 +11,6 @@ const TotalRevenueChart = () => {
         <p className="text-xl font-semibold">Общий доход</p>
         <div className="flex items-center gap-4">
             <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-            <span>
-                <GoPrimitiveDot />
-            </span>
             <span>2024 год</span>
             </p>
         </div>

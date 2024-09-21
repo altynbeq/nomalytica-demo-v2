@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -36,30 +36,30 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
   const [ salesSeries, setSalesSeries ] = useState(sales1C.salesSeries ? sales1C.salesSeries : sales1C.series);
   const [ ready, setReady ] = useState(true);
 
-  const cities = [  "January", 
-  "February", 
-  "March", 
-  "April", 
-  "May", 
-  "June", 
-  "July", 
-  "August", 
-  "September", 
-  "October", 
-  "November", 
+  const cities = [  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
   "December"];
-  
+
   const maxSeriesVal = salesSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
-  
+
   const minSeriesVal = salesSeries.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
     return acc;
   }, Infinity);
-  
+
   const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
 
   const range = maxSeriesVal - finalMinSeriesVal;
@@ -82,7 +82,7 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
   }
 
   let stackedCustomSeries = [
-    { 
+    {
       dataSource: salesSeries,
       xName: 'x',
       yName: 'y',
@@ -91,7 +91,7 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
       background: 'blue',
     },
   ];
-  
+
   let stackedPrimaryYAxis = {
     lineStyle: { width: 0 },
     minimum: 0,
@@ -128,7 +128,7 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
       const [leads, deals] = await Promise.all([fetchLeadsFront(e), fetchDealsFront(e)]);
       let leadsSeries = leads.series;
       let dealsSeries = deals.series;
-      
+
       const conversionSeriesCounter = leadsSeries.map((lead, index) => {
         const deal = dealsSeries[index];
         if (deal) {
@@ -140,13 +140,13 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
       setSalesSeries(conversionSeriesCounter)
     }
   }
-  
+
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
-          <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+          <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name"
                 placeholder="Выберите месяц" className="w-full md:w-14rem" />
         </div>
         </div>

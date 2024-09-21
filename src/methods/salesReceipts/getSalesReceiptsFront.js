@@ -64,6 +64,7 @@ export async function getSalesReceiptsFront(dateRanges) {
         yesterdayEnd.setHours(23, 59, 59, 999);
 
         // Filter data for each period
+        /* eslint-disable no-inner-declarations */
         function filterData(data, startDate, endDate) {
             return data.filter(item => {
                 const itemDate = new Date(item.Дата);
@@ -73,6 +74,7 @@ export async function getSalesReceiptsFront(dateRanges) {
                 return itemDate >= startDate && itemDate <= endDate;
             });
         }
+        /* eslint-enable no-inner-declarations */
 
         const final = {
             readyMonthData: filterData(monthData, monthStart, monthEnd),
@@ -90,6 +92,5 @@ export async function getSalesReceiptsFront(dateRanges) {
 
         return formedSalesReceiptsData;
     }
-    
+
 }
- 

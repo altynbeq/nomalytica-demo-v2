@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -63,7 +63,7 @@ const MonthlyRevenueChart = ({sales1C}) => {
       interval = 100000;
     }
     let stackedCustomSeriesYearly = [
-        { 
+        {
           dataSource: salesSeries,
           xName: 'x',
           yName: 'y',
@@ -111,7 +111,7 @@ const MonthlyRevenueChart = ({sales1C}) => {
             <div className="flex justify-between items-center gap-2 mb-10">
             <p className="text-xl font-semibold">Продажи за месяц</p>
             <div className="flex items-center gap-4">
-              <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+              <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name"
                 placeholder="Выберите месяц" className="w-full md:w-14rem" />
             </div>
             </div>
@@ -122,4 +122,4 @@ const MonthlyRevenueChart = ({sales1C}) => {
     );
 }
 
-export default MonthlyRevenueChart 
+export default MonthlyRevenueChart

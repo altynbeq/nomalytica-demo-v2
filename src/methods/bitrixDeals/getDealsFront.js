@@ -10,6 +10,7 @@ export async function fetchDealsForRange({ bitrixStartDate, bitrixEndDate }) {
   let start = 0;
 
   try {
+    /* eslint-disable no-constant-condition */
     while (true) {
       const response = await fetch(webhookUrl, {
         method: 'POST',

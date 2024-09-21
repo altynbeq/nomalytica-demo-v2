@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Stacked } from '../../components';
 import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -33,31 +33,31 @@ const SpisanieMonthChart = ({spisanie, title}) => {
   const [ selectedMonth, setSelectedMonth ] = useState('September');
   const [ spisanieSeries, setSpisanieSeries ] = useState(spisanie.series);
   const [ ready, setReady ] = useState(false);
-  const cities = [  "January", 
-  "February", 
-  "March", 
-  "April", 
-  "May", 
-  "June", 
-  "July", 
-  "August", 
-  "September", 
-  "October", 
-  "November", 
+  const cities = [  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
   "December"];
   const date = dateRanges[2].startDate.split('%')[0].split('-')[0] + '-' + dateRanges[2].startDate.split('%')[0].split('-')[1]
-  
+
   const maxSeriesVal = spisanieSeries.reduce((acc, item) => {
     return Math.max(acc, item.y);
   }, 0);
-  
+
   const minSeriesVal = spisanieSeries.reduce((acc, item) => {
     if (item.y !== 0 || acc === Infinity) {
       return Math.min(acc, item.y);
     }
     return acc;
   }, Infinity);
-  
+
   const finalMinSeriesVal = minSeriesVal === Infinity ? 0 : minSeriesVal;
 
   const range = maxSeriesVal - finalMinSeriesVal;
@@ -80,7 +80,7 @@ const SpisanieMonthChart = ({spisanie, title}) => {
   }
 
   let stackedCustomSeries = [
-    { 
+    {
       dataSource: spisanieSeries,
       xName: 'x',
       yName: 'y',
@@ -111,7 +111,7 @@ const SpisanieMonthChart = ({spisanie, title}) => {
     labelIntersectAction: 'Rotate45',
     valueType: 'Category',
   };
-  
+
   // useEffect(()=> {
 
   // }, [])
@@ -135,12 +135,12 @@ const SpisanieMonthChart = ({spisanie, title}) => {
         <div className="flex items-center gap-4">
             {/* <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
             <span>
-                <GoPrimitiveDot />
+
             </span>
             <span>{date}</span>
             </p> */}
 
-            <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name" 
+            <Dropdown value={selectedMonth} onChange={(e) => handleMonthChange(e.value)} options={cities} optionLabel="name"
                 placeholder="Выберите месяц" className="w-full md:w-14rem" />
         </div>
         </div>

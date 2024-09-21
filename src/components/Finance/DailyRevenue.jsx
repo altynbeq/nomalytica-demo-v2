@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react'
-import { GoPrimitiveDot } from 'react-icons/go';
+
 import { Button, Pie } from '../../components';
 import { Skeleton } from '../../components';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -21,7 +21,7 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
     if (!sales1C || !sales1C.paidTo) {
       return;
     }
-    
+
     const { paidTo } = sales1C;
     const total = sales1C.totalSum; // Assuming total is directly available in sales1C
 
@@ -53,18 +53,15 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
             <p className="font-semibold text-xl">Доходы за день</p>
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
-                <span>
-                  <GoPrimitiveDot />
-                </span>
                 <span>{date}</span>
               </p>
             </div>
           </div>
-          
+
           <div className="mt-10 flex gap-4 flex-col md:flex-row w-[100%] items-center text-center justify-center">
 
             <div className=" w-[100%] md:w-[40%] md:border-r-1 border-color m-4 md:pr-10">
-              
+
               <div>
                 <div className='flex justify-center flex-col text-center'>
                     <p>
@@ -104,7 +101,7 @@ const DailyRevenue = ({sales1C, kkm, products1C }) => {
               </div>
             </div>
 
-            <div className='w-[60%] flex text-center flex-col align-center justify-center'> 
+            <div className='w-[60%] flex text-center flex-col align-center justify-center'>
                 <h2>Способы оплат</h2>
                   <Pie id="pie-money-flow" data={pieSeries} legendVisiblity={true} height="200px"  />
             </div>
