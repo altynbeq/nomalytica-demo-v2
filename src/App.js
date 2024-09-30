@@ -190,99 +190,7 @@ const App = () => {
               <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
                 <Navbar />
               </div>
-              <Container fluid h={60}>
-                <Flex gap="md" justify="flex-end" align="center" direction="row">
-                  <Menu position="bottom-end" offset={16} shadow="md">
-                    <Menu.Target>
-                      <Indicator inline withBorder radius="md" size={12}>
-                        <ThemeIcon variant="light" size="md" radius="lg">
-                          <GoBell size="xl" />
-                        </ThemeIcon>
-                      </Indicator>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Label>
-                        <Text size="xl" fw={700}>
-                          Notifications
-                        </Text>
-                      </Menu.Label>
-                      {
-                        chatData.map((note, index) => {
-                          return (
-                            <Menu.Item  key={index}>
-                              <Flex direction="row" gap={16}>
-                                  <Avatar radius="xl" src={note.image} alt={note.message} />
-                                <Flex direction="column">
-                                  <Text fw={700}>{note.message}</Text>
-                                  <Text size="sm">{note.desc}</Text>
-                                </Flex>
-                              </Flex>
-                            </Menu.Item>
-                          )
-                        })
-                      }
-                      <Menu.Item>
-                        <Button fullWidth>See all notifications</Button>
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-
-                  <Menu position="bottom-end" offset={16} shadow="md">
-                    <Menu.Target>
-                  <Flex direction="row" gap={8} justify="center" align="center">
-                    <Avatar radius="xl" src={avatar} alt="it's me" />
-                    <Text>Hi,</Text><Text fw={700}>Romantic</Text>
-                  </Flex>
-                  </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Label>
-
-                        <Text size="xl" fw={700}>
-                          Профиль
-                        </Text>
-
-                      </Menu.Label>
-                       <Menu.Item>
-                        <Flex direction="row" gap={16} justify="flex-start" align="center">
-                          <ThemeIcon variant="light" size="md" radius="lg">
-                            <IoPersonOutline size="md" />
-                          </ThemeIcon>
-                          <Flex direction="column">
-                            <Text fw={700}>Профиль  </Text>
-                            <Text size="sm">Настройка аккаунта</Text>
-                          </Flex>
-                        </Flex>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <Flex direction="row" gap={16} justify="flex-start" align="center">
-                          <ThemeIcon variant="light" size="md" radius="lg">
-                            <FaMailBulk size="md" />
-                          </ThemeIcon>
-                          <Flex direction="column">
-                            <Text fw={700}>Почта</Text>
-                            <Text size="sm">Messages & Emails</Text>
-                          </Flex>
-                        </Flex>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <Flex direction="row" gap={16} justify="flex-start" align="center">
-                          <ThemeIcon variant="light" size="md" radius="lg">
-                            <TbAdjustmentsDollar size="xl" />
-                          </ThemeIcon>
-                          <Flex direction="column">
-                            <Text fw={700}>Подписка</Text>
-                            <Text size="sm">Оплаты и сроки</Text>
-                          </Flex>
-                        </Flex>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <Button fullWidth>Выйти</Button>
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-
-                </Flex>
-              </Container>
+              
               <div>
                 <Routes>
                   {/* dashboard  */}
@@ -337,7 +245,7 @@ const App = () => {
                         weekSalesSeries={data.weekSalesSeries}
                       />)}
                   />
-                  <Route path="/workers" element={(techProblem ? <TechProb /> : <Workers />)} />
+                  <Route path="/workers" element={(techProblem ? <TechProb /> : <Workers spisanie={data.spisanie} products1C={data.products1C} />)} />
                   <Route path="/sklad" element={(techProblem ? <TechProb /> : <Sklad spisanie={data.spisanie} products1C={data.products1C}/>)} />
 
                   {/* pages  */}

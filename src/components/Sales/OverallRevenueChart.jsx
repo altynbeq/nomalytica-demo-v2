@@ -2,10 +2,11 @@ import React from 'react'
 
 import { Stacked } from '../../components';
 import { stackedCustomSeriesYearly, stackedPrimaryYAxisYearly, stackedPrimaryXAxisYearly } from '../../data/salesData';
+import BarChartRe from '../demo/BarChart';
 
 const OverallRevenueChart = () => {
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6  w-[90%] md:w-[55%]  rounded-2xl  subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6  w-[90%] md:w-[53%]  rounded-2xl  subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="md:text-xl font-semibold">Продажи за год</p>
         <div className="flex items-center gap-4">
@@ -17,7 +18,12 @@ const OverallRevenueChart = () => {
             </p>
         </div>
         </div>
-          <Stacked id="OverallRevenueChart" stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}   />
+        <div className='w-[100%] h-[400px]'>
+          <BarChartRe />
+        </div>
+        
+
+          {/* <Stacked id="OverallRevenueChart" stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}   /> */}
     </div>
   );
 }

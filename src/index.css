@@ -7,6 +7,39 @@ body{
     font-family: "Comfortaa", sans-serif;
 }
 
+
+.slider-number {
+    display: inline-block;
+    width: 30px;  /* Adjust width as needed */
+    height: 30px; /* Adjust height as needed */
+    line-height: 30px; /* Center the number vertically */
+    text-align: center;
+    background: lightgray; /* Background for inactive */
+    border-radius: 50%; /* Round shape */
+    color: gray; /* Text color for inactive */
+    font-weight: bold; /* Text weight */
+    margin: 0 10px; /* Increased spacing between numbers */
+    cursor: pointer; /* Pointer cursor */
+    transition: background 0.3s ease, color 0.3s ease; /* Transition for hover effect */
+  }
+  
+  .slider-number.active {
+    background: #1e4db6; /* Background color for active */
+    color: white; /* Text color for active */
+  }
+  
+  .slider-number.inactive {
+    background: lightgray; /* Background color for inactive */
+    color: gray; /* Text color for inactive */
+  }
+  
+  .slider-number:hover {
+    background: #e3f2fe; /* Hover effect for all numbers */
+  }
+  
+  
+  
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

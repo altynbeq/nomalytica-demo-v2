@@ -1,12 +1,21 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: 'class',
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Content paths
+  darkMode: 'class', // Dark mode
   theme: {
     fontFamily: {
       display: ['Comfortaa', 'sans-serif'],
       body: ['Comfortaa', 'sans-serif'],
     },
     extend: {
+      animation: {
+        'border-animation': 'border-animation var(--duration) linear infinite',
+      },
+      keyframes: {
+        'border-animation': {
+          '0%': { backgroundPosition: '0%' },
+          '100%': { backgroundPosition: '100%' },
+        },
+      },
       fontSize: {
         14: '14px',
       },
@@ -39,13 +48,12 @@ module.exports = {
         590: '590px',
       },
       backgroundImage: {
-        'hero-pattern':
-          "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
+        'hero-pattern': "url('https://i.ibb.co/MkvLDfb/Rectangle-4389.png')",
       },
     },
   },
   plugins: [
-    function({ addComponents, theme }) {
+    function ({ addComponents, theme }) {
       addComponents({
         '.subtle-border': {
           backgroundColor: theme('colors.white'),
@@ -58,8 +66,7 @@ module.exports = {
             boxShadow: theme('boxShadow.custom-hover'),
           },
         },
-      })
+      });
     },
-
   ],
 };

@@ -1,5 +1,5 @@
-import { FaRegUserCircle } from "react-icons/fa";
-import { FaTasks } from "react-icons/fa";
+import { FaRegUserCircle , FaTasks } from "react-icons/fa";
+
 
 import avatar2 from './avatar2.jpg'
 import avatar3 from './avatar3.png'

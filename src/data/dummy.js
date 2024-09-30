@@ -1,15 +1,15 @@
 import React from 'react';
 import { FiCreditCard } from 'react-icons/fi';
 import { BsCurrencyDollar, BsShield } from 'react-icons/bs';
-import { FaShoppingBasket } from 'react-icons/fa';
-import { FaDollarSign } from "react-icons/fa";
-import { FaQuestionCircle } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa";
-import { FaBook } from "react-icons/fa";
-import { FaPhotoVideo } from "react-icons/fa";
-import { FaBoxOpen } from "react-icons/fa";
-import { FaChartLine } from "react-icons/fa";
-import { FaHeadset } from "react-icons/fa";
+import { FaShoppingBasket , FaDollarSign , FaQuestionCircle , FaUserTie , FaBook , FaPhotoVideo , FaBoxOpen , FaChartLine , FaHeadset } from 'react-icons/fa';
+
+
+
+
+
+
+
+
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
@@ -245,7 +245,7 @@ export const links = [
         },
         {
           name: 'workers',
-          text: 'Работники',
+          text: 'Сотрудники',
           icon: <FaUserTie />,
         },
         {

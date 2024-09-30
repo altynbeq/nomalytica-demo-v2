@@ -7,6 +7,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { getKKMReceiptsFront } from '../../methods/kkmReceipts/getKKMReceiptsFront'
 import { fetchLeadsFront } from '../../methods/bitrixLeads/getLeadsFront'
 import { fetchDealsFront } from '../../methods/bitrixDeals/getDealsFront'
+import LineChartRe from '../../components/demo/LineChart'
 
 function convertMonthToDateRange(monthName, year) {
   const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
@@ -142,7 +143,7 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
   }
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[43%] w-[90%] rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[42%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
@@ -150,8 +151,8 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
                 placeholder="Выберите месяц" className="w-full md:w-14rem" />
         </div>
         </div>
-        <div className="w-[100%]">
-          <Stacked  stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  />
+        <div className="w-[100%] h-[250px]">
+          <LineChartRe />
         </div>
     </div>
   )

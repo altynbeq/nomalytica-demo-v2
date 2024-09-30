@@ -5,6 +5,7 @@ import { Skeleton } from '@mui/material';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Dropdown } from 'primereact/dropdown';
 import { getSpisanie } from '../../methods/products&spisanie/getSpisanieFront';
+import BarChartRe from '../demo/BarChart';
 
 function convertMonthToDateRange(monthName, year) {
   const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
@@ -129,7 +130,7 @@ const SpisanieMonthChart = ({spisanie, title}) => {
     )
   }
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 w-[90%] md:w-[50%] rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 w-[90%] md:w-[53%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
@@ -144,8 +145,9 @@ const SpisanieMonthChart = ({spisanie, title}) => {
                 placeholder="Выберите месяц" className="w-full md:w-14rem" />
         </div>
         </div>
-        <div className="w-[100%]">
-          <Stacked stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  />
+        <div className="w-[100%] h-[400px]">
+          <BarChartRe />
+          {/* <Stacked stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryXAxis} stackedPrimaryYAxis={stackedPrimaryYAxis}  /> */}
         </div>
     </div>
   )

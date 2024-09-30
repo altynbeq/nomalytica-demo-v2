@@ -21,7 +21,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: newTotalSum + 'тг',
             title: 'Выручка',
             // desc: 'XX',
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -30,7 +30,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: Math.round(avgCheck) + 'тг',
             title: 'Средний чек',
             // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -39,7 +39,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: kkm.totalNumberSales,
             title: 'Продаж',
             // desc: `?`,
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -48,7 +48,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: spisanie.totalAmountSpisanie + ' шт',
             title: 'Списаний',
             desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
-            iconBg: 'rgb(254, 201, 15)',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -57,7 +57,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: conversion+'%',
             title: 'Конверсия',
             desc: 'Bitrix',
-            iconBg: 'rgb(254, 201, 15)',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -65,7 +65,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
             amount: numberOfItemsSold,
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
-            iconBg: 'rgb(254, 201, 15)',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
     ];
@@ -74,14 +74,14 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 mx-3">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between ">
                         <p className="text-xl font-semibold">{title}</p>
                         <button type="button" className="text-xl font-semibold text-gray-500">
                         <IoIosMore />
                         </button>
                     </div>
 
-                    <div className="mt-2">
+                    <div className="mt-8">
                         {weeklyStats.map((item) => (
                         <div key={idcomp + item.id} className="flex justify-between mt-4 w-full">
                             <div className="flex gap-4">
@@ -103,9 +103,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
                         ))}
                         
                     </div>
-                    <div className="mt-2 flex justify-center">
-                        <ExportToExcel />
-                        </div>
+                 
                 </div>
             </div>
         </div>

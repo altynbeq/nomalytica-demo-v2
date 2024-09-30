@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
-
 import { DailySalesStats, YearStats, WeaklyStatistics, ProductsStats, BestSalesStats, BoxTotalStats, WeaklyTotalSalesChart, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
 import { FirstRowStats } from '../components/General';
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import { getSalesReportsData, getSalesProductsData } from '../hoc/shareData';
 import { StatsBlockSales } from '../components'
+import StatsBoxes from '../components/Sales/StatsBoxes';
+import PeriodStats from '../components/demo/PeriodStats';
+import CardWithBarChart from '../components/demo/CardWithBarChart';
+import TableSort from '../components/demo/TablesList';
 
 const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSeries, weekSalesSeries}) => {
     const { dateRanges, skeletonUp, currentColor, currentMode,setActiveMenu } = useStateContext(); 
@@ -33,22 +36,31 @@ const Sales = ({ leads, sales1C, kkm, products1C, deals, spisanie, conversionSer
         )
     }
     return (
-        <div className='mt-12 flex flex-col gap-6  justify-center '>
-             <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col  md:mx-3  gap-[0.5rem] items-center">
+        <div className='mt-12 flex flex-col gap-3  justify-center '>
+           
+             <div className="flex  w-[100%] flex-wrap  justify-center align-top xs:flex-col    gap-[0.5rem] items-center">
                 <DailySalesStats spisanie={spisanie.spisanieDay}  sales1C={sales1C.sales1CDay} products1C={products1C.products1CDay} kkm={kkm.kkmDay} />
                 <WeeklyStats spisanie={spisanie.spisanieDay} products1C={products1C.products1CDay} sales1C={sales1C.sales1CDay} kkm={kkm.kkmDay} leads={leads.leadsDay} deals={deals.dealsDay} idcomp="weekStats" title="Дневная статистика"  />
             </div>
-            <div className='flex md:mx-3 flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
-                <FirstRowStats />
+            <div className='flex w-[100%] flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
+                <StatsBoxes />
+                {/* <FirstRowStats /> */}
             </div>
-            <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[0.5rem]   items-center">
-                <WeaklyStatistics products1C={products1C.products1CWeek} sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek}  excelData={excelSalesReportWeek} idcomp="weekStatis" title="Недельная статистика"  />
+            <div className='flex w-[100%] flex-wrap align-center justify-center gap-[1.5rem] items-center'> 
+                <TableSort displayStats={true} title="Продано товаров" />
+            </div>
+            <div className="flex w-[100%]   gap-6 align-center  flex-wrap justify-center   items-center">
+                <PeriodStats />
+                <PeriodStats />
+                {/* <WeaklyStatistics products1C={products1C.products1CWeek} sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek}  excelData={excelSalesReportWeek} idcomp="weekStatis" title="Недельная статистика"  />
                 <WeaklyStatistics products1C={products1C.products1CMonth} sales1C={sales1C.sales1CMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} excelData={excelSalesReportMonth} idcomp="monthStatis" title="Месячная статистика"  />
-                <ProductsStats products1C={products1C.products1CMonth} idcomp="weekStatis" title="Товарная статистика" />
+                <ProductsStats products1C={products1C.products1CMonth} idcomp="weekStatis" title="Товарная статистика" /> */}
             </div> 
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
-                <StatsBlockSales idcomp="weekStatsSales" products1C={products1C.products1CWeek} spisanie={spisanie.spisanieWeek} sales1C={weekSalesSeries} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek} />
-                <StatsBlockSales cal="drop" idcomp="monthStatsSales" products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={kkm.kkmMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} />
+                <CardWithBarChart kkm={kkm.kkmMonth} deals={deals.dealsMonth} />
+                <CardWithBarChart kkm={kkm.kkmMonth} deals={deals.dealsMonth} />
+                {/* {/* <StatsBlockSales idcomp="weekStatsSales" products1C={products1C.products1CWeek} spisanie={spisanie.spisanieWeek} sales1C={weekSalesSeries} kkm={kkm.kkmWeek} leads={leads.leadsWeek} deals={deals.dealsWeek} /> */}
+                {/* <StatsBlockSales cal="drop" idcomp="monthStatsSales" products1C={products1C.products1CMonth} spisanie={spisanie.spisanieMonth} sales1C={kkm.kkmMonth} kkm={kkm.kkmMonth} leads={leads.leadsMonth} deals={deals.dealsMonth} /> */}
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <MonthlyTotalSalesChart sales1C={leads.leadsMonth} title="Лиды за месяц" type="leads" />

@@ -8,8 +8,8 @@ import { SpisanieMonthChart } from '../components/Sklad'
 import { ordersData } from '../data/ordersData';
 import { ProductsStats } from '../components/Sales'
 
-import { Calendar } from 'primereact/calendar';
-        
+import BarChartRe from '../components/demo/BarChart';
+import TableSort from '../components/demo/TablesList';
 
 const Sklad = ({spisanie, products1C}) => {
   const { skeletonUp } = useStateContext();
@@ -28,20 +28,25 @@ const Sklad = ({spisanie, products1C}) => {
     )
   }  
   return (
-    <div className="mt-12 flex flex-col justify-center w-[100%]  md:w-[90%] align-center gap-8">
-      <div className="flex mt-5  flex-wrap xs:flex-col w-[100%]  gap-2 justify-center ">
-        <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
+    <div className="mt-12 flex w-[100%] flex-col justify-center  align-center gap-8">
+      <div className="flex mt-5 w-[100%] flex-wrap xs:flex-col  gap-4 justify-center ">
+        {/* <BarChartRe /> */}
         <SpisanieMonthChart spisanie={spisanie.spisanieMonth} title="Списания за месяц" />
+        <ProductsStats spisanie={spisanie.spisanieMonth} products1C={products1C.products1CMonth} isOnSkald={true} idcomp="weekStatis" title="Товарная статистика" />
       </div>
-      <div className="w-[100%] flex justify-center align-center mr-5">
+      {/* <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">
           <Orders ordersData={products1C.products1CWeek.itemName} rawSpisanie={dataSpisanie.readyWeekData} spisanie={spisanie.spisanieWeek} defVal={false} title="Продано товаров" width="[100%]" />
         </div>
+      </div> */}
+      <div className="flex flex-col  md:w-[100%]  md:flex-row gap-2 justify-center align-center  items-center">
+        <TableSort displayStats={true} title="Продано товаров" />
       </div>
       <div className="flex flex-col  md:flex-row gap-2 justify-center align-center  items-center">
-        <SpisanieStats width="35%" rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
+        <TableSort displayStats={false} title="Списания" />
+        {/* <SpisanieStats width="35%" rawSpisanie={dataSpisanie.readyDayData} idcomponent="spisanieDay" title="Списания за день" spisanie={spisanie.spisanieDay} />
         <SpisanieStats width="40%" rawSpisanie={dataSpisanie.readyWeekData} idcomponent="spisanieWeek" title="Списания за неделю" spisanie={spisanie.spisanieWeek} />
-        <SpisanieStats width="40%" rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} />
+        <SpisanieStats width="40%" rawSpisanie={dataSpisanie.readyMonthData} idcomponent="spisanieMonth" title="Списания за месяц" spisanie={spisanie.spisanieMonth} /> */}
       </div>
       <div className="w-[100%] flex justify-center align-center mr-5">
         <div className="w-[90%] lg:w-[80%] mt-10 bg-white rounded-3xl">

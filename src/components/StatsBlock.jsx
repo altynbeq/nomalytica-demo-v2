@@ -6,6 +6,7 @@ import { Calendar } from 'primereact/calendar';
 import { getSalesReceiptsFront } from '../methods/salesReceipts/getSalesReceiptsFront'
 import { getKKMReceiptsFront } from '../methods/kkmReceipts/getKKMReceiptsFront'
 import { useStateContext } from "../contexts/ContextProvider";
+import Example  from '../components/ReCharts/AreaChart'
 
 function convertMonthToDateRange(monthName, year) {
     const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth(); // Get the month index (0-based)
@@ -151,6 +152,50 @@ const StatsBlockFinance = ({ idcomp, cal, title, excelData, kkm, sales1C, produc
         labelIntersectAction: 'Rotate45',
         valueType: 'Category',
     };
+
+    const list = [
+      { "x": "Thursday", "y": 1678900 },
+      { "x": "Friday", "y": 1345670 },
+      { "x": "Saturday", "y": 1593450 },
+      { "x": "Sunday", "y": 1427500 },
+      { "x": "Monday", "y": 1489200 },
+      { "x": "Tuesday", "y": 1100000 },
+      { "x": "Wednesday", "y": 1900000 }
+  ]
+  
+  let stackedCustomSeries = [
+      { 
+      dataSource: list,
+      xName: 'x',
+      yName: 'y',
+      name: 'Продажи',
+      type: 'StackingColumn',
+      background: 'blue',
+      },
+  ];
+  
+  let stackedPrimaryYAxis = {
+      lineStyle: { width: 0 },
+      minimum: 400000,
+      maximum: 2500000,
+      interval: 100000,
+      majorTickLines: { width: 0 },
+      majorGridLines: { width: 1 },
+      minorGridLines: { width: 1 },
+      minorTickLines: { width: 0 },
+      labelFormat: '{value}',
+  };
+  
+    let stackedPrimaryXAxis = {
+    majorGridLines: { width: 0 },
+    minorGridLines: { width: 0 },
+    majorTickLines: { width: 0 },
+    minorTickLines: { width: 0 },
+    interval: 1,
+    lineStyle: { width: 0 },
+    labelIntersectAction: 'Rotate45',
+    valueType: 'Category',
+    };
     
     const handleDateChange = async (e) => {
       if(e[1]){
@@ -164,7 +209,7 @@ const StatsBlockFinance = ({ idcomp, cal, title, excelData, kkm, sales1C, produc
       }
     }
     return (
-      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-6 relative w-[90%] md:w-[44%] ">
+      <div className="bg-white rounded-lg flex flex-col overflow-hidden p-6 relative w-[90%]  md:w-[44%] ">
         <div className="flex flex-col pb-6 w-full">
           <div className="flex flex-row justify-between gap-4 w-[100%]">
             <h2 className="text-black font-bold text-1xl">Финансы</h2>
@@ -188,7 +233,8 @@ const StatsBlockFinance = ({ idcomp, cal, title, excelData, kkm, sales1C, produc
         </div>
   
         <div className=" rounded-lg my-6">
-            <Stacked id={idcomp} stackedCustomSeries={stackedCustomSeriesYearly} stackedPrimaryXAxis={stackedPrimaryYAxisYearly} stackedPrimaryYAxis={stackedPrimaryXAxisYearly}    />
+            <Example />
+            {/* <Stacked id={idcomp} stackedCustomSeries={stackedCustomSeries} stackedPrimaryXAxis={stackedPrimaryYAxis} stackedPrimaryYAxis={stackedPrimaryXAxis}    /> */}
         </div>
   
         {/* <div className="flex justify-between pb-6 text-xl font-bold">

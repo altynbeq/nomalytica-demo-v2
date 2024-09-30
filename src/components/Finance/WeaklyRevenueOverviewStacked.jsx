@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useStateContext  } from '../../contexts/ContextProvider';
 import { SparkLine } from '../../components';
 import { Skeleton } from '@mui/material';
+import BarChartRe from '../ReCharts/BarCharts';
 
 const WeaklyRevenueOverviewStacked = ({deals}) => {
     const { dateRanges, currentColor, currentMode } = useStateContext();
     return (
-        <div className="rounded-2xl  p-4 mx-3" style={{ backgroundColor: currentColor }}>
+        <div className="rounded-2xl  p-2 mx-3" style={{ backgroundColor: currentColor }}>
             <div className="flex flex-col md:flex-row justify-between items-center">
                 <p className="font-semibold text-white text-2xl">Средний чек</p>
 
@@ -16,8 +17,9 @@ const WeaklyRevenueOverviewStacked = ({deals}) => {
                 </div>
             </div>
 
-            <div className="mt-4">
-                <SparkLine
+            <div className="mt-4 h-[100px]">
+                <BarChartRe />
+                {/* <SparkLine
                 currentColor={currentColor}
                 id="column-sparkLine-two"
                 height="100px"
@@ -25,7 +27,7 @@ const WeaklyRevenueOverviewStacked = ({deals}) => {
                 width="inherit"
                 data={deals.avgCheckSeries}
                 color="rgb(242, 252, 253)"
-                />
+                /> */}
             </div>
         </div>
     );
