@@ -5,3 +5,5 @@ status = 200
 
 [build]
 functions = "netlify/functions"
+[build]
+  command = "NODE_OPTIONS='--max_old_space_size=4096' npm run build"
