@@ -1,8 +1,8 @@
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 [build]
-functions = "netlify/functions"
-
+  functions = "netlify/functions"
+  command = "NODE_OPTIONS='--max_old_space_size=2048' npm run build"
