@@ -5,5 +5,5 @@
 
 [build]
   command = "CI=false NODE_OPTIONS='--max_old_space_size=4096' npm run build"
-  publish = "/opt/build/repo/build"
+  publish = "build"
   functions = "netlify/functions"
