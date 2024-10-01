@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Skeleton } from '../../components';
+import React, { useState, useRef } from 'react';
 import { Calendar } from 'primereact/calendar';
 import { useStateContext } from '../../contexts/ContextProvider';
 import ProgressCardColored from '../demo/ProgressLine';
@@ -45,7 +44,7 @@ const panelData = [
   }
 ];
 
-const PaidToAmount = ({ id, comb, title, sales1C, kkm }) => {
+const PaidToAmount = ({ comb, title }) => {
   const { dateRanges } = useStateContext();
   const stepperRef = useRef(null);
   
@@ -53,40 +52,10 @@ const PaidToAmount = ({ id, comb, title, sales1C, kkm }) => {
     new Date(dateRanges[1].startDate.replace('%20', ' ')),
     new Date(dateRanges[1].endDate.replace('%20', ' '))
   ]);
-  const [ready, setReady] = useState(false);
-  const [pieSeries, setSeries] = useState([]);
-  const formattedTotalSum = new Intl.NumberFormat().format(Math.round(sales1C.totalSum));
 
-  const handleDateChange = async (e) => {
-    if (e[1]) {
-      // Handle date change logic here
-      console.log('Date changed');
-    }
+  const handleDateChange = async () => {
+    
   };
-
-  useEffect(() => {
-    if (!sales1C || !sales1C.paidTo) return;
-
-    const { paidTo } = sales1C;
-    const total = sales1C.totalSum;
-
-    const seriesCollector = () => {
-      const seriesData = Object.entries(paidTo).map(([key, value]) => {
-        const roundedValue = Math.round(value);
-        const percentage = ((value / total) * 100).toFixed(2) + '%';
-        return { x: key, y: roundedValue, text: percentage };
-      });
-
-      setSeries(seriesData);
-    };
-
-    seriesCollector();
-    setReady(true);
-  }, [sales1C]);
-
-  if (!ready) {
-    return <Skeleton />;
-  }
 
   return (
     <div className={`bg-white dark:text-gray-200 overflow-hidden dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[${comb ? '43%' : '43%'}] p-4 flex flex-col subtle-border`}>
@@ -107,7 +76,7 @@ const PaidToAmount = ({ id, comb, title, sales1C, kkm }) => {
       </div>
       <div className="flex flex-row mb-5">
         <h3>Общая: &nbsp;</h3>
-        <p className="text-green-400 text-1xl">{formattedTotalSum} тг</p>
+        <p className="text-green-400 text-1xl">14 500 000 тг</p>
       </div>
 
       <Stepper ref={stepperRef}>

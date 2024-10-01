@@ -1,6 +1,5 @@
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import { BorderBeam } from '../MaterialUI/BoderBeam';
 
   const icons = {
     user: BsCurrencyDollar,

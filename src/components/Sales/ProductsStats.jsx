@@ -1,77 +1,56 @@
 import React from 'react'
 import { IoIosMore } from 'react-icons/io';
-import { useStateContext } from '../../contexts/ContextProvider';
-import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
+import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaChartBar } from "react-icons/fa";
 import { ExportToExcel } from '../'
 
-const ProductsStats = ({ idcomp, title, excelData, spisanie, products1C, isOnSkald}) => {
-    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
+const ProductsStats = ({ idcomp, title }) => {
     const weeklyStats = [
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: products1C.mostSoldSum && products1C.mostSoldSum.totalSum ? Math.round(products1C.mostSoldSum.totalSum) + ' тг' : 0  + ' тг',
+            amount: '1 300 230 тг',
             title: 'Топ выручка',
-            desc: products1C.mostSoldSum && products1C.mostSoldSum.name ? products1C.mostSoldSum.name : '',
+            desc: 'Choco',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: products1C.mostSoldItem && products1C.mostSoldItem.count ? products1C.mostSoldItem.count + ' шт' : 0  + ' шт',
+            amount: '3100 шт',
             title: 'Топ продаж',
-            desc: products1C.mostSoldItem && products1C.mostSoldItem.name ? products1C.mostSoldItem.name : '',
+            desc: 'Nintendo',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             id: '3',
             icon: <FaMoneyBillAlt />,
-            amount: products1C.leastSoldItem && products1C.leastSoldItem.count ? products1C.leastSoldItem.count + ' шт' : 0  + ' шт',
+            amount: '11 шт',
             title: 'Худший продаж',
-            desc: products1C.leastSoldItem && products1C.leastSoldItem.name ? products1C.leastSoldItem.name : '',
+            desc:  'PC',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
         {
             id: '7',
             icon: <FaMoneyBillAlt />,
-            amount: products1C.leastSoldSum && products1C.leastSoldSum.totalSum ? products1C.leastSoldSum.totalSum + ' тг' : 0  + ' тг',
+            amount: '12 000 тг',
             title: 'Худшая выручка',
-            desc: products1C.leastSoldSum && products1C.leastSoldSum.name ? products1C.leastSoldSum.name : '',
+            desc: 'WeWork',
             iconBg: '#00C292',
             pcColor: 'green-600',
         },
-        // {
-        //     id: '5',
-        //     icon: <FaFilter />,
-        //     amount: '%',
-        //     title: 'Конверсия',
-        //     desc: 'Bitrix',
-        //     iconBg: 'rgb(254, 201, 15)',
-        //     pcColor: 'green-600',
-        // },
         {
             icon: <FaChartBar />,
-            amount: numberOfItemsSold,
+            amount: 131,
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
             iconBg: 'rgb(254, 201, 15)',
             pcColor: 'green-600',
         },
     ];
-    if(isOnSkald){
-        weeklyStats.push({
-                id: '10',
-                icon: <FaBox />,
-                amount: spisanie.totalAmountSpisanie + ' шт',
-                title: 'Списаний',
-                desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
-                iconBg: 'rgb(254, 201, 15)',
-                pcColor: 'green-600',
-        })
-    }
+   
     return (
         <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg  ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
@@ -106,7 +85,7 @@ const ProductsStats = ({ idcomp, title, excelData, spisanie, products1C, isOnSka
                     </div>
                     
                     <div className='mt-2'>
-                        <ExportToExcel title={title} data={excelData} />
+                        <ExportToExcel title={title}  />
                     </div>
                 </div>
             </div>

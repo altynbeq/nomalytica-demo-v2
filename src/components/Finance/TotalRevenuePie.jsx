@@ -1,6 +1,4 @@
 import React from 'react'
-import { ecomPieChartData } from '../../data/ecomData';
-import { Pie } from '../../components';
 import HalfPie from '../ReCharts/HalfPieChart';
 
 const TotalRevenuePie = () => {
@@ -9,7 +7,6 @@ const TotalRevenuePie = () => {
        
         <div className="w-full h-[120px] mt-5">
           <HalfPie />
-        {/* <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={false} height="180px" /> */}
         </div>
           <p className="text-gray-400">Годовой заработок</p>
           <p className="text-2xl font-semibold ">$43,246</p>

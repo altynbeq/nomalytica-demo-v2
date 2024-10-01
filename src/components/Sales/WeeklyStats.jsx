@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
-import { IoIosMore } from 'react-icons/io';
-import { useStateContext } from '../../contexts/ContextProvider';
-import { FiStar, FiShoppingCart } from 'react-icons/fi';
-import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
-import ExportToExcel from '../ExportToExcel';
 import { Dropdown } from 'primereact/dropdown';
 
-const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
-    const { currentColor, currentMode } = useStateContext();
+const WeeklyStats = ({ idcomp, title }) => {
     
     const [ selectedStore, setSelectedStore ] = useState('Все магазины');
     const stores = [ "Все магазины", "Алматы", "Сатпаева", "Панфилова" ];
-    const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
-    const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
-    const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
-    const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((deals.leadsCount / leads.leadsCount) * 100) : 0;
-    
+  
     const handleStoreChange= (e) => {
         setSelectedStore(e);
     };
@@ -25,7 +15,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         {
             id: '1',
             icon: <FaDollarSign />,
-            amount: newTotalSum + 'тг',
+            amount: '7 400 000 тг',
             title: 'Выручка',
             // desc: 'XX',
             iconBg: '#1e4db6',
@@ -34,16 +24,15 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         {
             id: '2',
             icon: <FaMoneyBill />,
-            amount: Math.round(avgCheck) + 'тг',
+            amount: '17 500тг',
             title: 'Средний чек',
-            // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
             iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
             id: '3',
             icon: <FaMoneyBillAlt />,
-            amount: kkm.totalNumberSales,
+            amount: 180,
             title: 'Продаж',
             // desc: `?`,
             iconBg: '#1e4db6',
@@ -52,16 +41,16 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         {
             id: '4',
             icon: <FaBox />,
-            amount: spisanie.totalAmountSpisanie + ' шт',
+            amount: '320 шт',
             title: 'Списаний',
-            desc: Object.keys(spisanie.itemsSpisanie).length > 1 ? Object.keys(spisanie.itemsSpisanie).length + ' товаров' : Object.keys(spisanie.itemsSpisanie).length + ' товар',
+            desc: '30 товаров',
             iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
             id: '5',
             icon: <FaFilter />,
-            amount: conversion+'%',
+            amount: '33%',
             title: 'Конверсия',
             desc: 'Bitrix',
             iconBg: '#1e4db6',
@@ -69,7 +58,7 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         },
         {
             icon: <FaChartBar />,
-            amount: numberOfItemsSold,
+            amount: 19,
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
             iconBg: '#1e4db6',

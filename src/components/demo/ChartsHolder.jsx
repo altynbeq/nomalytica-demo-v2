@@ -1,83 +1,22 @@
 import { useState } from 'react';
-import { Card, Image, Text, Group, RingProgress } from '@mantine/core';
+import { Card, Group } from '@mantine/core';
 import Example from '../ReCharts/AreaChart'
 import { Calendar } from 'primereact/calendar';
 import { useStateContext } from "../../contexts/ContextProvider";
 import { Button } from '../';
 import { FaShare, FaFileDownload } from "react-icons/fa";
-import BorderBeam from '../MaterialUI/BoderBeam'
 
 const  CardWithStats = () => {
     const { dateRanges } = useStateContext();
 
     const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
-    
-    const stats = [
-        { title: 'Выручка', value: '25 671 177тг' },
-        { title: 'Средний чек', value: '15 446тг' },
-        { title: 'Score', value: '88/100' },
-    ];
+   
     const handleDateChange = async (e) => {
         if(e[1]){
          console.log("hellooo")
         }
     }
-
-    const list = [
-        { "x": "Thursday", "y": 1678900 },
-        { "x": "Friday", "y": 1345670 },
-        { "x": "Saturday", "y": 1593450 },
-        { "x": "Sunday", "y": 1427500 },
-        { "x": "Monday", "y": 1489200 },
-        { "x": "Tuesday", "y": 1100000 },
-        { "x": "Wednesday", "y": 1900000 }
-    ]
     
-    let stackedCustomSeries = [
-        { 
-        dataSource: list,
-        xName: 'x',
-        yName: 'y',
-        name: 'Продажи',
-        type: 'StackingColumn',
-        background: 'blue',
-        },
-    ];
-    
-    let stackedPrimaryYAxis = {
-        lineStyle: { width: 0 },
-        minimum: 400000,
-        maximum: 2500000,
-        interval: 100000,
-        majorTickLines: { width: 0 },
-        majorGridLines: { width: 1 },
-        minorGridLines: { width: 1 },
-        minorTickLines: { width: 0 },
-        labelFormat: '{value}',
-    };
-    
-    let stackedPrimaryXAxis = {
-    majorGridLines: { width: 0 },
-    minorGridLines: { width: 0 },
-    majorTickLines: { width: 0 },
-    minorTickLines: { width: 0 },
-    interval: 1,
-    lineStyle: { width: 0 },
-    labelIntersectAction: 'Rotate45',
-    valueType: 'Category',
-    };
-
-    const items = stats.map((stat) => (
-        <div key={stat.title} className='border-t-1 pr-2'>
-            <Text size="xs" color="dimmed">
-            {stat.title}
-            </Text>
-            <Text fw={500} size="sm">
-            {stat.value}
-            </Text>
-        </div>
-    ));
-
     return (
         <Card withBorder padding="lg" className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 text-center justify-center align-center w-[90%] md:w-[42%]  rounded-2xl subtle-border">
             <div className="flex flex-row justify-between mb-2 gap-4 w-[100%]">

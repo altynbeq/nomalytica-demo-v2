@@ -1,14 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
-import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import { Calendar } from 'primereact/calendar';
 import { useStateContext } from "../../contexts/ContextProvider";
 
 const PeriodStats = ({ idcomp, title, stats, statsTwo, statsThree }) => {
     const stepperRef = useRef(null);
-    const [ selectedMonth, setSelectedMonth ] = useState('September');
-    const months = [  "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const { dateRanges } = useStateContext();
     const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
     
