@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { SiShopware } from 'react-icons/si';
+import { FaChartPie } from "react-icons/fa";
 import { MdOutlineCancel } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
@@ -32,7 +32,7 @@ const Sidebar = () => {
       links[0].links = filteredLinks;
       setNavLinks(links);
     }
-    setActiveMenu(false);
+    setActiveMenu(true);
   },[]);
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
@@ -43,8 +43,8 @@ const Sidebar = () => {
       {activeMenu == true && (
         <>
           <div className="flex justify-between items-center">
-            <Link to="/" onClick={handleCloseSideBar} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
-              <SiShopware /> <span>Nomalytica</span>
+            <Link to="/" onClick={handleCloseSideBar} className="items-center gap-3 ml-3 mt-4 flex flex-row text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
+               <span className='flex flex-row p-1 gap-1'>N<FaChartPie className='mt-1 '/>malytica</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button

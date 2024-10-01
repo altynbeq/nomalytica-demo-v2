@@ -118,28 +118,28 @@ const MonthlyTotalSalesChart = ({sales1C, title, type}) => {
   };
   const handleMonthChange = async (e) => {
     setSelectedMonth(e);
-    if(type == 'sales'){
-      const date = convertMonthToDateRange(e, 2024);
-      const data = await getKKMReceiptsFront(date);
-      setSalesSeries(data.salesSeries);
-    } else if(type == 'leads'){
-      const data = await fetchLeadsFront(e);
-      setSalesSeries(data.series);
-    } else if(type == 'conversion'){
-      const [leads, deals] = await Promise.all([fetchLeadsFront(e), fetchDealsFront(e)]);
-      let leadsSeries = leads.series;
-      let dealsSeries = deals.series;
+    // if(type == 'sales'){
+    //   const date = convertMonthToDateRange(e, 2024);
+    //   const data = await getKKMReceiptsFront(date);
+    //   setSalesSeries(data.salesSeries);
+    // } else if(type == 'leads'){
+    //   const data = await fetchLeadsFront(e);
+    //   setSalesSeries(data.series);
+    // } else if(type == 'conversion'){
+    //   const [leads, deals] = await Promise.all([fetchLeadsFront(e), fetchDealsFront(e)]);
+    //   let leadsSeries = leads.series;
+    //   let dealsSeries = deals.series;
 
-      const conversionSeriesCounter = leadsSeries.map((lead, index) => {
-        const deal = dealsSeries[index];
-        if (deal) {
-        const conversion = lead.y !== 0 ? Math.round((deal.y / lead.y) * 100) : 0;
-        return { x: lead.x, y: conversion };
-        }
-        return { x: lead.x, y: 0 };
-      });
-      setSalesSeries(conversionSeriesCounter)
-    }
+    //   const conversionSeriesCounter = leadsSeries.map((lead, index) => {
+    //     const deal = dealsSeries[index];
+    //     if (deal) {
+    //     const conversion = lead.y !== 0 ? Math.round((deal.y / lead.y) * 100) : 0;
+    //     return { x: lead.x, y: conversion };
+    //     }
+    //     return { x: lead.x, y: 0 };
+    //   });
+    //   setSalesSeries(conversionSeriesCounter)
+    // }
   }
 
   return (

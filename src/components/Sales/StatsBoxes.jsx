@@ -10,11 +10,11 @@ import { BorderBeam } from '../MaterialUI/BoderBeam';
   };
   
   const data = [
-    { title: 'Revenue', icon: 'receipt', value: '13,456', diff: 34 },
-    { title: 'Profit', icon: 'coin', value: '4,145', diff: -13 },
-    { title: 'Coupons usage', icon: 'discount', value: '745', diff: 18 },
-    { title: 'New customers', icon: 'user', value: '188', diff: -30 },
-  ];
+    { title: 'Выручка', icon: 'receipt', value: '13,456', diff: 34 },
+    { title: 'Прибыль', icon: 'coin', value: '4,145', diff: -13 },
+    { title: 'Использование купонов', icon: 'discount', value: '745', diff: 18 },
+    { title: 'Новые клиенты', icon: 'user', value: '188', diff: -30 },
+];
   
 const StatsBoxes = () => {
     const stats = data.map((stat) => {
@@ -46,7 +46,7 @@ const StatsBoxes = () => {
           </div>
   
           <p className="text-xs text-gray-500 mt-2">
-            Compared to previous month
+            От прошлого месяца
           </p>
         </div>
       );

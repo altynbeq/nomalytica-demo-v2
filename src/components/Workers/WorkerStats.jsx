@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick'; 
 import WorkerStatsComp from '../../components/demo/workersComponents/WorkerStats';
 import { FaSortAmountDown,  FaTrophy, FaSortAmountUpAlt, FaChartLine, FaRegTimesCircle } from 'react-icons/fa';
 import { TbRosetteNumber1, TbRosetteNumber2, TbRosetteNumber3, TbRosetteNumber4, TbRosetteNumber5, } from "react-icons/tb";
+import { Dropdown } from 'primereact/dropdown';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -93,8 +94,10 @@ const WorkersInfo = [
     icon: <FaSortAmountDown />
   },
 ];
+const stores = [ "Все магазины", "Алматы", "Сатпаева", "Панфилова",];
 
 const WorkerStats = ({ workersList = WorkersInfo, mainTitle }) => {
+  const [ selectedStore, setSelectedStore ] = useState('Все магазины');
   const settings = {
     dots: true,
     infinite: false,
@@ -126,11 +129,26 @@ const WorkerStats = ({ workersList = WorkersInfo, mainTitle }) => {
   const handleSlideChange = (newIndex) => {
     setCurrentSlide(newIndex); // Update the current slide index
   };
+  const handleStoreChange = async (e) => {
+    setSelectedStore(e);
+  };
 
   return (
     <div className="flex w-[90%] md:w-[100%] flex-col max-w-4xl  z-1 mt-10 gap-5 justify-center rounded-2xl subtle-border ">
-      <h2 className="flex justify-center mt-5 text-2xl xs:text-base">{mainTitle}</h2>
-
+      <div className='flex flex-row justify-between  p-5'>
+        <h2 className="flex justify-center mt-5 text-2xl xs:text-base">{mainTitle}</h2>
+        <div className=" border-solid	 ">
+          <Dropdown 
+            value={selectedStore} 
+            onChange={(e) => handleStoreChange(e.value)} 
+            options={stores} 
+            optionLabel="name" 
+            placeholder="Выберите магазин" 
+            className="w-full md:w-14rem" 
+          /> 
+        </div>
+      </div>
+      
       <div className="w-[100%] mb-10 p-0 md:p-8 dark:bg-secondary-dark-bg rounded-2xl">
         <Slider {...settings} beforeChange={(_, next) => handleSlideChange(next)}>
           {workersList.map((worker, index) => (

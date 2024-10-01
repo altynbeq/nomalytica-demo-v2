@@ -78,40 +78,34 @@ const  CardWithStats = () => {
         </div>
     ));
 
-        return (
-            <Card withBorder padding="lg" className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 text-center justify-center align-center w-[90%] md:w-[42%]  rounded-2xl subtle-border">
-                <div className="flex flex-row justify-between mb-2 gap-4 w-[100%]">
-                    <div className='flex flex-row gap-2 text-center'>
-                        <h2 className="text-black font-bold text-1xl">Финансы</h2>
-                    </div>
-                    <div className="flex flex-wrap border-solid border-1 rounded-xl border-black px-2 gap-1">
-    <div className="relative z-0 w-64"> {/* Un-commented and added width for layout */}
-        {/* <BorderBeam size={100} duration={10} colorFrom="#ff0000" colorTo="#00ff00"> */}
-            <Calendar 
-                value={dates} 
-                onChange={(e) => {
-                    handleDateChange(e.value);
-                    setDates(e.value);
-                }} 
-                selectionMode="range" 
-                readOnlyInput 
-                hideOnRangeSelection 
-            />
-        {/* </BorderBeam> */}
-    </div>
-</div>
-
+    return (
+        <Card withBorder padding="lg" className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 text-center justify-center align-center w-[90%] md:w-[42%]  rounded-2xl subtle-border">
+            <div className="flex flex-row justify-between mb-2 gap-4 w-[100%]">
+                <div className='flex flex-row gap-2 text-center'>
+                    <h2 className="text-black font-bold text-1xl">Финансы</h2>
                 </div>
-               
+                <div className="flex flex-wrap border-solid border-1 rounded-xl border-black px-2 gap-1">
+                    <div className="relative z-0 w-54"> {/* Un-commented and added width for layout */}
+                        {/* <BorderBeam size={100} duration={10} colorFrom="#ff0000" colorTo="#00ff00"> */}
+                            <Calendar 
+                                value={dates} 
+                                onChange={(e) => {
+                                    handleDateChange(e.value);
+                                    setDates(e.value);
+                                }} 
+                                selectionMode="range" 
+                                readOnlyInput 
+                                hideOnRangeSelection 
+                            />
+                        {/* </BorderBeam> */}
+                    </div>
+                </div>
+
+            </div>
             <div className='w-[100%] h-[300px] pr-4 mb-2'>
                 <Example />
             </div>
-            {/* <Card.Section >
-                <Example />
-            </Card.Section> */}
-             
-                
-             <div className="  border-t-1 pr-2 flex py-2 flex-row md:w-[100%] gap-8 justify-center ">
+            <div className="  border-t-1 pr-2 flex py-2 flex-row md:w-[100%] gap-8 justify-center ">
                 <div className='flex justify-center  border-color  flex-col text-start '>
                     <p className="text-gray-500 mt-1">Выручка</p>
                     <span className="text-1xl ">25 671 177тг</span>
@@ -129,13 +123,12 @@ const  CardWithStats = () => {
             <Card.Section className="flex justify-between py-2 px-4 border-t border-gray-200 dark:border-gray-700">
             </Card.Section>
             <Group justify="space-between" mt="xl" />
-                <div className='flex flex-row gap-5 px-4 justify-center'>
-                    <Button text="Download" bgColor="#e3f2fe" borderRadius="24px" icon={<FaFileDownload />} />
-                    <Button text="Share" bgColor="#e3f2fe" borderRadius="24px" icon={<FaShare />} />
-                </div>
-            </Card>
-            
-        );
+            <div className='flex flex-row gap-5 justify-center'>
+                <Button text="Download" bgColor="#1e4db6" borderRadius="24px" icon={<FaFileDownload />} />
+                <Button text="Share" bgColor="#1e4db6" borderRadius="24px" icon={<FaShare />} />
+            </div>
+        </Card>
+    );
     }
 
 export default CardWithStats

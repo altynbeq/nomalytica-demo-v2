@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoIosMore } from 'react-icons/io';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsChatLeft } from 'react-icons/bs';
 import { FaDollarSign, FaMoneyBillAlt, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
 import ExportToExcel from '../ExportToExcel';
+import { Dropdown } from 'primereact/dropdown';
 
 const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals, leads, spisanie }) => {
     const { currentColor, currentMode } = useStateContext();
     
+    const [ selectedStore, setSelectedStore ] = useState('Все магазины');
+    const stores = [ "Все магазины", "Алматы", "Сатпаева", "Панфилова" ];
     const newTotalSum = kkm.totalSum ? new Intl.NumberFormat('en-US').format(kkm.totalSum) : 0;
     const avgCheck = kkm.totalSum/kkm.totalNumberSales > 0 ? kkm.totalSum/kkm.totalNumberSales : 0;
     const numberOfItemsSold = products1C.itemName ? Object.keys(products1C.itemName).length : 0;
     const conversion = leads.leadsCount > 0 && deals.leadsCount > 0 ? Math.round((deals.leadsCount / leads.leadsCount) * 100) : 0;
     
+    const handleStoreChange= (e) => {
+        setSelectedStore(e);
+    };
+
     const weeklyStats = [
         {
             id: '1',
@@ -74,14 +81,18 @@ const WeeklyStats = ({ idcomp, title, excelData, kkm, sales1C, products1C, deals
         <div className="bg-white dark:text-gray-200 justify-center align-center text-center dark:bg-secondary-dark-bg p-1 ml-1 w-[90%] md:w-[30%] rounded-2xl subtle-border">
             <div className="flex flex-wrap justify-center">
                 <div className="md:w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 mx-3">
-                    <div className="flex justify-between ">
+                    <div className="flex flex-col  justify-between ">
                         <p className="text-xl font-semibold">{title}</p>
-                        <button type="button" className="text-xl font-semibold text-gray-500">
-                        <IoIosMore />
-                        </button>
+                        <Dropdown 
+                            value={selectedStore} 
+                            onChange={(e) => handleStoreChange(e.value)} 
+                            options={stores} 
+                            optionLabel="name" 
+                            placeholder="Выберите магазин" 
+                            className="w-full md:w-14rem" /> 
                     </div>
-
-                    <div className="mt-8">
+                       
+                    <div className="mt-0">
                         {weeklyStats.map((item) => (
                         <div key={idcomp + item.id} className="flex justify-between mt-4 w-full">
                             <div className="flex gap-4">

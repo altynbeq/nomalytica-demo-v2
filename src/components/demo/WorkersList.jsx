@@ -5,7 +5,7 @@ import { TbRosetteNumber1, TbCircleDashedNumber1, TbRosetteNumber2, TbRosetteNum
 import { FaSortAmountDown, FaSortAmountUpAlt, FaChartLine, FaRegTimesCircle } from 'react-icons/fa';
 import { Dropdown } from 'primereact/dropdown';
 
-const stores = [ "All stores", "store1", "store2", "store3", "store4", "store5",];
+const stores = [ "Все магазины", "Алматы", "Сатпаева", "Панфилова",];
 const data = [
   {
     avatar: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-9.png',
@@ -93,7 +93,9 @@ const data = [
   },
 ];
 
-const handleStoreChange = async (e) => {};
+const handleStoreChange = async (e) => {
+
+};
 
 
 function Th({ children, reversed, sorted, onSort }) {
@@ -136,7 +138,7 @@ const WorkersList = () => {
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedWorker, setSelectedWorker] = useState(null);
-  const [ selectedStore, setSelectedStore ] = useState('All stores');
+  const [ selectedStore, setSelectedStore ] = useState('Все магазины');
 
   const setSorting = (field) => {
     const reversed = field === sortBy ? !reverseSortDirection : false;
@@ -145,10 +147,15 @@ const WorkersList = () => {
     setSortedData(sortData(data, { sortBy: field, reversed, search }));
   };
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (e) => {
     const value = event.target.value;
     setSearch(value);
     setSortedData(sortData(data, { sortBy, reversed: reverseSortDirection, search: value }));
+  };
+
+
+  const handleStoreChange = async (e) => {
+    setSelectedStore(e);
   };
 
   const handleRowClick = (worker) => {
@@ -175,15 +182,15 @@ const WorkersList = () => {
           <FaSearch className="absolute left-3 top-2.5 text-gray-400" />
           
         </div>
-        <div className=" border-1 rounded-2xl gap-1 border-solid	 ">
-            <Dropdown 
-                value={selectedStore} 
-                onChange={(e) => handleStoreChange(e.value)} 
-                options={stores} 
-                optionLabel="name" 
-                placeholder="Выберите магазин" 
-                className="w-full md:w-14rem" /> 
-          </div>
+        <div className="  ">
+          <Dropdown 
+              value={selectedStore} 
+              onChange={(e) => handleStoreChange(e.value)} 
+              options={stores} 
+              optionLabel="name" 
+              placeholder="Выберите магазин" 
+              className="w-full md:w-14rem" /> 
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse">
@@ -231,11 +238,14 @@ const WorkersList = () => {
           </tbody>
         </table>
       </div>
-      <WorkerInfoModal 
+      <div className='w-[80%]'>
+        <WorkerInfoModal 
         isOpen={modalOpen} 
         onClose={closeModal} 
         worker={selectedWorker} 
       />
+      </div>
+      
     </div>
   );
 }

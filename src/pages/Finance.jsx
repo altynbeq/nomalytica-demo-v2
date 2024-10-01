@@ -7,6 +7,151 @@ import { StatsBlockFinance } from '../components'
 import CardWithStats from '../components/demo/ChartsHolder'
 import BarChartWide from '../components/ReCharts/BarChartWide';
 import YearBarChart from '../components/demo/YearBarChart'
+import PeriodStats from '../components/demo/PeriodStats';
+import CarouselCard from '../components/demo/Slider';
+
+import { FaDollarSign, FaMoneyBillAlt, FaBoxOpen, FaRegThumbsDown, FaMoneyBill, FaBox, FaFilter, FaChartBar } from "react-icons/fa";
+
+const financeStats = [
+  {
+      id: '1',
+      icon: <FaDollarSign />,
+      amount: '12 333 000 тг',
+      title: 'Выручка',
+      // desc: 'XX',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '2',
+      icon: <FaMoneyBill />,
+      amount: '42 000тг',
+      title: 'Средний чек',
+      // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '3',
+      icon: <FaMoneyBillAlt />,
+      amount: '120',
+      title: 'Продаж',
+      // desc: `?`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '5',
+      icon: <FaFilter />,
+      amount: '30%',
+      title: 'Конверсия',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      icon: <FaChartBar />,
+      amount: 21,
+      title: 'Онлайн продаж',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+];
+
+const financeStatsTwo = [
+  {
+      id: '1',
+      icon: <FaDollarSign />,
+      amount: '9 333 000 тг',
+      title: 'Выручка',
+      // desc: 'XX',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '2',
+      icon: <FaMoneyBill />,
+      amount: '33 000тг',
+      title: 'Средний чек',
+      // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '3',
+      icon: <FaMoneyBillAlt />,
+      amount: '10',
+      title: 'Продаж',
+      // desc: `?`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '5',
+      icon: <FaFilter />,
+      amount: '32%',
+      title: 'Конверсия',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      icon: <FaChartBar />,
+      amount: 17,
+      title: 'Онлайн продаж',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+];
+
+const financeStatsThree = [
+  {
+      id: '1',
+      icon: <FaDollarSign />,
+      amount: '19 333 000 тг',
+      title: 'Выручка',
+      // desc: 'XX',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '2',
+      icon: <FaMoneyBill />,
+      amount: '58 400тг',
+      title: 'Средний чек',
+      // desc: `Сотрудник ${data.bestWorker && data.bestWorker.id ? data.bestWorker.id : 'Пусто'}`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '3',
+      icon: <FaMoneyBillAlt />,
+      amount: '74',
+      title: 'Продаж',
+      // desc: `?`,
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      id: '5',
+      icon: <FaFilter />,
+      amount: '62%',
+      title: 'Конверсия',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+  {
+      icon: <FaChartBar />,
+      amount: 32,
+      title: 'Онлайн продаж',
+      desc: 'Bitrix',
+      iconBg: '#1d4db7',
+      pcColor: 'black-600',
+  },
+];
 
 const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
   const stepperRef = useRef(null);
@@ -51,6 +196,10 @@ const Finance = ({sales1C, products1C, kkm, deals, leads, spisanie}) => {
             <PaidToAmount comb={true} id="PaidToWeek" sales1C={sales1C.sales1CWeek} kkm={kkm.kkmWeek} title="Выручка"  />
             <KassaKKMPie comb={true} id="KKMWeek" sales1C={sales1C.sales1CWeek} title="Фискальный регистратор (неделя)" />
           </div> */}
+      </div>
+      <div className="flex gap-4 w-[100%] items-center align-center flex-col md:flex-row justify-center">
+        <PeriodStats title="Финансы" stats={financeStats} statsTwo={financeStatsTwo} statsThree={financeStatsThree} />
+        <CarouselCard carousel={true} title="Доли магазинов" />
       </div>
       <div className='flex gap-8 w-[100%] items-center align-center flex-col md:flex-row justify-center'>
         <YearBarChart />

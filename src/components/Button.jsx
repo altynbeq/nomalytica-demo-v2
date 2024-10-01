@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useStateContext } from '../contexts/ContextProvider';
 
-const Button = ({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, width }) => {
+const Button = ({ icon, bgColor, color, iconClr, bgHoverColor, size, text, borderRadius, width }) => {
   const { setIsClicked, initialState } = useStateContext();
 
   return (
@@ -16,7 +16,7 @@ const Button = ({ icon, bgColor, color, bgHoverColor, size, text, borderRadius, 
         {text} 
       </div>
      
-     <div className='mt-1 text-white'>
+     <div className={`mt-1 text-${iconClr ? iconClr : 'white'}`}>
       {icon}
       </div>
     </button>
