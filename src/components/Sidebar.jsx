@@ -20,16 +20,16 @@ const Sidebar = () => {
   useEffect(()=> {
     const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
 
-    if(data.userRole == 'sklad'){
-      let filteredLinks = links[0].links.filter(link => link.name == "sklad");
+    // if(data.userRole == 'sklad'){
+    //   let filteredLinks = links[0].links.filter(link => link.name == "sklad");
 
-      links[0].links = filteredLinks;
-      setNavLinks(links);
-    } else if(data.userRole == 'rop'){
-      let filteredLinks = links[0].links.filter(link => link.name == "sales");
-      links[0].links = filteredLinks;
-      setNavLinks(links);
-    }
+    //   links[0].links = filteredLinks;
+    //   setNavLinks(links);
+    // } else if(data.userRole == 'rop'){
+    //   let filteredLinks = links[0].links.filter(link => link.name == "sales");
+    //   links[0].links = filteredLinks;
+    //   setNavLinks(links);
+    // }
     setActiveMenu(true);
   },[]);
 
