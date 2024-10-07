@@ -38,22 +38,26 @@ const  CardWithBarChart = ({title, series, dataKey}) => {
         <div className='w-[100%] h-[300px] mt-6 '>
             <BarChartRe data={series} />
         </div>
-            <div className="  border-t-1 pr-2 flex py-2 flex-row md:w-[100%] gap-8 justify-center ">
-            <div className='flex justify-center  border-color  flex-col text-start '>
-                <p className="text-gray-500 mt-1">Продаж</p>
-                <span className="text-1xl ">{FormatAmount(stats.salesCount)}</span>
+        <div className="  border-t-1 pr-2 flex py-2 flex-col md:flex-row md:w-[100%] gap-8 justify-center ">
+            <div className='flex flex-row  gap-4 justify-evenly '>
+                <div className='flex justify-center  border-color  flex-col  text-start '>
+                    <p className="text-gray-500 mt-1">Продаж</p>
+                    <span className="text-1xl ">{FormatAmount(stats.salesCount)}</span>
+                </div>
+                <div className='flex justify-center  border-color md:border-l-1  pl-2   flex-col text-end '>
+                    <p className="text-gray-500 mt-1">На сумму</p>
+                    <span className="text-1xl ">{FormatAmount(stats.totalSum)}</span>
+                </div>
             </div>
-            <div className='flex justify-center  border-color  flex-col text-start '>
-                <p className="text-gray-500 mt-1">На сумму</p>
-                <span className="text-1xl ">{FormatAmount(stats.totalSum)}</span>
-            </div>
-            <div className='flex border-l-1 pl-2 flex-col text-start'>
-                <p className="text-gray-500 mt-1">Онлайн продаж</p>
-                <p className="text-[1rem] font-semibold">{deals.leadsCount}</p>
-            </div>
-            <div className='flex justify-center border-l-1  pl-2 flex-col text-start '>
-                <p className="text-gray-500 mt-1">Доля онлайн</p>
-                <p className="text-1xl font-semibold">{(deals.leadsCount > 0 && stats.salesCount > 0 ? ((deals.leadsCount * 100)/stats.salesCount).toFixed(2) : 0)}%</p>
+            <div className='flex flex-row gap-4 justify-evenly'>
+                <div className='flex md:border-l-1 pl-2 flex-col text-start'>
+                    <p className="text-gray-500 mt-1">Онлайн продаж</p>
+                    <p className="text-[1rem] font-semibold">{deals.leadsCount}</p>
+                </div>
+                <div className='flex justify-center md:border-l-1  pl-2 flex-col text-start '>
+                    <p className="text-gray-500 mt-1">Доля онлайн</p>
+                    <p className="text-1xl font-semibold">{(deals.leadsCount > 0 && stats.salesCount > 0 ? ((deals.leadsCount * 100)/stats.salesCount).toFixed(2) : 0)}%</p>
+                </div>
             </div>
         </div>
 
