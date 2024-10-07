@@ -23,8 +23,6 @@ const Sidebar = () => {
     if(data.userRole == 'sklad'){
       let filteredLinks = links[0].links.filter(link => link.name == "sklad");
 
-      console.log("links", links)
-      console.log("filteredLinks", filteredLinks)
       links[0].links = filteredLinks;
       setNavLinks(links);
     } else if(data.userRole == 'rop'){
