@@ -1,9 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown';
 import LineChartRe from '../../components/demo/LineChart'
+import { useStateContext } from '../../contexts/ContextProvider';
+import { fetchLeads } from '../../methods/dataFetches/getLeadsBitrix';
 
-const MonthlyTotalSalesChart = ({title}) => {
+const MonthlyTotalSalesChart = ({title, leadsSeries}) => {
   const [ selectedMonth, setSelectedMonth ] = useState('September');
+  const { leads, dateRanges } = useStateContext();
+  const [ series, setSeries ] = useState(leads.series);
+  useEffect(() => {
+    const dateToday = new Date();
+    const getter = async () => {
+      if (dateRanges[0]) {
+        const data = await fetchLeads(dateRanges[2], leads.dateSaved);
+        setSeries(data.series);
+      }
+    };
+    const savedDate = new Date(leads.dateSaved); 
+
+    if (dateToday > savedDate) {
+      getter();
+    }
+    setSeries(leads.series);
+  }, [leads]);
 
   const cities = [  "January",
   "February",
@@ -32,7 +51,7 @@ const MonthlyTotalSalesChart = ({title}) => {
         </div>
         </div>
         <div className="w-[100%] h-[250px]">
-          <LineChartRe />
+          <LineChartRe data={series} />
         </div>
     </div>
   )

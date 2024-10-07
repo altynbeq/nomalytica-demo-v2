@@ -4,7 +4,7 @@ import { Stacked } from '../../components';
 import { stackedCustomSeriesYearly, stackedPrimaryYAxisYearly, stackedPrimaryXAxisYearly } from '../../data/salesData';
 import BarChartRe from '../demo/BarChart';
 
-const OverallRevenueChart = () => {
+const OverallRevenueChart = ({series}) => {
   return (
     <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6  w-[90%] md:w-[53%]  rounded-2xl  subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
@@ -19,7 +19,7 @@ const OverallRevenueChart = () => {
         </div>
         </div>
         <div className='w-[100%] h-[400px]'>
-          <BarChartRe />
+          <BarChartRe data={series} />
         </div>
         
 

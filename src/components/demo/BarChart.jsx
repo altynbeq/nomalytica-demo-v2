@@ -1,55 +1,34 @@
 import React, { PureComponent } from 'react';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 export default class BarChartRe extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/p/sandbox/simple-bar-chart-72d7y5';
-
   render() {
+    const { data } = this.props;
+    
+    // Define a more refined color palette
+    const colors = [
+      '#003366', // Dark Navy Blue
+      '#00509E', // Medium Navy Blue
+      '#0072B8', // Light Blue
+      '#A6C8E0', // Soft Light Blue
+      '#B0C4DE', // Light Steel Blue
+      '#C0D6E4', // Very Light Blue
+    ];
+    
+    // Calculate the bar size based on the number of stores
+    const numberOfStores = data.length > 0 ? Object.keys(data[0]).filter(storeName => storeName !== 'name').length : 0;
+    const barSize = numberOfStores > 1 ? 30 : 50; // Adjust sizes as needed
+
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -68,8 +47,17 @@ export default class BarChartRe extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#7b95d4" activeBar={<Rectangle fill="white" stroke="blue" />} />
-          <Bar dataKey="uv" fill="#e2f3fd" activeBar={<Rectangle fill="blue" stroke="purple" />} />
+          {data.length > 0 && Object.keys(data[0])
+            .filter(storeName => storeName !== 'name') // Filter out 'name' field
+            .map((storeName, index) => (
+              <Bar
+                key={storeName}
+                dataKey={storeName} // Map based on store name
+                fill={colors[index % colors.length]} // Assign color based on index
+                activeBar={<Rectangle fill="white" stroke="blue" />}
+                barSize={barSize} // Set dynamic bar size
+              />
+            ))}
         </BarChart>
       </ResponsiveContainer>
     );

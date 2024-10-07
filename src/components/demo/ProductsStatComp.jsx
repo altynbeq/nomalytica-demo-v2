@@ -1,0 +1,104 @@
+import React, { useRef, useState } from "react";
+import { Stepper } from 'primereact/stepper';
+import { StepperPanel } from 'primereact/stepperpanel';
+import { Calendar } from 'primereact/calendar';
+import { FaDollarSign, FaMoneyBillAlt, FaBox, FaFilter } from "react-icons/fa";
+import { FormatAmount } from '../../data/MainDataSource';
+import { useStateContext } from "../../contexts/ContextProvider";
+
+const ProductsStatsComp = ({ idcomp, title }) => {
+    const stepperRef = useRef(null);
+    const { dateRanges, kkm } = useStateContext();
+    const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
+
+    const productStatsTemplate = (storeStats) => [
+        {
+            id: '1',
+            title: 'Best Sold Item (Amount)',
+            desc: storeStats.bestSoldItemAmount?.name,
+            valueKey: storeStats.bestSoldItemAmount?.amount,
+            icon: <FaBox />,
+            iconBg: '#1d4db7',
+            pcColor: 'black-600',
+            format: false
+        },
+        {
+            id: '2',
+            title: 'Best Sold Item (Sum)',
+            desc: storeStats.bestSoldItemSum?.name,
+            valueKey: Math.round(storeStats.bestSoldItemSum?.totalSum),
+            icon: <FaDollarSign />,
+            iconBg: '#1d4db7',
+            pcColor: 'black-600',
+            format: true
+        },
+        {
+            id: '3',
+            title: 'Least Sold Item (Amount)',
+            desc: storeStats.leastSoldItemAmount?.name,
+            valueKey: storeStats.leastSoldItemAmount?.amount,
+            icon: <FaFilter />,
+            iconBg: '#1d4db7',
+            pcColor: 'black-600',
+            format: false
+        },
+        {
+            id: '4',
+            title: 'Least Sold Item (Sum)',
+            desc: storeStats.leastSoldItemSum?.name,
+            valueKey: Math.round(storeStats.leastSoldItemSum?.totalSum),
+            icon: <FaMoneyBillAlt />,
+            iconBg: '#1d4db7',
+            pcColor: 'black-600',
+            format: true
+        }
+    ];
+
+    return (
+        <div className={`bg-white dark:text-gray-200 overflow-hidden dark:bg-secondary-dark-bg rounded-2xl w-[90%] md:w-[43%] px-6 py-2 flex flex-col subtle-border`}>
+            <div className="flex flex-row justify-between mb-4">
+                <p className="text-[1rem] font-semibold">{title}</p>
+                <div className="flex flex-wrap border-solid border-1 rounded-xl border-black px-2 gap-1">
+                    <Calendar
+                        value={dates}
+                        onChange={(e) => setDates(e.value)}
+                        selectionMode="range"
+                        readOnlyInput
+                        hideOnRangeSelection
+                    />
+                </div>
+            </div>
+
+            <Stepper ref={stepperRef}>
+                {Object.entries(kkm.monthFormedKKM).map(([storeName, storeStats]) => (
+                    <StepperPanel key={storeName} header={storeName}>
+                        <div className="mt-2">
+                            {productStatsTemplate(storeStats).map((stat) => (
+                                <div key={stat.id} className="flex justify-between mt-4 w-full">
+                                    <div className="flex gap-4">
+                                        <button
+                                            type="button"
+                                            style={{ background: stat.iconBg }}
+                                            className="text-2xl hover:drop-shadow-xl text-white rounded-full p-3"
+                                        >
+                                            {stat.icon}
+                                        </button>
+                                        <div>
+                                            <p className="text-md font-semibold">{stat.title}</p>
+                                            <p className="text-sm text-gray-400">{stat.desc ? stat.desc : `No data for ${storeName}`}</p>
+                                        </div>
+                                    </div>
+                                    <p className={stat.pcColor}>
+                                        {stat.format ? FormatAmount(stat.valueKey) : stat.valueKey} {stat.format ? '₸' : ''}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </StepperPanel>
+                ))}
+            </Stepper>
+        </div>
+    );
+};
+
+export default ProductsStatsComp;

@@ -1,9 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 // import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
 import { FaChevronDown, FaChevronUp, FaFileDownload, FaCheckCircle, FaSearch } from "react-icons/fa";
 import { Calendar } from 'primereact/calendar';
 import { useStateContext } from "../../contexts/ContextProvider";
 import DataGridMaterial from './DataGrid';
+import { Dropdown } from 'primereact/dropdown';
+import  {  StoresList, FormatAmount, ConvertCalendarDate, SpisanieStats, ProductsStats, ProductSoldGridList, MonthDropdownToDate } from '../../data/MainDataSource'
+import { GridSpisanieListRows } from '../../data/MainDataSource';
+import { getSpisanie } from '../../methods/dataFetches/getSpisanie';
+import { getKKMReceiptsFront } from '../../methods/dataFetches/getKKM';
 
 function Th({ children, reversed, sorted, onSort }) {
   const Icon = sorted ? (reversed ? FaChevronDown : FaChevronUp) : FaChevronDown;
@@ -109,18 +114,51 @@ const data = [
       email: 'Lilyan98@gmail.com',
       price: '90',
     },
-  ];
+];
 
-const TableSort = ({title, displayStats}) => {
+  const stores = [ "Все магазины", ...StoresList];
+
+const handleStoreChange = async (e) => {
+
+};
+
+const TableSort = ({title, w, displayStats, rows, columns, spisanieStats}) => {
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState(null);
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
-  const { dateRanges } = useStateContext();
+  const [ listRows, setListRows ] = useState([]);
+  const [ spisanieStatsState, setSpisanieStats ] = useState({});
+  const [ selectedStore, setSelectedStore ] = useState('Все магазины');
+  const { dateRanges, spisanie } = useStateContext();
   const stepperRef = useRef(null);
-  const handleDateChange = (e) => {
 
+  const handleStoreChange = async (e) => {
+    setSelectedStore(e);
+  };
+  const handleDateChange = async(e) => {
+    if(e[1]){
+      const properDate = ConvertCalendarDate(e);
+
+      if(title == 'Списания'){
+        const spisanieList = await getSpisanie(properDate);
+        setListRows(GridSpisanieListRows(spisanieList));
+        setSpisanieStats(SpisanieStats(spisanieList));
+      } else if(title == 'Продано товаров'){
+        const productData = await getKKMReceiptsFront(properDate);
+        setListRows(ProductSoldGridList(productData));
+        setSpisanieStats(ProductsStats(productData));
+      }
+    }
   }
+
+  useEffect(() => {
+    if(listRows.length == 0){
+      setListRows([...rows])
+      setSpisanieStats(spisanieStats)
+    }
+  }, [listRows])
+
   const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
   const setSorting = (field) => {
     const reversed = field === sortBy ? !reverseSortDirection : false;
@@ -135,28 +173,31 @@ const TableSort = ({title, displayStats}) => {
     setSortedData(sortData(data, { sortBy, reversed: reverseSortDirection, search: value }));
   };
 
-  const rows = sortedData.map((row) => (
-    <tr key={row.name}>
-      <td className="py-2 px-4">{row.name}</td>
-      <td className="py-2 px-4">{row.email}</td>
-      <td className="py-2 px-4">{row.company}</td>
-      <td className="py-2 px-4">{row.price}</td>
-    </tr>
-  ));
-
   return (
-    <div className="bg-white w-[85%] p-5 subtle-border  dark:bg-gray-900 overflow-auto">
+    <div className={`bg-white w-[85%] p-5 subtle-border dark:bg-gray-900 overflow-auto`}>
       <div className='flex flex-row justify-between mb-4 '>
         <div className=''>
             <p className="text-[1rem] font-semibold ">{title}</p>
         </div>
-        <div className="flex flex-wrap border-solid border-1 rounded-xl border-black px-2 gap-1">
+        <div className="flex flex-col md:flex-row gap-2">
+          <div className='border-solid border-1'>
+            <Dropdown 
+              value={selectedStore} 
+              onChange={(e) => handleStoreChange(e.value)} 
+              options={stores} 
+              optionLabel="name" 
+              placeholder="Выберите магазин" 
+              className="w-full md:w-14rem" /> 
+          </div>
+          <div className="flex flex-row border-solid border-1 rounded-xl border-black px-2 gap-1">
             <Calendar value={dates} onChange={(e) => {
               handleDateChange(e.value)
               setDates(e.value)
               }} selectionMode="range" readOnlyInput hideOnRangeSelection 
             />
+          </div>
         </div>
+        
       </div>
       {
         displayStats ? 
@@ -164,59 +205,49 @@ const TableSort = ({title, displayStats}) => {
           <div className='md:flex md:flex-row mb-1'>
             <div className='flex justify-start md:justify-center gap-2  mb-1 border-color flex-row md:flex-col text-start md:mr-5'>
                 <p className="text-gray-500 ">Сумма:</p>
-                <span className="text-1xl text-green-500">13 500 400 тг</span>
+                <span className="text-1xl text-green-500">{FormatAmount(Math.round(spisanieStatsState.productSum))} тг</span>
             </div>
             <div className='flex md:border-l-1 justify-start md:justify-center gap-2 md:pl-2 flex-row md:flex-col text-start'>
-                <p className="text-gray-500 ">Покупок:</p>
-                <p className="text-1xl font-semibold">84</p>
+                <p className="text-gray-500 ">Всего продано товаров:</p>
+                <p className="text-1xl font-semibold">{FormatAmount(Math.round(spisanieStatsState.itemsSold))}</p>
             </div>
           </div>
           <div className='md:flex md:flex-row'>
             <div className='flex justify-start md:border-l-1 mb-1  md:pl-2 flex-col text-start '>
                 <p className="text-gray-500 md:mt-1">Сред.выручка за товаров:</p>
-                <p className="text-1xl font-semibold mt-1">14 700тг</p>
-            </div>
-          </div>
-          <div className='md:flex md:flex-row'>
-            <div className='flex flex-start md:justify-center gap-2 mb-1 md:border-l-1 md:pl-2  border-color flex-row md:flex-col text-start md:mr-5'>
-                <p className="text-gray-500">Сумма:</p>
-                <span className="text-1xl ">13 500 400 тг</span>
+                <p className="text-1xl font-semibold mt-1">{FormatAmount(Math.round(spisanieStatsState.avgRevProduct))} тг</p>
             </div>
           </div>
           <div className='md:flex md:flex-row'>
             <div className='flex justify-start md:justify-center md:border-l-1  gap-2 md:pl-2 flex-row md:flex-col text-start md:mr-5'>
                 <p className="text-gray-500">Продано товаров:</p>
-                <p className="text-1xl font-semibold">32</p>
+                <p className="text-1xl font-semibold">{FormatAmount(Math.round(spisanieStatsState.productsUniqSold))}</p>
             </div>
           </div>
         </div> : 
-        <div className=" w-[100%] py-2 border-t-1  pr-2 mb-4 flex flex-col md:flex-row  gap-8 justify-evenly  ">
-          <div className='md:flex md:flex-row md:justify-evenly'>
-            <div className='flex justify-start  border-color flex-row gap-2 md:gap-0  md:flex-col text-start md:mr-5'>
+          <div className="w-[100%] py-2 border-t-1 pr-2 mb-4 flex flex-col md:flex-row gap-8 justify-evenly">
+            <div className='md:flex md:flex-row md:justify-evenly'>
+              <div className='flex justify-start border-color flex-row gap-2 md:gap-0 md:flex-col text-start md:mr-5'>
                 <p className="text-gray-500 md:mt-1">На сумму:</p>
-                <span className="text-1xl text-green-500">13 500 400 тг</span>
-            </div>
-            <div className='flex md:border-l-1 mt-2 md:mt-0 md:pl-2 pr-2 gap-2 md:gap-0 flex-row md:flex-col justify-start text-start'>
+                <span className="text-1xl text-green-500">{spisanieStatsState.totalSpisanieSum} тг</span>
+              </div>
+              <div className='flex md:border-l-1 mt-2 md:mt-0 md:pl-2 pr-2 gap-2 md:gap-0 flex-row md:flex-col justify-start text-start'>
                 <p className="text-gray-500 md:mt-1">Количество списаний:</p>
-                <p className="text-[1rem] font-semibold">84</p>
-            </div>
-            <div className='flex justify-start mt-2 md:mt-0 md:justify-center md:border-l-1  md:pl-2 flex-col text-start md:mr-5'>
+                <p className="text-[1rem] font-semibold">{spisanieStatsState.totalNumberOfSpisanie}</p>
+              </div>
+              <div className='flex justify-start mt-2 md:mt-0 md:justify-center md:border-l-1 md:pl-2 flex-col text-start md:mr-5'>
                 <p className="text-gray-500 mt-1">Основная причина:</p>
-                <p className="text-1xl font-semibold">Срок годности (73%)</p>
-            </div>
-            <div className='flex justify-start mt-2 md:mt-0 md:justify-center md:border-l-1 gap-2 md:gap-0  md:pl-2 flex-row md:flex-col text-start md:mr-5'>
+                <p className="text-1xl font-semibold">{spisanieStatsState.mostCommonReason}</p>
+              </div>
+              <div className='flex justify-start mt-2 md:mt-0 md:justify-center md:border-l-1 gap-2 md:gap-0 md:pl-2 flex-row md:flex-col text-start md:mr-5'>
                 <p className="text-gray-500 md:mt-1">Списано товара:</p>
-                <p className="text-1xl font-semibold">920</p>
-            </div>
-            <div className='flex justify-start  border-color flex-row gap-2 md:gap-0 md:border-l-1 md:pl-2 md:flex-col text-start md:mr-5'>
-                <p className="text-gray-500 md:mt-1">На сумму:</p>
-                <span className="text-1xl text-green-500">13 500 400 тг</span>
+                <p className="text-1xl font-semibold">{spisanieStatsState.totalItemsWrittenOff}</p>
+              </div>
             </div>
           </div>
-        </div>
       }
-      <div className="mb-4 relative">
-        <DataGridMaterial />
+      <div className="mb-4 flex justify-center align-center items-center w-[100%] ">
+        <DataGridMaterial rows={listRows} columns={columns} />
       </div>
     </div>
   );

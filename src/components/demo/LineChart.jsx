@@ -102,8 +102,9 @@ const data = [
 
 export default class LineChartRe extends PureComponent {
   static demoUrl = 'https://codesandbox.io/p/sandbox/synchronized-line-charts-37rhmf';
-
+  
   render() {
+    const { data } = this.props;
     return (
       <div style={{ width: '100%' }}>
         <ResponsiveContainer width="100%" height={200}>
@@ -120,10 +121,10 @@ export default class LineChartRe extends PureComponent {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="x" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" fill="#208be6" />
+            <Line type="monotone" dataKey="y" stroke="#8884d8" fill="#208be6" />
           </LineChart>
         </ResponsiveContainer>
       </div>

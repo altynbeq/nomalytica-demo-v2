@@ -93,11 +93,6 @@ const data = [
   },
 ];
 
-const handleStoreChange = async (e) => {
-
-};
-
-
 function Th({ children, reversed, sorted, onSort }) {
   const Icon = sorted ? (reversed ? FaChevronDown : FaChevronUp) : FaChevronDown;
   return (

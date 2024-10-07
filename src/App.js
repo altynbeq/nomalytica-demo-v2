@@ -1,17 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Footer, Sidebar } from './components';
-import { General, Sales, ComingSoon, Sklad, Finance, Workers } from './pages';
+import { General, Sales, ComingSoon, Sklad, Finance, Workers, TechProb } from './pages';
 import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
+import { getKKMReceiptsFront } from './methods/dataFetches/getKKM'
+import { getSalesReceiptsFront } from './methods/dataFetches/getSalesReceipts'
+import { getSpisanie } from './methods/dataFetches/getSpisanie'
+import {Loader} from './pages';
+import { fetchLeads } from './methods/dataFetches/getLeadsBitrix'
 
 const App = () => {
-  const {currentMode, activeMenu } = useStateContext();
- 
+  const {currentMode, setLeads, activeMenu, dateRanges,  setKKM, setSkeletonUp, receipts, setReceipts, spisanie, setSpisanie } = useStateContext();
+  const [ loading, setLoading ] = useState(true);
+  const [ techProblem, setTechProblem ] = useState(false);
+
+  useEffect(()=> {
+    async function collector() {
+      try {
+        const [ kkm, receipts, spisanie ] = await Promise.all([
+          getKKMReceiptsFront(dateRanges),
+          getSalesReceiptsFront(dateRanges),
+          getSpisanie(dateRanges),
+        ]);
+        // const data = await fetchLeads(dateRanges[2])
+        // setLeads(data);
+        setKKM(kkm);
+        setReceipts(receipts);
+        setSpisanie(spisanie);
+        
+        if ( !kkm || !spisanie || !receipts) {
+          // console.error("Data is missing or undefined");
+          setTechProblem(true);
+          setLoading(false);
+          return;
+        }
+      } finally {
+        setLoading(false); 
+        setSkeletonUp(false);
+      }
+    }
+    collector();
+  },  []);
+
+  if(techProblem){
+    return <TechProb />
+  }
   return (
 
-      <div className={currentMode === 'Dark' ? 'dark' : ''}>
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
+      {loading  ? (
+        <Loader />
+      ) : (
         <BrowserRouter>
          <>
           <div className="flex relative dark:bg-main-dark-bg">
@@ -63,8 +104,7 @@ const App = () => {
             </div>
           </div>
          </>
-        </BrowserRouter>
-        )
+        </BrowserRouter>)}
       </div>
   )
 };

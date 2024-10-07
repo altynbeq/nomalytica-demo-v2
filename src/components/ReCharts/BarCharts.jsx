@@ -36,6 +36,7 @@ export default class BarChartRe extends PureComponent {
   static demoUrl = 'https://codesandbox.io/p/sandbox/simple-bar-chart-72d7y5';
 
   render() {
+    const { data } = this.props;
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -50,12 +51,13 @@ export default class BarChartRe extends PureComponent {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="uv" />
-          {/* <YAxis /> */}
-          <Tooltip />
+          <XAxis dataKey="x" />
+          {/* <YAxis dataKey="y" /> */}
+          <Tooltip formatter={(value) => [`${value}`, 'Y Value']} />
+
           {/* <Legend /> */}
           {/* <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} /> */}
-          <Bar dataKey="uv" fill="#ffff" activeBar={<Rectangle fill="white" stroke="purple" />} />
+          <Bar dataKey="y" fill="#ffff" activeBar={<Rectangle fill="white" stroke="purple" />} />
         </BarChart>
       </ResponsiveContainer>
     );

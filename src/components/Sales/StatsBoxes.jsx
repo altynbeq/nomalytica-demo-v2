@@ -52,7 +52,7 @@ const StatsBoxes = () => {
     });
   
     return (
-      <div className="p-6 w-[90%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="p-6 w-[95%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {stats}
       </div>
     );
