@@ -3,7 +3,7 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import avatar from '../data/avatar3.png';
+import avatar from '../data/avatar.jpg';
 
 const UserProfile = () => {
   const { currentColor, handleLogOut } = useStateContext();
@@ -29,9 +29,9 @@ const UserProfile = () => {
           alt="user-profile"
         />
         <div className='overflow-hidden'>
-          <p className="font-semibold text-xl dark:text-gray-200 break-words">Client</p>
-          <p className="text-gray-500 text-sm dark:text-gray-400 break-words">Demo</p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400 break-words">client.demo@gmail.com</p>
+          <p className="font-semibold text-xl dark:text-gray-200 break-words">Romantic</p>
+          <p className="text-gray-500 text-sm dark:text-gray-400 break-words">Uralsk</p>
+          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400 break-words">client@gmail.com</p>
         </div>
       </div>
       <div>

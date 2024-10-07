@@ -6,7 +6,7 @@ const WorkerInfoModal = ({ isOpen, onClose, worker }) => {
     if (!isOpen) return null;
   
     return (
-      <div className="fixed p-8 md:p-0 inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="fixed p-8 md:p-0 mt-5 md:mt-0 inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-2xl shadow-lg p-6 relative w-full max-w-md">
           {/* Close Icon */}
           <button
