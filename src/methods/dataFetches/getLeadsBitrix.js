@@ -98,79 +98,39 @@ function convertMonthToBitrixDates(monthName, year) {
 
 export async function fetchLeads(dateRanges, dateSaved) {
   // Convert dateSaved string to a Date object
-  const savedDate = new Date(dateSaved);
+  // const savedDate = new Date(dateSaved);
   
-  if (dateRanges[0] && typeof dateRanges != 'string') {
-    // Fetch the data for each period separately
-    const [dayLeads, weekLeads, monthLeads] = await Promise.all([
-      fetchLeadsForRange(dateRanges[0]),
-      fetchLeadsForRange(dateRanges[1]),
-      fetchLeadsForRange(dateRanges[2])
-    ]);
+  // if (dateRanges[0] && typeof dateRanges != 'string') {
+  //   // Fetch the data for each period separately
+  //   const [dayLeads, weekLeads, monthLeads] = await Promise.all([
+  //     fetchLeadsForRange(dateRanges[0]),
+  //     fetchLeadsForRange(dateRanges[1]),
+  //     fetchLeadsForRange(dateRanges[2])
+  //   ]);
 
-    // Process the data for statistics
-    const dayStats = leadsDataFormer(dayLeads);
-    const weekStats = leadsDataFormer(weekLeads);
-    const monthStats = leadsMonthDataFormer(monthLeads);
+  //   // Process the data for statistics
+  //   const dayStats = leadsDataFormer(dayLeads);
+  //   const weekStats = leadsDataFormer(weekLeads);
+  //   const monthStats = leadsMonthDataFormer(monthLeads);
 
-    return {
-      leadsDay: dayStats,
-      leadsWeek: weekStats,
-      leadsMonth: monthStats
-    };
-  } else {
+  //   return {
+  //     leadsDay: dayStats,
+  //     leadsWeek: weekStats,
+  //     leadsMonth: monthStats
+  //   };
+  // } else {
     const dateProp = !dateRanges.bitrixStartDate ? convertMonthToBitrixDates(dateRanges, 2024) : dateRanges;
-
-    // Convert date ranges to Date objects
-    const startDate = new Date(dateProp.bitrixStartDate);
-    const endDate = new Date(dateProp.bitrixEndDate);
     
-    // Adjust the start date to be after the saved date if needed
-    if (startDate <= savedDate) {
-      startDate.setDate(savedDate.getDate() + 1); // Start fetching from the day after dateSaved
-    }
-
-    // Split date range into two-day increments and fetch leads for each range
-    const splitRangeByTwoDays = (start, end) => {
-      const intervals = [];
-      let currentStart = new Date(start);
-
-      while (currentStart <= end) {
-        const nextEnd = new Date(currentStart);
-        nextEnd.setDate(nextEnd.getDate() + 1); // Fetch two-day data
-        
-        if (nextEnd > end) {
-          nextEnd.setDate(end.getDate()); // Ensure the end date doesn't exceed the range
-        }
-
-        intervals.push({
-          bitrixStartDate: formatDate(currentStart) + ' 00:00',
-          bitrixEndDate: formatDate(nextEnd) + ' 23:59',
-        });
-
-        // Move the start date forward by 2 days
-        currentStart.setDate(currentStart.getDate() + 2);
-      }
-
-      return intervals;
-    };
-
-    // Function to delay the execution for a specified time (in ms)
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-    // Use the split function to create intervals
-    const intervals = splitRangeByTwoDays(startDate, endDate);
-
-    // Fetch data sequentially with a delay between requests
-    let allLeads = [];
-    for (const interval of intervals) {
-      const data = await fetchLeadsForRange(interval);
-      allLeads = allLeads.concat(data); // Merge the fetched data
-      await delay(3000); // Add a delay between each request to avoid overloading Bitrix
-    }
-
-    const formedData = leadsMonthDataFormer(allLeads);
-
+    const leadsData = await fetchLeadsForRange(dateProp);
+console.log(leadsData)
+    const formedData = leadsMonthDataFormer(leadsData);
+    console.log(formedData);
     return formedData;
-  }
+  // }
 }
+
+
+
+
+
+

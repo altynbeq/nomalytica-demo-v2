@@ -9,7 +9,8 @@ import { getKKMReceiptsFront } from './methods/dataFetches/getKKM'
 import { getSalesReceiptsFront } from './methods/dataFetches/getSalesReceipts'
 import { getSpisanie } from './methods/dataFetches/getSpisanie'
 import {Loader} from './pages';
-import { fetchLeads } from './methods/dataFetches/getLeadsBitrix'
+import { getDealsBack } from './methods/dataFetches/getDealsBack';
+import { getLeadsBack } from './methods/dataFetches/getLeadsBack';
 
 const App = () => {
   const {currentMode, setLeads, activeMenu, dateRanges,  setKKM, setSkeletonUp, receipts, setReceipts, spisanie, setSpisanie } = useStateContext();
@@ -20,12 +21,14 @@ const App = () => {
     async function collector() {
       try {
         const [ kkm, receipts, spisanie ] = await Promise.all([
+          // getLeadsBack(),
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
         // const data = await fetchLeads(dateRanges[2])
         // setLeads(data);
+        // setLeads(leads);
         setKKM(kkm);
         setReceipts(receipts);
         setSpisanie(spisanie);

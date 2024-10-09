@@ -9,52 +9,7 @@ import LoadingSkeleton from '../components/LoadingSkeleton';
 import { useStateContext } from '../contexts/ContextProvider';
 import { SaleShare, ProductsStats, ProductSoldGridList, GridProductListCols, SalesBarSeriesAll, SalesBarSeriesByStore } from '../data/MainDataSource';
 import ProductStatsComp  from '../components/demo/ProductsStatComp'
-import { fetchLeads } from '../methods/dataFetches/getLeadsBitrix'
-
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import { getLeadsBack } from '../methods/dataFetches/getLeadsBack';
 
 const Sales = () => {
     const [ salesShare, setSalesShare ] = useState([]);
@@ -65,7 +20,8 @@ const Sales = () => {
     const [ barSeriesAll, setBarSeriesAll ] = useState([]);
     const [ barSeriesByStore, setBarSeriesByStore ] = useState([]);
     const [ leadsSeries, setLeadsSeries ] = useState([]);
-    useEffect(() => {
+    
+    useEffect( () => {
         if(kkm.monthFormedKKM && receipts.monthReceiptsData){
             setSalesShare(SaleShare(kkm.monthFormedKKM));
             setProductGridRows(ProductSoldGridList(kkm.monthFormedKKM));
@@ -73,7 +29,11 @@ const Sales = () => {
             setBarSeriesAll(SalesBarSeriesAll(kkm.monthFormedKKM));
             setBarSeriesByStore(SalesBarSeriesByStore(kkm.monthFormedKKM));
         }
-          
+        const getter = async () => {
+          const data = await getLeadsBack();
+          setLeadsSeries(data.series)
+        }
+        getter();
         window.scrollTo(0, 0);
     }, [kkm]);
     // console.log("barSeriesAll", barSeriesAll);
