@@ -41,7 +41,7 @@ const MonthlyTotalSalesChart = ({title, leadsSeries}) => {
         </div>
         </div>
         <div className="w-[100%] h-[250px]">
-          {/* <LineChartRe data={series} /> */}
+          <LineChartRe data={leadsSeries} />
         </div>
     </div>
   )

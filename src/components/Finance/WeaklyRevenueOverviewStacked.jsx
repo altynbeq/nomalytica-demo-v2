@@ -4,9 +4,9 @@ import BarChartRe from '../ReCharts/BarCharts';
 import { fetchDeals } from '../../methods/dataFetches/getDealsBitrix';
 
 const WeaklyRevenueOverviewStacked = () => {
-    const { currentColor, dateRanges } = useStateContext();
+    const { currentColor, dateRanges, deals } = useStateContext();
     const [ russianSalesSeries, setrussianSalesSeries ] = useState([]);
-    const [ deals, setDeals] = useState({});
+    const [ dealsSeries, setDealsSeries ] = useState({});
 
     const russianDaysMap = {
         'Monday': 'Пн',
@@ -20,16 +20,14 @@ const WeaklyRevenueOverviewStacked = () => {
     useEffect(() => {
         const getter = async () => {
             const week = true;
-            const data = await fetchDeals(dateRanges[1], week);
+            const data = deals;
             const russianSalesSeries = data.series.map(item => ({
                 ...item,
                 x: russianDaysMap[item.x] || item.x 
             }));
             setrussianSalesSeries(russianSalesSeries)
         }
-        if(!deals.avgCheck){
             getter();
-        }
     }, [deals])
 
     return (

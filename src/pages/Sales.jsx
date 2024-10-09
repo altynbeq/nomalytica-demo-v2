@@ -10,6 +10,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import { SaleShare, ProductsStats, ProductSoldGridList, GridProductListCols, SalesBarSeriesAll, SalesBarSeriesByStore } from '../data/MainDataSource';
 import ProductStatsComp  from '../components/demo/ProductsStatComp'
 import { getLeadsBack } from '../methods/dataFetches/getLeadsBack';
+import { parse } from 'postcss';
 
 const Sales = () => {
     const [ salesShare, setSalesShare ] = useState([]);
@@ -20,7 +21,6 @@ const Sales = () => {
     const [ barSeriesAll, setBarSeriesAll ] = useState([]);
     const [ barSeriesByStore, setBarSeriesByStore ] = useState([]);
     const [ leadsSeries, setLeadsSeries ] = useState([]);
-    
     useEffect( () => {
         if(kkm.monthFormedKKM && receipts.monthReceiptsData){
             setSalesShare(SaleShare(kkm.monthFormedKKM));
@@ -29,11 +29,6 @@ const Sales = () => {
             setBarSeriesAll(SalesBarSeriesAll(kkm.monthFormedKKM));
             setBarSeriesByStore(SalesBarSeriesByStore(kkm.monthFormedKKM));
         }
-        const getter = async () => {
-          const data = await getLeadsBack();
-          setLeadsSeries(data.series)
-        }
-        getter();
         window.scrollTo(0, 0);
     }, [kkm]);
     // console.log("barSeriesAll", barSeriesAll);
