@@ -25,6 +25,8 @@ const App = () => {
           getSalesReceiptsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
+        console.log("realReceipts",receipts);
+        console.log("BackReceipts", JSON.parse(bitrixData.salesReceipt));
         setLeads(JSON.parse(bitrixData.leads));
         setDeals(JSON.parse(bitrixData.deals));
         setKKM(kkm);

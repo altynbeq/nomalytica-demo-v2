@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown';
-import LineChartRe from '../../components/demo/LineChart'
+import DoubleLineChart from '../../components/demo/DoubleLineChart';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { getDealsBack } from '../../methods/dataFetches/getDealsBack';
 
@@ -32,7 +32,7 @@ const MonthlyConversionChart = ({title, leadsSeries}) => {
   }
 
   return (
-    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[42%] w-[90%] rounded-2xl subtle-border">
+    <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 md:w-[85%] w-[90%] rounded-2xl subtle-border">
         <div className="flex justify-between items-center gap-2 mb-10">
         <p className="text-xl font-semibold">{title}</p>
         <div className="flex items-center gap-4">
@@ -41,7 +41,7 @@ const MonthlyConversionChart = ({title, leadsSeries}) => {
         </div>
         </div>
         <div className="w-[100%] h-[250px]">
-          <LineChartRe data={leadsSeries} />
+          <DoubleLineChart data={leadsSeries} />
         </div>
     </div>
   )

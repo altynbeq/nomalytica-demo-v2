@@ -21,8 +21,8 @@ const Sales = () => {
     const [ barSeriesAll, setBarSeriesAll ] = useState([]);
     const [ barSeriesByStore, setBarSeriesByStore ] = useState([]);
     const [ leadsSeries, setLeadsSeries ] = useState(leads.series);
-    const [ conversionSeries, setConversionSeries ] = useState([]);
-    console.log(deals.salesSeries)
+    const [ totalSeries, setTotalSerues ] = useState([]);
+
     useEffect( () => {
         function generateConversionSeries(leadsSeries, dealsSeries) {
             return leadsSeries.map((lead, index) => {
@@ -36,8 +36,16 @@ const Sales = () => {
             });
         }
         const conversion = generateConversionSeries(leads.series, deals.salesSeries);
-        setConversionSeries(conversion);
-
+        function formData(leadsSeries, conversionSeries) {
+            return leadsSeries.map((lead, index) => ({
+              name: `Day ${lead.x}`,
+              lead: lead.y, // leads
+              conversion: parseFloat(conversionSeries[index].y), // conversion percentage
+              amt: 0 // placeholder for any additional data, or you can remove this if not needed
+            }));
+          }
+        const totalSeriesL = formData(leads.series, conversion);
+        setTotalSerues(totalSeriesL)
         if(kkm.monthFormedKKM && receipts.monthReceiptsData){
             setSalesShare(SaleShare(kkm.monthFormedKKM));
             setProductGridRows(ProductSoldGridList(kkm.monthFormedKKM));
@@ -79,8 +87,8 @@ const Sales = () => {
                 <CardWithBarChart title="Продажи по магазинам" series={barSeriesByStore} dataKey="Все" />
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
-                <MonthlyTotalSalesChart leadsSeries={leadsSeries} title="Лиды за месяц" type="leads" />
-                <MonthlyConversion leadsSeries={conversionSeries} title="Конверсия Bitrix %" type="conversion" />
+                {/* <MonthlyTotalSalesChart leadsSeries={leadsSeries} title="Лиды за месяц" type="leads" /> */}
+                <MonthlyConversion leadsSeries={totalSeries} title="Конверсия Bitrix %" type="conversion" />
                 {/* <MonthlyTotalSalesChart leadsSeries={conversionSeries} title="Конверсия Bitrix %" type="conversion"/> */}
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
