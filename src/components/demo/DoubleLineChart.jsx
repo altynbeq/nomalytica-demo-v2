@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 class DoubleLineChart extends React.PureComponent {
   static demoUrl = 'https://codesandbox.io/p/sandbox/line-chart-of-different-axis-intervals-d2kjmp';
@@ -13,6 +13,7 @@ class DoubleLineChart extends React.PureComponent {
           <XAxis dataKey="name" interval={interval} />
           <YAxis interval={interval} />
           <Tooltip /> {/* Adding Tooltip component */}
+          <Legend verticalAlign="bottom" height={36} />
           <Line type="monotone" dataKey="lead" stroke="#8884d8" activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="conversion" stroke="#82ca9d" />
         </LineChart>
