@@ -8,7 +8,6 @@ export async function getLeadsBack() {
     }
 
     const data = await response.json();
-    console.log(data, 'bitrixData')
     return data;
   } catch (error) {
     console.error("Failed to fetch data:", error);

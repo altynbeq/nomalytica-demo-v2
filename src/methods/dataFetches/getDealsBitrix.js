@@ -110,8 +110,9 @@ export async function fetchDeals(dateRanges, week) {
   } else {
     const dateProp = !dateRanges.bitrixStartDate ? convertMonthToBitrixDates(dateRanges, 2024) : dateRanges;
     const data = await fetchDealsForRange(dateProp);
-    console.log(data);
+
     const formedData =  week ? dealsDataFormer(data) : monthDealsDataFormer(data);
+
     return formedData;
   }
 }

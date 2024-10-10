@@ -9,7 +9,6 @@ import { getKKMReceiptsFront } from './methods/dataFetches/getKKM'
 import { getSalesReceiptsFront } from './methods/dataFetches/getSalesReceipts'
 import { getSpisanie } from './methods/dataFetches/getSpisanie'
 import {Loader} from './pages';
-import { getDealsBack } from './methods/dataFetches/getDealsBack';
 import { getLeadsBack } from './methods/dataFetches/getLeadsBack';
 
 const App = () => {
@@ -20,13 +19,12 @@ const App = () => {
   useEffect(()=> {
     async function collector() {
       try {
-        const [ bitrixData, kkm, receipts, spisanie ] = await Promise.all([
+        const [ bitrixData,  kkm, receipts, spisanie ] = await Promise.all([
           getLeadsBack(),
           getKKMReceiptsFront(dateRanges),
           getSalesReceiptsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
-
         setLeads(JSON.parse(bitrixData.leads));
         setDeals(JSON.parse(bitrixData.deals));
         setKKM(kkm);

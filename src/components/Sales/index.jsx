@@ -6,3 +6,4 @@ export { default as WeeklyStats } from './WeeklyStats';
 export { default as WeaklyStatistics } from './WeaklyStatistics';
 export { default as ProductsStats } from './ProductsStats';
 export { default as YearStats } from './YearStats'
+export { default as MonthlyConversion } from './MonthlyConversionChart'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DailySalesStats, YearStats, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats } from '../components/Sales';
+import { DailySalesStats, YearStats, MonthlyTotalSalesChart, OverallRevenueChart, WeeklyStats, MonthlyConversion } from '../components/Sales';
 import StatsBoxes from '../components/Sales/StatsBoxes';
 import PeriodStats from '../components/demo/PeriodStats';
 import CardWithBarChart from '../components/demo/CardWithBarChart';
@@ -14,14 +14,30 @@ import { parse } from 'postcss';
 
 const Sales = () => {
     const [ salesShare, setSalesShare ] = useState([]);
-    const { skeletonUp, kkm, receipts, leads, setLeads, dateRanges } = useStateContext();
+    const { skeletonUp, kkm, receipts, leads, deals, setLeads, dateRanges } = useStateContext();
     const [ ready, setReady ] = useState(false);
     const [ productsGridRows, setProductGridRows ] = useState([]);
     const [ productStats, setProductStats ] = useState({});
     const [ barSeriesAll, setBarSeriesAll ] = useState([]);
     const [ barSeriesByStore, setBarSeriesByStore ] = useState([]);
-    const [ leadsSeries, setLeadsSeries ] = useState([]);
+    const [ leadsSeries, setLeadsSeries ] = useState(leads.series);
+    const [ conversionSeries, setConversionSeries ] = useState([]);
+    console.log(deals.salesSeries)
     useEffect( () => {
+        function generateConversionSeries(leadsSeries, dealsSeries) {
+            return leadsSeries.map((lead, index) => {
+                const leadValue = lead.y;
+                const dealValue = dealsSeries[index].y;
+                
+                // Avoid division by zero by checking if leadValue is greater than 0
+                const conversion = leadValue > 0 ? (dealValue * 100) / leadValue : 0;
+                
+                return { x: lead.x, y: conversion.toFixed(2) }; // Round conversion to 2 decimal places
+            });
+        }
+        const conversion = generateConversionSeries(leads.series, deals.salesSeries);
+        setConversionSeries(conversion);
+
         if(kkm.monthFormedKKM && receipts.monthReceiptsData){
             setSalesShare(SaleShare(kkm.monthFormedKKM));
             setProductGridRows(ProductSoldGridList(kkm.monthFormedKKM));
@@ -64,7 +80,8 @@ const Sales = () => {
             </div>
             <div className="flex w-[100%] align-center  flex-wrap justify-center gap-[1.5rem]  items-center">
                 <MonthlyTotalSalesChart leadsSeries={leadsSeries} title="Лиды за месяц" type="leads" />
-                <MonthlyTotalSalesChart title="Конверсия Bitrix %" type="conversion"/>
+                <MonthlyConversion leadsSeries={conversionSeries} title="Конверсия Bitrix %" type="conversion" />
+                {/* <MonthlyTotalSalesChart leadsSeries={conversionSeries} title="Конверсия Bitrix %" type="conversion"/> */}
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
                 <OverallRevenueChart series={barSeriesAll} />

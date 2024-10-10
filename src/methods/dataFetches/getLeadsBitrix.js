@@ -122,9 +122,8 @@ export async function fetchLeads(dateRanges, dateSaved) {
     const dateProp = !dateRanges.bitrixStartDate ? convertMonthToBitrixDates(dateRanges, 2024) : dateRanges;
     
     const leadsData = await fetchLeadsForRange(dateProp);
-console.log(leadsData)
     const formedData = leadsMonthDataFormer(leadsData);
-    console.log(formedData);
+    console.log("LeadsFormedData", formedData);
     return formedData;
   // }
 }
