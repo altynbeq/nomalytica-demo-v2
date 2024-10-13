@@ -12,7 +12,7 @@ const Workers = () => {
           <WorkersList />
         </div>
         <div className="flex w-[100%] flex-wrap  gap-5 justify-center   ">
-          <WorkerStats  mainTitle="Показатели флористов" />
+          <WorkerStats  mainTitle="Показатели сотрудников" />
         </div>
     </div>
   )
