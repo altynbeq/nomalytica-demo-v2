@@ -25,10 +25,10 @@ const WorkerInfoModal = ({ isOpen, onClose, worker }) => {
             />
             {worker.name}
           </div>
-          <div className="flex gap-2 flex-wrap items-center align-center justify-center mb-4">
-            <button className='p-1 flex flex-row justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best salesman <FaTrophy className=' text-orange-400' /> </button> 
-            <button className='p-1 flex flex-row justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best avg check <FaDollarSign className=' text-orange-400' /> </button> 
-            <button className='p-1 flex flex-row justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best conversion <FaFunnelDollar className=' text-orange-400' /> </button> 
+          <div className="flex gap-1 flex-wrap items-center align-center justify-center mb-4">
+            <button className='p-1 flex flex-row text-xs justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best salesman <FaTrophy className=' text-orange-400' /> </button> 
+            <button className='p-1 flex flex-row text-xs justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best avg check <FaDollarSign className=' text-orange-400' /> </button> 
+            <button className='p-1 flex flex-row text-xs justify-center gap-2 align-center items-center px-2 bg-green-300 rounded-2xl'>Best conversion <FaFunnelDollar className=' text-orange-400' /> </button> 
           </div>
           {/* Worker Information Form */}
           <div className="space-y-3">
@@ -67,16 +67,6 @@ const WorkerInfoModal = ({ isOpen, onClose, worker }) => {
               <input
                 type="text"
                 value={worker.role}
-                disabled
-                className="w-full px-3 py-1.5 border rounded-lg bg-gray-50 text-gray-700 text-sm"
-              />
-            </div>
-  
-            <div className="flex flex-col">
-              <label className="text-sm text-gray-500 font-medium">Last Active</label>
-              <input
-                type="text"
-                value={worker.lastActive}
                 disabled
                 className="w-full px-3 py-1.5 border rounded-lg bg-gray-50 text-gray-700 text-sm"
               />
