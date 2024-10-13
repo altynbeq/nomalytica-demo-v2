@@ -10,30 +10,30 @@ import { useStateContext } from '../contexts/ContextProvider';
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
   const [ navLinks, setNavLinks] = useState(links);
-  const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
+  // const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
     }
   };
 
-  useEffect(()=> {
-    const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
+  // useEffect(()=> {
+  //   const data = JSON.parse(localStorage.getItem('nomalyticsTokenAuth'));
 
-    if(data.userRole == 'sklad'){
-      let filteredLinks = links[0].links.filter(link => link.name == "sklad");
+  //   if(data.userRole == 'sklad'){
+  //     let filteredLinks = links[0].links.filter(link => link.name == "sklad");
 
-      console.log("links", links)
-      console.log("filteredLinks", filteredLinks)
-      links[0].links = filteredLinks;
-      setNavLinks(links);
-    } else if(data.userRole == 'rop'){
-      let filteredLinks = links[0].links.filter(link => link.name == "sales");
-      links[0].links = filteredLinks;
-      setNavLinks(links);
-    }
-    setActiveMenu(true);
-  },[]);
+  //     console.log("links", links)
+  //     console.log("filteredLinks", filteredLinks)
+  //     links[0].links = filteredLinks;
+  //     setNavLinks(links);
+  //   } else if(data.userRole == 'rop'){
+  //     let filteredLinks = links[0].links.filter(link => link.name == "sales");
+  //     links[0].links = filteredLinks;
+  //     setNavLinks(links);
+  //   }
+  //   setActiveMenu(true);
+  // },[]);
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2';
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
