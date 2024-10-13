@@ -9,9 +9,9 @@ const ComingSoon = () => {
         <img
           src={loading}
           alt="Coming Soon"
-          className="w-full h-[60%] mb-8"
+          className="w-full h-[60%] mb-2 md:mb-8"
         />
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
          Еще в разработке!
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400">
