@@ -6,7 +6,7 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { Button } from '../';
 import { FaShare, FaFileDownload } from "react-icons/fa";
 
-const  CardWithStats = () => {
+const  CardWithStats = ({title}) => {
     const { dateRanges } = useStateContext();
 
     const [dates, setDates] = useState([new Date(dateRanges[1].startDate.replace('%20', ' ')), new Date(dateRanges[1].endDate.replace('%20', ' '))]);
@@ -21,7 +21,7 @@ const  CardWithStats = () => {
         <Card withBorder padding="lg" className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg my-3 p-4 text-center justify-center align-center w-[90%] md:w-[42%]  rounded-2xl subtle-border">
             <div className="flex flex-row justify-between mb-2 gap-4 w-[100%]">
                 <div className='flex flex-row gap-2 text-center'>
-                    <h2 className="text-black font-bold text-1xl">Финансы</h2>
+                    <h2 className="text-black font-bold text-1xl">{title}</h2>
                 </div>
                 <div className="flex flex-wrap border-solid border-1 rounded-xl border-black px-2 gap-1">
                     <div className="relative z-0 w-54"> {/* Un-commented and added width for layout */}

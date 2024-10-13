@@ -295,8 +295,8 @@ const General = () => {
   return ( 
     <div className="mt-12 flex flex-col gap-6 align-center  justify-center">
       <div className="flex mt-5 gap-4  w-[100%] flex-col md:flex-row  justify-center align-top      items-center">
-        <CardWithStats />
-        <CardWithStats />
+        <CardWithStats title="Финансы" />
+        <CardWithStats title="Продажи" />
       </div>
      
       <div className="flex   w-[100%] flex-wrap  justify-center align-top xs:flex-col    gap-4 items-center">

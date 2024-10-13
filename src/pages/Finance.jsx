@@ -176,7 +176,7 @@ const Finance = () => {
         </div>
       </div>
       <div className="flex gap-4 w-[100%] items-center align-center flex-col md:flex-row justify-center">
-          <CardWithStats />
+          <CardWithStats title="Выручка" />
           <PaidToAmount comb={true} id="PaidToWeek"  title="Выручка"  />
       </div>
       <div className="flex gap-4 w-[100%] items-center align-center flex-col md:flex-row justify-center">
