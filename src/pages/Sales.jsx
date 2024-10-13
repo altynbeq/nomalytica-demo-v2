@@ -130,7 +130,7 @@ const Sales = () => {
                 <MonthlyTotalSalesChart title="Конверсия Bitrix %" type="conversion"/>
             </div>
             <div className="flex mt-5 flex-wrap align-center justify-center gap-[1.5rem] w-[100%] items-center">
-                <OverallRevenueChart />
+                <OverallRevenueChart title="Продажи за год" />
                 <YearStats title="Годовая статистика" />
             </div>
         </div>

@@ -11,7 +11,7 @@ const ProductsStats = ({ idcomp, title }) => {
             amount: '1 300 230 тг',
             title: 'Топ выручка',
             desc: 'Choco',
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -20,7 +20,7 @@ const ProductsStats = ({ idcomp, title }) => {
             amount: '3100 шт',
             title: 'Топ продаж',
             desc: 'Nintendo',
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -28,8 +28,8 @@ const ProductsStats = ({ idcomp, title }) => {
             icon: <FaMoneyBillAlt />,
             amount: '11 шт',
             title: 'Худший продаж',
-            desc:  'PC',
-            iconBg: '#00C292',
+            desc:  'Product Name',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -38,7 +38,7 @@ const ProductsStats = ({ idcomp, title }) => {
             amount: '12 000 тг',
             title: 'Худшая выручка',
             desc: 'WeWork',
-            iconBg: '#00C292',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
         {
@@ -46,7 +46,7 @@ const ProductsStats = ({ idcomp, title }) => {
             amount: 131,
             title: 'Продано товаров',
             desc: 'Уникальных товаров ',
-            iconBg: 'rgb(254, 201, 15)',
+            iconBg: '#1e4db6',
             pcColor: 'green-600',
         },
     ];
