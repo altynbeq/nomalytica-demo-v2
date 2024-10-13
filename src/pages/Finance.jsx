@@ -150,6 +150,52 @@ const financeStatsThree = [
   },
 ];
 
+
+const dataFinance = [
+  {
+    name: 'January',
+    revenue: 5200,
+    expenses: 3200,
+    profit: 2000,
+  },
+  {
+    name: 'February',
+    revenue: 4700,
+    expenses: 3000,
+    profit: 1700,
+  },
+  {
+    name: 'March',
+    revenue: 6000,
+    expenses: 3500,
+    profit: 2500,
+  },
+  {
+    name: 'April',
+    revenue: 5300,
+    expenses: 3300,
+    profit: 2000,
+  },
+  {
+    name: 'May',
+    revenue: 6100,
+    expenses: 3700,
+    profit: 2400,
+  },
+  {
+    name: 'June',
+    revenue: 5800,
+    expenses: 3400,
+    profit: 2400,
+  },
+  {
+    name: 'July',
+    revenue: 6700,
+    expenses: 4100,
+    profit: 2600,
+  },
+];
+
 const Finance = () => {
   const { skeletonUp } = useStateContext();
   
@@ -176,7 +222,7 @@ const Finance = () => {
         </div>
       </div>
       <div className="flex gap-4 w-[100%] items-center align-center flex-col md:flex-row justify-center">
-          <CardWithStats title="Выручка" />
+          <CardWithStats title="Выручка" data={dataFinance} />
           <PaidToAmount comb={true} id="PaidToWeek"  title="Выручка"  />
       </div>
       <div className="flex gap-4 w-[100%] items-center align-center flex-col md:flex-row justify-center">

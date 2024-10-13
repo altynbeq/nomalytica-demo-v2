@@ -276,6 +276,97 @@ const salesStatsTwo = [
 ];
 
 
+const dataFinance = [
+  {
+    name: 'January',
+    revenue: 5200,
+    expenses: 3200,
+    profit: 2000,
+  },
+  {
+    name: 'February',
+    revenue: 4700,
+    expenses: 3000,
+    profit: 1700,
+  },
+  {
+    name: 'March',
+    revenue: 6000,
+    expenses: 3500,
+    profit: 2500,
+  },
+  {
+    name: 'April',
+    revenue: 5300,
+    expenses: 3300,
+    profit: 2000,
+  },
+  {
+    name: 'May',
+    revenue: 6100,
+    expenses: 3700,
+    profit: 2400,
+  },
+  {
+    name: 'June',
+    revenue: 5800,
+    expenses: 3400,
+    profit: 2400,
+  },
+  {
+    name: 'July',
+    revenue: 6700,
+    expenses: 4100,
+    profit: 2600,
+  },
+];
+
+const dataSales = [
+  {
+    name: 'January',
+    onlineSales: 4500,
+    offlineSales: 2500,
+    totalSales: 7000,
+  },
+  {
+    name: 'February',
+    onlineSales: 4200,
+    offlineSales: 2300,
+    totalSales: 6500,
+  },
+  {
+    name: 'March',
+    onlineSales: 5000,
+    offlineSales: 3000,
+    totalSales: 8000,
+  },
+  {
+    name: 'April',
+    onlineSales: 4800,
+    offlineSales: 2700,
+    totalSales: 7500,
+  },
+  {
+    name: 'May',
+    onlineSales: 5100,
+    offlineSales: 2900,
+    totalSales: 8000,
+  },
+  {
+    name: 'June',
+    onlineSales: 5300,
+    offlineSales: 3100,
+    totalSales: 8400,
+  },
+  {
+    name: 'July',
+    onlineSales: 5700,
+    offlineSales: 3400,
+    totalSales: 9100,
+  },
+];
+
+
 const General = () => {
   const { skeletonUp } = useStateContext();
 
@@ -295,8 +386,8 @@ const General = () => {
   return ( 
     <div className="mt-12 flex flex-col gap-6 align-center  justify-center">
       <div className="flex mt-5 gap-4  w-[100%] flex-col md:flex-row  justify-center align-top      items-center">
-        <CardWithStats title="Финансы" />
-        <CardWithStats title="Продажи" />
+        <CardWithStats title="Финансы" data={dataFinance}  />
+        <CardWithStats title="Продажи" data={dataSales} />
       </div>
      
       <div className="flex   w-[100%] flex-wrap  justify-center align-top xs:flex-col    gap-4 items-center">

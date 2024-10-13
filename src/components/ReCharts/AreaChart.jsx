@@ -1,55 +1,13 @@
 import React, { PureComponent } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 export default class Example extends PureComponent {
   static demoUrl = 'https://codesandbox.io/p/sandbox/simple-area-chart-4y9cnl';
  
   render() {
+    const { data } = this.props;
+    const isFinance = data[0]?.revenue !== undefined;
     return (
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart
@@ -67,7 +25,56 @@ export default class Example extends PureComponent {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Area type="monotone" dataKey="uv" stroke="#052c7b" fill="#2b59b4" />
+            {isFinance ? (
+            <>
+              <Area 
+                type="monotone" 
+                dataKey="revenue" 
+                stroke="#003f88" 
+                fill="#00509e" 
+                name="Revenue" 
+              />
+              <Area 
+                type="monotone" 
+                dataKey="expenses" 
+                stroke="#0077b6" 
+                fill="#0096c7" 
+                name="Expenses" 
+              />
+              <Area 
+                type="monotone" 
+                dataKey="profit" 
+                stroke="#00b4d8" 
+                fill="#48cae4" 
+                name="Profit" 
+              />
+            </>
+          ) : (
+            <>
+              <Area 
+                type="monotone" 
+                dataKey="onlineSales" 
+                stroke="#003f88" 
+                fill="#00509e" 
+                name="Online Sales" 
+              />
+              <Area 
+                type="monotone" 
+                dataKey="offlineSales" 
+                stroke="#0077b6" 
+                fill="#0096c7" 
+                name="Offline Sales" 
+              />
+              <Area 
+                type="monotone" 
+                dataKey="totalSales" 
+                stroke="#00b4d8" 
+                fill="#48cae4" 
+                name="Total Sales" 
+              />
+            </>
+          )}
+            <Legend verticalAlign="bottom" height={36} />
             </AreaChart>
         </ResponsiveContainer>
     );
