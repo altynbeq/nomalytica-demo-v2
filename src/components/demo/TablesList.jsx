@@ -37,79 +37,93 @@ function sortData(data, { sortBy, reversed, search }) {
 }
 
 const data = [
-    {
-      name: 'Athena Weissnat',
-      company: 'Little - Rippin',
-      email: 'Elouise.Prohaska@yahoo.com',
-      price: '100',
-    },
-    {
-      name: 'Deangelo Runolfsson',
-      company: 'Greenfelder - Krajcik',
-      email: 'Kadin_Trantow87@yahoo.com',
-      price: '100',
-    },
-    {
-      name: 'Danny Carter',
-      company: 'Kohler and Sons',
-      email: 'Marina3@hotmail.com',
-      price: '100',
-    },
-    {
-      name: 'Trace Tremblay PhD',
-      company: 'Crona, Aufderhar and Senger',
-      email: 'Antonina.Pouros@yahoo.com',
-      price: '100',
-    },
-    {
-      name: 'Derek Dibbert',
-      company: 'Gottlieb LLC',
-      email: 'Abagail29@hotmail.com',
-      price: '100tg',
-    },
-    {
-      name: 'Viola Bernhard',
-      company: 'Funk, Rohan and Kreiger',
-      email: 'Jamie23@hotmail.com',
-      price: '10tg',
-    },
-    {
-      name: 'Austin Jacobi',
-      company: 'Botsford - Corwin',
-      email: 'Genesis42@yahoo.com',
-      price: '120',
-    },
-    {
-      name: 'Hershel Mosciski',
-      company: 'Okuneva, Farrell and Kilback',
-      email: 'Idella.Stehr28@yahoo.com',
-      price: '150',
-    },
-    {
-      name: 'Mylene Ebert',
-      company: 'Kirlin and Sons',
-      email: 'Hildegard17@hotmail.com',
-      price: '160',
-    },
-    {
-      name: 'Lou Trantow',
-      company: 'Parisian - Lemke',
-      email: 'Hillard.Barrows1@hotmail.com',
-      price: '1070',
-    },
-    {
-      name: 'Dariana Weimann',
-      company: 'Schowalter - Donnelly',
-      email: 'Colleen80@gmail.com',
-      price: '100',
-    },
-    {
-      name: 'Dr. Christy Herman',
-      company: 'VonRueden - Labadie',
-      email: 'Lilyan98@gmail.com',
-      price: '90',
-    },
-  ];
+  {
+    id: 1,
+    name: 'Apple iPhone 15',
+    company: 'Apple Inc.',
+    email: 'support@apple.com',
+    price: '1200',
+  },
+  {
+    id: 2,
+    name: 'Samsung Galaxy S23',
+    company: 'Samsung Electronics',
+    email: 'support@samsung.com',
+    price: '1000',
+  },
+  {
+    id: 3,
+    name: 'Dell XPS 13',
+    company: 'Dell Technologies',
+    email: 'support@dell.com',
+    price: '1500',
+  },
+  {
+    id: 4,
+    name: 'Sony WH-1000XM5 Headphones',
+    company: 'Sony Corporation',
+    email: 'support@sony.com',
+    price: '400',
+  },
+  {
+    id: 5,
+    name: 'Apple MacBook Pro 14"',
+    company: 'Apple Inc.',
+    email: 'support@apple.com',
+    price: '2500',
+  },
+  {
+    id: 6,
+    name: 'Logitech MX Master 3 Mouse',
+    company: 'Logitech International',
+    email: 'support@logitech.com',
+    price: '100',
+  },
+  {
+    id: 7,
+    name: 'Google Pixel 8',
+    company: 'Google LLC',
+    email: 'support@google.com',
+    price: '900',
+  },
+  {
+    id: 8,
+    name: 'Microsoft Surface Pro 9',
+    company: 'Microsoft Corporation',
+    email: 'support@microsoft.com',
+    price: '1400',
+  },
+  {
+    id: 9,
+    name: 'Sony PlayStation 5',
+    company: 'Sony Corporation',
+    email: 'support@sony.com',
+    price: '500',
+  },
+  {
+    id: 10,
+    name: 'Amazon Echo Dot',
+    company: 'Amazon.com Inc.',
+    email: 'support@amazon.com',
+    price: '50',
+  },
+  {
+    id: 11,
+    name: 'Nvidia RTX 4090 Graphics Card',
+    company: 'Nvidia Corporation',
+    email: 'support@nvidia.com',
+    price: '1800',
+  },
+  {
+    id: 12,
+    name: 'Asus ROG Strix Gaming Laptop',
+    company: 'AsusTek Computer Inc.',
+    email: 'support@asus.com',
+    price: '2200',
+  },
+];
+
+
 
 const TableSort = ({title, displayStats}) => {
   const [search, setSearch] = useState('');
@@ -216,7 +230,7 @@ const TableSort = ({title, displayStats}) => {
         </div>
       }
       <div className="mb-4 relative">
-        <DataGridMaterial />
+        <DataGridMaterial rows={data} />
       </div>
     </div>
   );

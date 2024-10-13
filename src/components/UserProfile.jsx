@@ -6,7 +6,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 import avatar from '../data/avatar3.png';
 
 const UserProfile = () => {
-  const { currentColor, handleLogOut } = useStateContext();
+  const { currentColor } = useStateContext();
 
   return (
     <div className="nav-item absolute right-5 top-16 bg-white subtle-border dark:bg-[#42464D] p-8 rounded-lg w-[90%] md:w-[30%] ">
@@ -61,7 +61,7 @@ const UserProfile = () => {
           width="full"
         /> */}
 
-      <button type="button"  onClick={() => handleLogOut()} style={{ backgroundColor: currentColor}}
+      <button type="button"   style={{ backgroundColor: currentColor}}
       className={`flex text-white flex-row rounded-2xl justify-center text-center align-center gap-1  px-4 py-1 w-full hover:drop-shadow-xl `}
     >
       <div className='text-white'>
