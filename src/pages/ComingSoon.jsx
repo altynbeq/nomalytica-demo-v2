@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import loading from '../data/loading.png';
 
 
 const ComingSoon = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="w-full h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="max-w-md text-center p-4">
