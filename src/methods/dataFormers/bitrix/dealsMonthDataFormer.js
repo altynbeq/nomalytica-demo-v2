@@ -26,7 +26,9 @@ export const monthDealsDataFormer = (list) => {
     list.forEach(lead => {
         // Calculate totalSum
         const opportunity = parseFloat(lead.OPPORTUNITY);
-        dealsStats.totalSum += opportunity;
+        if(opportunity > 0){
+            dealsStats.totalSum += opportunity;
+        }
         
         // Date when lead was closed
         const closeDate = new Date(lead.CLOSEDATE);

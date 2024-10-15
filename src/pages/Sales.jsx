@@ -22,7 +22,7 @@ const Sales = () => {
     const [ barSeriesByStore, setBarSeriesByStore ] = useState([]);
     const [ leadsSeries, setLeadsSeries ] = useState(leads.series);
     const [ totalSeries, setTotalSerues ] = useState([]);
-
+    console.log(dateRanges)
     useEffect( () => {
         function generateConversionSeries(leadsSeries, dealsSeries) {
             return leadsSeries.map((lead, index) => {

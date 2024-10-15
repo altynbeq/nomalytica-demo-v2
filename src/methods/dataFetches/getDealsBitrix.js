@@ -19,7 +19,7 @@ export async function fetchDealsForRange({ bitrixStartDate, bitrixEndDate }) {
           filter: {
             '>=DATE_CREATE': bitrixStartDate,
             '<=DATE_CREATE': bitrixEndDate,
-            STAGE_ID: "WON"
+            // STAGE_ID: "WON"
           },
           select: [
             'ASSIGNED_BY_ID', 'BEGINDATE', 'CATEGORY_ID', 'CLOSED', 'CLOSEDATE', 'CONTACT_ID', 'CREATED_BY_ID',

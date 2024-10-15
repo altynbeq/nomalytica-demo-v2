@@ -10,6 +10,7 @@ import { getSalesReceiptsFront } from './methods/dataFetches/getSalesReceipts'
 import { getSpisanie } from './methods/dataFetches/getSpisanie'
 import {Loader} from './pages';
 import { getLeadsBack } from './methods/dataFetches/getLeadsBack';
+import { fetchDeals } from './methods/dataFetches/getDealsBitrix';
 
 const App = () => {
   const {currentMode, setLeads, setDeals, activeMenu, dateRanges,  setKKM, setSkeletonUp, receipts, setReceipts, spisanie, setSpisanie } = useStateContext();
@@ -25,11 +26,12 @@ const App = () => {
           getSalesReceiptsFront(dateRanges),
           getSpisanie(dateRanges),
         ]);
-        console.log("realReceipts",receipts);
-        console.log("BackReceipts", JSON.parse(bitrixData.salesReceipt));
         setLeads(JSON.parse(bitrixData.leads));
         setDeals(JSON.parse(bitrixData.deals));
+        const kkmData = JSON.parse(bitrixData.kkmData);
+        console.log(kkmData)
         setKKM(kkm);
+        console.log('realKKM', kkm)
         setReceipts(receipts);
         setSpisanie(spisanie);
         

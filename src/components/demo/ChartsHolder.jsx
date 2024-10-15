@@ -19,9 +19,11 @@ const  CardWithStats = () => {
         if(e[1]){
             const properDate = ConvertCalendarDate(e);
             const dataListReceipts = await getSalesReceiptsFront(properDate);
+            console.log("SALESRECEIPTD", dataListReceipts);
             setChartSeries(FinanceLineChartSeries(dataListReceipts));
 
             const dataListKKM = await getKKMReceiptsFront(properDate);
+
             setStats(FinanceStats(dataListKKM));
         }
     }

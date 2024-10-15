@@ -26,7 +26,8 @@ const PaidToAmount = ({ comb, title, height }) => {
       setPanelData(PaidToData(salesList));
 
       const kkmList = await getKKMReceiptsFront(properDate);
-      setTotal(TotalCounter(kkmList));
+
+      setTotal(TotalCounter(kkmList))
     }
   };
   useEffect(()=> {
